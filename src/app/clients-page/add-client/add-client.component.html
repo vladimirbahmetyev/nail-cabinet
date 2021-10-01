@@ -1,0 +1,21 @@
+<div class="add-client__top">
+  <div (click)="onBackClick()">></div>
+  <div class="add-client__top_title">Новый клиент</div>
+</div>
+<div class="add-client__main">
+  <label>
+    Имя
+    <input [(ngModel)]="name">
+  </label>
+  <label>
+    Телефон
+    <input [(ngModel)]="phoneNumber">
+  </label>
+  <label>
+    Instagram
+    <input [(ngModel)]="instagram">
+  </label>
+  <div class="add-client__main_save" (click)="onSaveClick()">
+    Сохранить клиента
+  </div>
+</div>

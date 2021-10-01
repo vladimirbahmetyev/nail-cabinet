@@ -1,0 +1,35 @@
+
+<app-navigation *ngIf="clientView === CLIENT_PAGE_VIEWS.CLIENT_LIST"></app-navigation>
+<div *ngIf="clientView === CLIENT_PAGE_VIEWS.CLIENT_LIST" class="client-list__container">
+  <input
+    class="client-list__item"
+    [(ngModel)]="searchString"
+    placeholder="Поиск клиента"
+  />
+  <div class="client-list__item" (click)="setAddClientView()">Добавить клиента +</div>
+  <ul class="client-list">
+    <li
+      class="client-list__item"
+      *ngFor="let client of clientMock
+      | clientFilter: searchString"
+      (click)="setClientViewId(client?.id || -1)"
+    >
+      <div>{{client?.name}},</div> <div>{{client?.date | date: 'short':'': 'ru'}}</div>
+  </li>
+  </ul>
+</div>
+
+<app-add-client (onBack)="setClientListView()" *ngIf="clientView === CLIENT_PAGE_VIEWS.CLIENT_ADD"></app-add-client>
+
+<app-client-info
+  *ngIf="clientView === CLIENT_PAGE_VIEWS.CLIENT_INFO"
+  [client]="selectedClient"
+  (onBack)="setClientListView()"
+  (onService)="setServiceListView()"
+></app-client-info>
+
+<app-service-page
+  *ngIf="clientView === CLIENT_PAGE_VIEWS.CLIENT_SERVICE"
+  [services]="selectedClient?.services"
+  (onBack)="setClientView()"
+></app-service-page>

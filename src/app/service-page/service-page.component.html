@@ -1,0 +1,14 @@
+<div class="service__top">
+  <div (click)="onBackClick()">></div>
+  <div>Все услуги</div>
+</div>
+<div class="service__main">
+  <ul class="service__list">
+    <li class="service__item">
+      Добавить услугу +
+    </li>
+    <li *ngFor="let service of services" class="service__item">
+      {{service?.name}}, {{service?.date | date : 'short' : '' : 'ru'}}
+    </li>
+  </ul>
+</div>
