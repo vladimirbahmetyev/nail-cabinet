@@ -1,15 +1,16 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {service} from "../clients-page/mockFile";
+import {service} from "../mockFile";
 
 @Component({
   selector: 'app-service-page',
-  templateUrl: './service-page.component.html',
-  styleUrls: ['./service-page.component.sass']
+  templateUrl: './service-list.component.html',
+  styleUrls: ['./service-list.component.sass']
 })
-export class ServicePageComponent implements OnInit {
+export class ServiceListComponent implements OnInit {
 
   @Input() services : service[] | undefined
   @Output() onBack = new EventEmitter()
+  @Output() onAdd = new EventEmitter()
 
   constructor() { }
 
@@ -18,6 +19,10 @@ export class ServicePageComponent implements OnInit {
 
   onBackClick(): void {
     this.onBack.emit()
+  }
+
+  onAddClick(): void {
+    this.onAdd.emit()
   }
 
 }

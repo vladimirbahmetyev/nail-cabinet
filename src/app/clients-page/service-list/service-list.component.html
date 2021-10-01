@@ -4,7 +4,7 @@
 </div>
 <div class="service__main">
   <ul class="service__list">
-    <li class="service__item">
+    <li class="service__item" (click)="onAddClick()">
       Добавить услугу +
     </li>
     <li *ngFor="let service of services" class="service__item">

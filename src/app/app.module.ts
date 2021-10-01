@@ -7,7 +7,7 @@ import { NavigationComponent } from './shared/navigation/navigation.component';
 import { ClientsPageComponent } from './clients-page/clients-page.component';
 import { ClientInfoComponent } from './clients-page/client-info/client-info.component';
 import { AddClientComponent } from './clients-page/add-client/add-client.component';
-import { ServicePageComponent } from './service-page/service-page.component';
+import { ServiceListComponent } from './clients-page/service-list/service-list.component';
 import { AddServiceComponent } from './clients-page/add-service/add-service.component';
 import { RecordPageComponent } from './record-page/record-page.component';
 import { CalendarComponent } from './shared/calendar/calendar.component';
@@ -35,7 +35,7 @@ const appRoutes : Routes = [
     ClientsPageComponent,
     ClientInfoComponent,
     AddClientComponent,
-    ServicePageComponent,
+    ServiceListComponent,
     AddServiceComponent,
     RecordPageComponent,
     CalendarComponent,

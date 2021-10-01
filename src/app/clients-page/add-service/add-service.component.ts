@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-add-service',
@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddServiceComponent implements OnInit {
 
+  @Output() onBack = new EventEmitter()
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onBackClick(): void {
+    this.onBack.emit()
   }
 
 }

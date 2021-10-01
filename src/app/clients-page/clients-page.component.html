@@ -32,4 +32,12 @@
   *ngIf="clientView === CLIENT_PAGE_VIEWS.CLIENT_SERVICE"
   [services]="selectedClient?.services"
   (onBack)="setClientView()"
+  (onAdd)="setAddServiceView()"
 ></app-service-page>
+
+<app-add-service
+  (onBack)="setServiceListView()"
+  *ngIf="clientView === CLIENT_PAGE_VIEWS.CLIENT_SERVICE_ADD"
+>
+
+</app-add-service>

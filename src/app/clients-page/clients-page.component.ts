@@ -13,7 +13,13 @@ registerLocaleData(localeRu, 'ru')
 
 export class ClientsPageComponent implements OnInit {
 
-  CLIENT_PAGE_VIEWS = { CLIENT_LIST: "clientList", CLIENT_ADD: "addClient", CLIENT_INFO: "clientInfo", CLIENT_SERVICE:'clientService' };
+  CLIENT_PAGE_VIEWS = {
+    CLIENT_LIST: "clientList",
+    CLIENT_ADD: "addClient",
+    CLIENT_INFO: "clientInfo",
+    CLIENT_SERVICE:'clientService',
+    CLIENT_SERVICE_ADD: 'addClientService'
+  };
   clientView = this.CLIENT_PAGE_VIEWS.CLIENT_LIST
   searchString = ''
 
@@ -44,6 +50,10 @@ export class ClientsPageComponent implements OnInit {
 
   setServiceListView():void {
     this.clientView = this.CLIENT_PAGE_VIEWS.CLIENT_SERVICE;
+  }
+
+  setAddServiceView(): void {
+    this.clientView = this.CLIENT_PAGE_VIEWS.CLIENT_SERVICE_ADD
   }
 
   clientMock = clientsMock
