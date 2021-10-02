@@ -1,2 +1,5 @@
 <app-navigation></app-navigation>
-<p>record-page works!</p>
+<mat-card>
+  <mat-calendar (selectedChange)="selected = $event"></mat-calendar>
+</mat-card>
+<p>{{selected | date: 'dd:MM:yyyy'}}</p>

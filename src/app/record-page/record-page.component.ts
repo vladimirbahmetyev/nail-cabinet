@@ -12,4 +12,6 @@ export class RecordPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  selected: Date | null = new Date()
+
 }

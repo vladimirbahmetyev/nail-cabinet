@@ -21,6 +21,10 @@ import {RouterModule, Routes} from "@angular/router";
 import {ClientFilterPipe} from "./shared/client-filter-pipe";
 import {FormsModule} from "@angular/forms";
 import { EditServiceComponent } from './clients-page/edit-service/edit-service.component';
+import {DateAdapter, MAT_DATE_LOCALE, MatNativeDateModule} from "@angular/material/core";
+import {MatCalendar, MatDatepickerModule} from "@angular/material/datepicker";
+import {MatCardModule} from "@angular/material/card";
+import {RuDateAdapter} from "./record-page/RuDateAdapter";
 
 const appRoutes : Routes = [
   {path: '', component: AppComponent},
@@ -52,8 +56,20 @@ const appRoutes : Routes = [
     MatListModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
+    MatDatepickerModule,
+    MatCardModule,
+    MatNativeDateModule,
   ],
-  providers: [ClientsService, ServicesService],
+  providers: [
+    ClientsService,
+    ServicesService,
+    {
+      provide: MAT_DATE_LOCALE, useValue: "ru-Ru"
+    },
+    {
+      provide: DateAdapter,
+      useClass: RuDateAdapter
+    }, MatDatepickerModule,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
