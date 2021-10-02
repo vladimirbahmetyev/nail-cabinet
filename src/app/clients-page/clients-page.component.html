@@ -33,11 +33,18 @@
   [services]="selectedClient?.services"
   (onBack)="setClientView()"
   (onAdd)="setAddServiceView()"
+  (onService)="setEditServiceView($event)"
 ></app-service-page>
 
 <app-add-service
   (onBack)="setServiceListView()"
   *ngIf="clientView === CLIENT_PAGE_VIEWS.CLIENT_SERVICE_ADD"
 >
-
 </app-add-service>
+
+<app-edit-service
+  (onBack)="setServiceListView()"
+  *ngIf="clientView === CLIENT_PAGE_VIEWS.CLIENT_SERVICE_EDIT"
+  [selectedService]="selectedService"
+>
+</app-edit-service>

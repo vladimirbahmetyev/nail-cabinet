@@ -7,8 +7,12 @@
     <li class="service__item" (click)="onAddClick()">
       Добавить услугу +
     </li>
-    <li *ngFor="let service of services" class="service__item">
-      {{service?.name}}, {{service?.date | date : 'short' : '' : 'ru'}}
+    <li
+      *ngFor="let service of services"
+      class="service__item"
+      (click)="onServiceClick(service?.id)"
+    >
+      {{service?.name}}, {{service?.price}} руб, {{service?.date | date : 'short' : '' : 'ru'}}
     </li>
   </ul>
 </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {clientMock, clientsMock, serviceMock} from "./mockFile";
+import {clientMock, clientsMock, service, serviceMock} from "./mockFile";
 import {registerLocaleData} from "@angular/common";
 import localeRu from '@angular/common/locales/ru'
 
@@ -18,12 +18,14 @@ export class ClientsPageComponent implements OnInit {
     CLIENT_ADD: "addClient",
     CLIENT_INFO: "clientInfo",
     CLIENT_SERVICE:'clientService',
-    CLIENT_SERVICE_ADD: 'addClientService'
+    CLIENT_SERVICE_ADD: 'addClientService',
+    CLIENT_SERVICE_EDIT: 'editClientService',
   };
   clientView = this.CLIENT_PAGE_VIEWS.CLIENT_LIST
   searchString = ''
 
   selectedClient: clientMock = null
+  selectedService: service = null
 
   constructor() {
   }
@@ -55,6 +57,14 @@ export class ClientsPageComponent implements OnInit {
   setAddServiceView(): void {
     this.clientView = this.CLIENT_PAGE_VIEWS.CLIENT_SERVICE_ADD
   }
+
+  setEditServiceView(id: number): void {
+    this.selectedService = this.selectedClient?.services.find(service => service?.id === id) || null
+    if (this.selectedService !== null) {
+      this.clientView = this.CLIENT_PAGE_VIEWS.CLIENT_SERVICE_EDIT
+    }
+  }
+
 
   clientMock = clientsMock
   ngOnInit(): void {

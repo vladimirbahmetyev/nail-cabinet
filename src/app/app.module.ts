@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './shared/navigation/navigation.component';
 import { ClientsPageComponent } from './clients-page/clients-page.component';
-import { ClientInfoComponent } from './clients-page/client-info/client-info.component';
+import { EditClientComponent } from './clients-page/edit-client/edit-client.component';
 import { AddClientComponent } from './clients-page/add-client/add-client.component';
 import { ServiceListComponent } from './clients-page/service-list/service-list.component';
 import { AddServiceComponent } from './clients-page/add-service/add-service.component';
@@ -20,6 +20,7 @@ import {ServicesService} from "./shared/servicesService/services.service";
 import {RouterModule, Routes} from "@angular/router";
 import {ClientFilterPipe} from "./shared/client-filter-pipe";
 import {FormsModule} from "@angular/forms";
+import { EditServiceComponent } from './clients-page/edit-service/edit-service.component';
 
 const appRoutes : Routes = [
   {path: '', component: AppComponent},
@@ -33,7 +34,7 @@ const appRoutes : Routes = [
     AppComponent,
     NavigationComponent,
     ClientsPageComponent,
-    ClientInfoComponent,
+    EditClientComponent,
     AddClientComponent,
     ServiceListComponent,
     AddServiceComponent,
@@ -42,6 +43,7 @@ const appRoutes : Routes = [
     RecordItemComponent,
     StatsPageComponent,
     ClientFilterPipe,
+    EditServiceComponent,
   ],
   imports: [
     BrowserModule,

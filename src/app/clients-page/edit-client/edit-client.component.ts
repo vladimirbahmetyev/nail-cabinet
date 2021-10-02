@@ -3,10 +3,10 @@ import {clientMock} from "../mockFile";
 
 @Component({
   selector: 'app-client-info',
-  templateUrl: './client-info.component.html',
-  styleUrls: ['./client-info.component.sass']
+  templateUrl: './edit-client.component.html',
+  styleUrls: ['./edit-client.component.sass']
 })
-export class ClientInfoComponent implements OnInit {
+export class EditClientComponent implements OnInit {
 
   @Input() client : clientMock | undefined
   @Output() onBack = new EventEmitter()

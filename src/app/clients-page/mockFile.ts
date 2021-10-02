@@ -11,7 +11,7 @@ export type service = {
   time: number,
   comment: string,
   date: Date
-
+  id: number,
 } | null
 
 export const serviceMock: service[] = [
@@ -20,28 +20,32 @@ export const serviceMock: service[] = [
     price: 1200,
     date: new Date,
     time: 60,
-    comment: ''
+    comment: '',
+    id: 1,
   },
   {
     name: 'Маникюр',
     price: 500,
     date: new Date,
     time: 40,
-    comment: ''
+    comment: '',
+    id: 2,
   },
   {
     name: 'Дизайн',
     price: 200,
     date: new Date,
     time: 50,
-    comment: ''
+    comment: '',
+    id: 3,
   },
   {
     name: 'Укрепление',
     price: 100,
     date: new Date,
     time: 20,
-    comment: ''
+    comment: '',
+    id: 4,
   },
 ]
 

@@ -11,6 +11,7 @@ export class ServiceListComponent implements OnInit {
   @Input() services : service[] | undefined
   @Output() onBack = new EventEmitter()
   @Output() onAdd = new EventEmitter()
+  @Output() onService = new EventEmitter<number>()
 
   constructor() { }
 
@@ -25,4 +26,7 @@ export class ServiceListComponent implements OnInit {
     this.onAdd.emit()
   }
 
+  onServiceClick(id: number = -1) : void {
+    this.onService.emit(id)
+  }
 }
