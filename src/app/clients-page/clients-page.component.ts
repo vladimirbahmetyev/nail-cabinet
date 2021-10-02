@@ -21,7 +21,7 @@ export class ClientsPageComponent implements OnInit {
     CLIENT_SERVICE_ADD: 'addClientService',
     CLIENT_SERVICE_EDIT: 'editClientService',
   };
-  clientView = this.CLIENT_PAGE_VIEWS.CLIENT_LIST
+  pageView = this.CLIENT_PAGE_VIEWS.CLIENT_LIST
   searchString = ''
 
   selectedClient: clientMock = null
@@ -33,35 +33,35 @@ export class ClientsPageComponent implements OnInit {
   setClientViewId(id: number) : void {
     this.selectedClient = this.clientMock.find(client => client?.id === id) || null
     if(this.selectedClient !== null) {
-      this.clientView = this.CLIENT_PAGE_VIEWS.CLIENT_INFO;
+      this.pageView = this.CLIENT_PAGE_VIEWS.CLIENT_INFO;
     }
   }
 
   setClientView(): void {
-    this.clientView = this.CLIENT_PAGE_VIEWS.CLIENT_INFO
+    this.pageView = this.CLIENT_PAGE_VIEWS.CLIENT_INFO
   }
 
   setAddClientView() : void {
-    this.clientView = this.CLIENT_PAGE_VIEWS.CLIENT_ADD;
+    this.pageView = this.CLIENT_PAGE_VIEWS.CLIENT_ADD;
   }
 
   setClientListView(): void {
-    this.clientView = this.CLIENT_PAGE_VIEWS.CLIENT_LIST;
+    this.pageView = this.CLIENT_PAGE_VIEWS.CLIENT_LIST;
     this.selectedClient = null
   }
 
   setServiceListView():void {
-    this.clientView = this.CLIENT_PAGE_VIEWS.CLIENT_SERVICE;
+    this.pageView = this.CLIENT_PAGE_VIEWS.CLIENT_SERVICE;
   }
 
   setAddServiceView(): void {
-    this.clientView = this.CLIENT_PAGE_VIEWS.CLIENT_SERVICE_ADD
+    this.pageView = this.CLIENT_PAGE_VIEWS.CLIENT_SERVICE_ADD
   }
 
   setEditServiceView(id: number): void {
     this.selectedService = this.selectedClient?.services.find(service => service?.id === id) || null
     if (this.selectedService !== null) {
-      this.clientView = this.CLIENT_PAGE_VIEWS.CLIENT_SERVICE_EDIT
+      this.pageView = this.CLIENT_PAGE_VIEWS.CLIENT_SERVICE_EDIT
     }
   }
 

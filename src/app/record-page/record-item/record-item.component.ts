@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-record-item',
@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecordItemComponent implements OnInit {
 
+  @Input() isEdit : boolean | undefined
+  @Output() onBack = new EventEmitter()
+
   constructor() { }
 
   ngOnInit(): void {
   }
+
+  onBackClick(): void {
+    this.onBack.emit()
+  }
+
 
 }

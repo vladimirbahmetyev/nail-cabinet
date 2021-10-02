@@ -1,5 +1,34 @@
-<app-navigation></app-navigation>
-<mat-card>
-  <mat-calendar (selectedChange)="selected = $event"></mat-calendar>
-</mat-card>
-<p>{{selected | date: 'dd:MM:yyyy'}}</p>
+<div *ngIf="pageView === RECORD_PAGE_VIEWS.CALENDAR_VIEW">
+  <app-navigation *ngIf="pageView === RECORD_PAGE_VIEWS.CALENDAR_VIEW"></app-navigation>
+  <mat-card>
+    <mat-calendar (selectedChange)="onDateChanged($event)"></mat-calendar>
+  </mat-card>
+  <div class="record__date">
+    Запись на {{selected | date: 'd MMMM' : '' : 'ru'}}
+  </div>
+  <ul class="record__list">
+    <li
+      class="record__item"
+      *ngFor="let record of todayClients"
+      (click)="onEditClick()"
+    >
+      {{record?.client?.name}}, {{record?.service?.name}}, {{record?.date | date :'H:mm'}}
+    </li>
+  </ul>
+  <div
+    class="record__add-button"
+    (click)="onAddClick()"
+  >
+    Добавить запись +
+  </div>
+</div>
+
+<app-record-item
+  *ngIf="pageView === RECORD_PAGE_VIEWS.EDIT_RECORD_VIEW"
+  [isEdit]="true" (onBack)="onBackClick()"
+></app-record-item>
+
+<app-record-item
+  *ngIf="pageView === RECORD_PAGE_VIEWS.ADD_RECORD_VIEW"
+  [isEdit]="false" (onBack)="onBackClick()"
+></app-record-item>

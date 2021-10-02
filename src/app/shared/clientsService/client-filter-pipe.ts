@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from "@angular/core";
-import {clientMock} from "../clients-page/mockFile";
+import {clientMock} from "../../clients-page/mockFile";
 
 @Pipe({
   name: 'clientFilter'

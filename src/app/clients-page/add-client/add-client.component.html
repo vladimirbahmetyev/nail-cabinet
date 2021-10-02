@@ -1,7 +1,4 @@
-<div class="add-client__top">
-  <div (click)="onBackClick()">></div>
-  <div class="add-client__top_title">Новый клиент</div>
-</div>
+<app-top (onBack)="onBackClick()" [title]="'Новый клиент'"></app-top>
 <div class="add-client__main">
   <label>
     Имя

@@ -1,1 +1,21 @@
-<p>record-item works!</p>
+<app-top [title]="isEdit ? 'Изменить запись' : 'Добавить запись'" (onBack)="onBackClick()"></app-top>
+
+<div class="record__item">
+  <label class="record__type">
+    Тип услуги:
+    <input>
+  </label>
+  <label class="record__client">
+    Клиент:
+    <input>
+  </label>
+  <label class="record__date">
+    Назначенное время:
+    <input>
+  </label>
+  <label class="record__comment">
+    Комментарий:
+    <textarea></textarea>
+  </label>
+  <div class="record__save">{{isEdit? 'Изменить запись' : 'Записать'}}</div>
+</div>

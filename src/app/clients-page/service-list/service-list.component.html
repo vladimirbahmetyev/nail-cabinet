@@ -1,7 +1,4 @@
-<div class="service__top">
-  <div (click)="onBackClick()">></div>
-  <div>Все услуги</div>
-</div>
+<app-top (onBack)="onBackClick()" [title]="'Все услуги'"></app-top>
 <div class="service__main">
   <ul class="service__list">
     <li class="service__item" (click)="onAddClick()">
