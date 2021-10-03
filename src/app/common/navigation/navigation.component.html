@@ -1,17 +1,26 @@
-<ul class="navigation">
-  <li class="navigation-item">
-    <a routerLink="/clients">
-      Клиенты
-    </a>
-  </li>
-  <li class="navigation-item">
-    <a routerLink="/calendar">
-      Расписание
-    </a>
-  </li>
-  <li class="navigation-item">
-    <a routerLink="/stats">
-      Статистика
-    </a>
-  </li>
-</ul>
+<mat-card class="navigation">
+  <button
+    mat-stroked-button
+    class="navigation-item"
+    routerLink="/clients"
+    [color]="currentUrl === '/clients' ? 'primary' : '' "
+  >
+    Клиенты
+  </button>
+  <button
+    mat-stroked-button
+    class="navigation-item"
+    routerLink="/calendar"
+    [color]="currentUrl === '/calendar' ? 'primary' : '' "
+  >
+    Расписание
+  </button>
+  <button
+    mat-stroked-button
+    class="navigation-item"
+    routerLink="/stats"
+    [color]="currentUrl === '/stats' ? 'primary' : '' "
+  >
+    Статистика
+  </button>
+</mat-card>

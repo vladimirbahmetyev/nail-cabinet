@@ -14,20 +14,24 @@
     <mat-label>Instagram</mat-label>
     <input matInput [(ngModel)]="instagram" placeholder="Новый Instagram клиента">
   </mat-form-field>
-  <label class="client-info__last-date">
-    Последняя запись: была
-    <input>
-  </label>
-  <label class="client-info__last-date">
-    Следующая запись: будет
-    <input>
-  </label>
-  <div class="client-info__services">
-    Сохранить изменения
-  </div>
-  <div class="client-info__services" (click)="onServiceClick()">
+  <mat-form-field class="client-info__last-date">
+    <mat-label>
+      Последняя запись: была
+    </mat-label>
+    <input matInput>
+  </mat-form-field>
+  <mat-form-field class="client-info__last-date">
+    <mat-label>
+      Следующая запись: будет
+    </mat-label>
+    <input matInput>
+  </mat-form-field>
+  <button mat-raised-button (click)="onServiceClick()">
     История записей клиента
-  </div>
+  </button>
+  <button mat-raised-button color="primary">
+    Сохранить изменения
+  </button>
   <div class="client-info__photo">
     +
   </div>
