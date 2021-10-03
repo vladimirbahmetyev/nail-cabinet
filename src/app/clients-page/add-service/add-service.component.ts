@@ -1,5 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {SERVICES} from "../../shared/constants";
+import {getWorksTime} from "../../record-page/recordMock";
 
 @Component({
   selector: 'app-add-service',
@@ -16,6 +17,8 @@ export class AddServiceComponent implements OnInit {
   serviceTypes = SERVICES
   selectedServices : { text: string, id: number }[] = []
   constructor() { }
+
+  workTimeStep = getWorksTime()
 
   ngOnInit(): void {
   }

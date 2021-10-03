@@ -9,10 +9,16 @@
     Цена:
     <input [(ngModel)]="price">
   </label>
-  <label>
-    Время выполнения:
-    <input [(ngModel)]="time">
-  </label>
+  <mat-form-field>
+    <mat-label>
+      Время выполнения:
+    </mat-label>
+    <mat-select>
+      <mat-option *ngFor="let workTime of workTimeStep" [value]="workTime">
+        {{workTime}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
   <label>
     Комментарий:
     <textarea [(ngModel)]="comment"></textarea>
