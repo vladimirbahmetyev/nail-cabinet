@@ -1,9 +1,10 @@
 <app-top [title]="'Добавить услугу'" (onBack)="onBackClick()"></app-top>
 <div class="add-service__main">
-  <label>
-    Название;
-    <input [(ngModel)]="name">
-  </label>
+  <mat-selection-list class="add-service__service" [(ngModel)]="selectedServices">
+    <mat-list-option *ngFor="let service of serviceTypes">
+      {{service.text}}
+    </mat-list-option>
+  </mat-selection-list>
   <label>
     Цена:
     <input [(ngModel)]="price">

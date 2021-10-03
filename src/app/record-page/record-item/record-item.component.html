@@ -1,18 +1,35 @@
 <app-top [title]="isEdit ? 'Изменить запись' : 'Добавить запись'" (onBack)="onBackClick()"></app-top>
 
 <div class="record__item">
-  <label class="record__type">
-    Тип услуги:
-    <input>
-  </label>
-  <label class="record__client">
-    Клиент:
-    <input>
-  </label>
-  <label class="record__date">
-    Назначенное время:
-    <input>
-  </label>
+  Тип услуги:
+  <mat-selection-list>
+    <mat-list-option *ngFor="let service of serviceOptions">
+      {{service.text}}
+    </mat-list-option>
+  </mat-selection-list>
+  <mat-form-field>
+    <mat-label>
+      Клиент:
+    </mat-label>
+    <mat-select>
+      <mat-option *ngFor="let client of clients" [value]="client?.id">
+        {{client?.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>
+      Назначенное время:
+    </mat-label>
+    <mat-select>
+      <mat-option *ngFor="let time of timesStep " [value]="time">
+        {{time}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+
   <label class="record__comment">
     Комментарий:
     <textarea></textarea>

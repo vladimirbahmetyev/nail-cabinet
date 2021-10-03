@@ -1,4 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {SERVICES} from "../../shared/constants";
 
 @Component({
   selector: 'app-add-service',
@@ -12,7 +13,8 @@ export class AddServiceComponent implements OnInit {
   price = 0
   time = 0
   comment = ''
-
+  serviceTypes = SERVICES
+  selectedServices : { text: string, id: number }[] = []
   constructor() { }
 
   ngOnInit(): void {

@@ -1,4 +1,4 @@
-<div *ngIf="pageView === RECORD_PAGE_VIEWS.CALENDAR_VIEW">
+<div *ngIf="pageView === RECORD_PAGE_VIEWS.CALENDAR_VIEW" class="record">
   <app-navigation *ngIf="pageView === RECORD_PAGE_VIEWS.CALENDAR_VIEW"></app-navigation>
   <mat-card>
     <mat-calendar (selectedChange)="onDateChanged($event)"></mat-calendar>

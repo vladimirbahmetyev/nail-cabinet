@@ -2,6 +2,8 @@ export type clientMock = {
   name: string,
   date: Date,
   id: number,
+  phone: string | null,
+  instagram: string | null,
   services: service[]
 } | null
 
@@ -55,18 +57,24 @@ export const clientsMock: clientMock[] = [
     date: new Date,
     id: 1,
     services: serviceMock,
+    phone: null,
+    instagram: 'dickhead'
   },
   {
     name: 'Katya',
     date: new Date,
     id: 2,
     services: serviceMock,
+    phone: null,
+    instagram: 'dickhead2323'
   },
   {
     name: 'Vladimir',
     date: new Date,
     id: 3,
     services: serviceMock,
+    phone: '2323231',
+    instagram: null,
   }
   ,
   {
@@ -74,6 +82,8 @@ export const clientsMock: clientMock[] = [
     date: new Date,
     id: 4,
     services: serviceMock,
+    phone: '2323231',
+    instagram: null,
   }
   ,
   {
@@ -81,6 +91,8 @@ export const clientsMock: clientMock[] = [
     date: new Date,
     id: 5,
     services: serviceMock,
+    phone: '23232231',
+    instagram: 'kdmfkdmf',
   }
   ,
   {
@@ -88,33 +100,8 @@ export const clientsMock: clientMock[] = [
     date: new Date,
     id: 6,
     services: serviceMock,
+    phone: '23232311111',
+    instagram: null,
   }
   ,
-  {
-    name: 'Vladimir',
-    date: new Date,
-    id: 7,
-    services: serviceMock,
-  }
-  ,
-  {
-    name: 'Vladimir',
-    date: new Date,
-    id: 8,
-    services: serviceMock,
-  }
-  ,
-  {
-    name: 'Vladimir',
-    date: new Date,
-    id: 9,
-    services: serviceMock,
-  }
-  ,
-  {
-    name: 'Vladimir',
-    date: new Date,
-    id: 10,
-    services: serviceMock,
-  }
 ]

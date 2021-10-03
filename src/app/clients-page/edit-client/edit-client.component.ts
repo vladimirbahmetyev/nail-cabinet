@@ -14,7 +14,17 @@ export class EditClientComponent implements OnInit {
 
   constructor() { }
 
+  name : string | null = null
+  instagram : string | null = null
+  phone : string | null = null
+
+
   ngOnInit(): void {
+    if(this.client !== undefined){
+      this.name = this.client?.name || null
+      this.instagram = this.client?.instagram || null
+      this.phone = this.client?.phone || null
+    }
   }
 
   onBackClick(): void {

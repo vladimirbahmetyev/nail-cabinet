@@ -7,6 +7,17 @@ type record = {
   comment: string,
 }
 
+export const getRecordsTime = () => {
+  const time = []
+  for (let i = 0; i < 21; i++){
+    time.push(`${10 + Math.floor(i / 2)}:${i % 2 === 0 ? '00' : 30}`)
+  }
+  return time
+}
+
+
+
+
 export const recordsMock : record[] = [
   {
     clientId: 1,

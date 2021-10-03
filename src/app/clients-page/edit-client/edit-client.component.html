@@ -1,19 +1,26 @@
 <app-top (onBack)="onBackClick()" [title]="client?.name"></app-top>
 <div class="client-info__main">
-  <div class="client-info__instagram">
-    Instagram: Test inst
-  </div>
-  <div class="client-info__phone">
-    Телефон: test number
-  </div>
-  <div class="client-info__last-date">
+  <label class="client-info__instagram">
+    Instagram:
+    <input [(ngModel)]="instagram">
+  </label>
+  <label class="client-info__phone">
+    Телефон:
+    <input [(ngModel)]="phone">
+  </label>
+  <label class="client-info__last-date">
     Последняя запись: была
-  </div>
-  <div class="client-info__last-date">
+    <input>
+  </label>
+  <label class="client-info__last-date">
     Следующая запись: будет
+    <input>
+  </label>
+  <div class="client-info__services">
+    Изменить клиента
   </div>
   <div class="client-info__services" (click)="onServiceClick()">
-    Все услуги
+    Все записи клиента
   </div>
   <div class="client-info__photo">
     +
