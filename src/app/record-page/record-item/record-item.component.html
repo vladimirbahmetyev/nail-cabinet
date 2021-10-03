@@ -27,12 +27,11 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-
-
-
-  <label class="record__comment">
-    Комментарий:
-    <textarea></textarea>
-  </label>
+  <mat-form-field >
+    <mat-label>
+      Комментарий
+    </mat-label>
+    <textarea matInput></textarea>
+  </mat-form-field>
   <div class="record__save">{{isEdit? 'Изменить запись' : 'Записать'}}</div>
 </div>

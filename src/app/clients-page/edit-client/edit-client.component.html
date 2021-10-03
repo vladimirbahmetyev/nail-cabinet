@@ -1,13 +1,19 @@
 <app-top (onBack)="onBackClick()" [title]="client?.name"></app-top>
 <div class="client-info__main">
-  <label class="client-info__instagram">
-    Instagram:
-    <input [(ngModel)]="instagram">
-  </label>
-  <label class="client-info__phone">
-    Телефон:
-    <input [(ngModel)]="phone">
-  </label>
+  <mat-form-field>
+    <mat-label>Имя</mat-label>
+    <input matInput [(ngModel)]="name" placeholder="Новое имя клиента">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>
+      Телефон
+    </mat-label>
+    <input matInput [(ngModel)]="phone"  placeholder="Новый телефон клиента">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Instagram</mat-label>
+    <input matInput [(ngModel)]="instagram" placeholder="Новый Instagram клиента">
+  </mat-form-field>
   <label class="client-info__last-date">
     Последняя запись: была
     <input>
@@ -17,10 +23,10 @@
     <input>
   </label>
   <div class="client-info__services">
-    Изменить клиента
+    Сохранить изменения
   </div>
   <div class="client-info__services" (click)="onServiceClick()">
-    Все записи клиента
+    История записей клиента
   </div>
   <div class="client-info__photo">
     +

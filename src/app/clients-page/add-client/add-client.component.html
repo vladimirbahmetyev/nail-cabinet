@@ -1,17 +1,19 @@
 <app-top (onBack)="onBackClick()" [title]="'Новый клиент'"></app-top>
 <div class="add-client__main">
-  <label>
-    Имя
-    <input [(ngModel)]="name">
-  </label>
-  <label>
-    Телефон
-    <input [(ngModel)]="phoneNumber">
-  </label>
-  <label>
-    Instagram
-    <input [(ngModel)]="instagram">
-  </label>
+  <mat-form-field>
+    <mat-label>Имя</mat-label>
+    <input matInput [(ngModel)]="name" placeholder="Имя клиента">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>
+      Телефон
+    </mat-label>
+    <input matInput [(ngModel)]="phoneNumber"  placeholder="Телефон клиента">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Instagram</mat-label>
+    <input matInput [(ngModel)]="instagram" placeholder="Instagram клиента">
+  </mat-form-field>
   <div class="add-client__main_save" (click)="onSaveClick()">
     Сохранить клиента
   </div>

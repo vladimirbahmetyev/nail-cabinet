@@ -1,11 +1,14 @@
 
 <app-navigation *ngIf="pageView === CLIENT_PAGE_VIEWS.CLIENT_LIST"></app-navigation>
 <div *ngIf="pageView === CLIENT_PAGE_VIEWS.CLIENT_LIST" class="client-list__container">
-  <input
-    class="client-list__item"
-    [(ngModel)]="searchString"
-    placeholder="Поиск клиента"
-  />
+  <mat-form-field class="client-list__search">
+    <mat-label>Поиск клиента</mat-label>
+    <input
+      matInput
+      [(ngModel)]="searchString"
+      placeholder="Имя | Instagram | Телефон клиента"
+    />
+  </mat-form-field>
   <div class="client-list__item" (click)="setAddClientView()">Добавить клиента +</div>
   <ul class="client-list">
     <li

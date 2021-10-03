@@ -22,11 +22,13 @@ import {ClientFilterPipe} from "./shared/clientsService/client-filter-pipe";
 import {FormsModule} from "@angular/forms";
 import { EditServiceComponent } from './clients-page/edit-service/edit-service.component';
 import {DateAdapter, MAT_DATE_LOCALE, MatNativeDateModule, MatOptionModule} from "@angular/material/core";
-import {MatCalendar, MatDatepickerModule} from "@angular/material/datepicker";
+import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatCardModule} from "@angular/material/card";
 import {RuDateAdapter} from "./shared/RuDateAdapter";
 import { TopComponent } from './common/top/top.component';
 import {MatSelectModule} from "@angular/material/select";
+import {MatInputModule} from "@angular/material/input";
+import {MatFormFieldModule} from "@angular/material/form-field";
 
 const appRoutes : Routes = [
   {path: '', component: AppComponent},
@@ -64,6 +66,8 @@ const appRoutes : Routes = [
     MatNativeDateModule,
     MatSelectModule,
     MatOptionModule,
+    MatInputModule,
+    MatFormFieldModule,
   ],
   providers: [
     ClientsService,

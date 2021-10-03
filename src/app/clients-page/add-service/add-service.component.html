@@ -5,10 +5,12 @@
       {{service.text}}
     </mat-list-option>
   </mat-selection-list>
-  <label>
-    Цена:
-    <input [(ngModel)]="price">
-  </label>
+  <mat-form-field>
+    <mat-label>
+      Цена:
+    </mat-label>
+    <input matInput [(ngModel)]="price">
+  </mat-form-field>
   <mat-form-field>
     <mat-label>
       Время выполнения:
