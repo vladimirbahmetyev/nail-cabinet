@@ -1,0 +1,33 @@
+<app-top [title]="'Изменить услугу'" (onBack)="onBackClick()"></app-top>
+<div class="add-service__main">
+  <mat-selection-list class="edit-service__service" [(ngModel)]="newServices" (selectionChange)="onSelectChange()">
+    <mat-list-option *ngFor="let service of serviceTypes" [value]="service">
+      {{service.text}}
+    </mat-list-option>
+  </mat-selection-list>
+  <mat-form-field>
+    <mat-label>
+      Цена:
+    </mat-label>
+    <input matInput [(ngModel)]="price">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>
+      Время выполнения:
+    </mat-label>
+    <mat-select>
+      <mat-option *ngFor="let workTime of workTimeStep" [value]="workTime">
+        {{workTime}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>
+      Комментарий:
+    </mat-label>
+    <textarea  matInput [(ngModel)]="comment"></textarea>
+  </mat-form-field>
+  <div class="add-service__main_save" (click)="onSaveClick()">
+    Изменить услугу
+  </div>
+</div>
