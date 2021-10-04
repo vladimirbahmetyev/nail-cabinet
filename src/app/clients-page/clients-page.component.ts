@@ -22,6 +22,7 @@ export class ClientsPageComponent implements OnInit {
     CLIENT_SERVICE_EDIT: 'editClientService',
   };
   pageView = this.CLIENT_PAGE_VIEWS.CLIENT_LIST
+
   searchString = ''
 
   selectedClient: clientMock = null

@@ -1,4 +1,3 @@
-
 <app-navigation *ngIf="pageView === CLIENT_PAGE_VIEWS.CLIENT_LIST"></app-navigation>
 <mat-card *ngIf="pageView === CLIENT_PAGE_VIEWS.CLIENT_LIST" class="client-list__container">
   <mat-form-field class="client-list__search">
@@ -11,14 +10,15 @@
   </mat-form-field>
   <button mat-raised-button class="client-list__add" (click)="setAddClientView()">Добавить клиента +</button>
   <mat-card class="client-list">
-    <mat-card
+    <button
+      mat-raised-button
       class="client-list__item"
       *ngFor="let client of clientMock
       | clientFilter: searchString"
       (click)="setClientViewId(client?.id || -1)"
     >
-      <div>{{client?.name}},</div> <div>{{client?.date | date: 'short':'': 'ru'}}</div>
-  </mat-card>
+      {{client?.name}}, {{client?.date | date: 'short':'': 'ru'}}
+  </button>
   </mat-card>
 </mat-card>
 

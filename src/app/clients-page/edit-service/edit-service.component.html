@@ -1,33 +1,43 @@
 <app-top [title]="'Изменить услугу'" (onBack)="onBackClick()"></app-top>
 <div class="add-service__main">
-  <mat-selection-list class="edit-service__service" [(ngModel)]="newServices" (selectionChange)="onSelectChange()">
+  <mat-selection-list class="edit-service__field" [(ngModel)]="newServices" (selectionChange)="onSelectChange()">
     <mat-list-option *ngFor="let service of serviceTypes" [value]="service">
       {{service.text}}
     </mat-list-option>
   </mat-selection-list>
-  <mat-form-field>
-    <mat-label>
-      Цена:
-    </mat-label>
-    <input matInput [(ngModel)]="price">
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>
-      Время выполнения:
-    </mat-label>
-    <mat-select>
-      <mat-option *ngFor="let workTime of workTimeStep" [value]="workTime">
-        {{workTime}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>
-      Комментарий:
-    </mat-label>
-    <textarea  matInput [(ngModel)]="comment"></textarea>
-  </mat-form-field>
-  <div class="add-service__main_save" (click)="onSaveClick()">
+  <mat-grid-list cols="2" rowHeight="4rem" class="edit-service__field">
+    <mat-grid-tile>
+      <mat-form-field class="edit-service__field">
+        <mat-label>
+          Цена:
+        </mat-label>
+        <input matInput [(ngModel)]="price">
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field class="edit-service__field">
+        <mat-label>
+          Время выполнения:
+        </mat-label>
+        <mat-select>
+          <mat-option *ngFor="let workTime of workTimeStep" [value]="workTime">
+            {{workTime}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field >
+    </mat-grid-tile>
+  </mat-grid-list>
+  <mat-grid-list cols="2" rowHeight="8rem" class="edit-service__field" gutterSize="0">
+    <mat-grid-tile colspan="2">
+      <mat-form-field class="edit-service__field">
+        <mat-label>
+          Комментарий:
+        </mat-label>
+        <textarea  matInput [(ngModel)]="comment"></textarea>
+      </mat-form-field>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <button mat-raised-button color="primary" class="edit-service__field" (click)="onSaveClick()">
     Изменить услугу
-  </div>
+  </button>
 </div>

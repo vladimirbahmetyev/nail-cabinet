@@ -32,6 +32,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {HttpClientModule} from "@angular/common/http";
+import {MatGridListModule} from "@angular/material/grid-list";
 
 const appRoutes : Routes = [
   {path: '', component: AppComponent},
@@ -74,6 +75,7 @@ const appRoutes : Routes = [
     MatButtonModule,
     MatIconModule,
     HttpClientModule,
+    MatGridListModule,
   ],
   providers: [
     ClientsService,

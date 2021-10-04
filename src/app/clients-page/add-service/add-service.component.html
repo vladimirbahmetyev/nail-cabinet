@@ -1,31 +1,43 @@
 <app-top [title]="'Добавить услугу'" (onBack)="onBackClick()"></app-top>
 <div class="add-service__main">
-  <mat-selection-list class="add-service__service" [(ngModel)]="selectedServices">
+  <mat-selection-list class="add-service__field" [(ngModel)]="selectedServices">
     <mat-list-option *ngFor="let service of serviceTypes">
       {{service.text}}
     </mat-list-option>
   </mat-selection-list>
-  <mat-form-field>
-    <mat-label>
-      Цена:
-    </mat-label>
-    <input matInput [(ngModel)]="price">
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>
-      Время выполнения:
-    </mat-label>
-    <mat-select>
-      <mat-option *ngFor="let workTime of workTimeStep" [value]="workTime">
-        {{workTime}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <label>
-    Комментарий:
-    <textarea [(ngModel)]="comment"></textarea>
-  </label>
-  <div class="add-service__main_save" (click)="onSaveClick()">
-    Сохранить услугу
-  </div>
+  <mat-grid-list cols="2" rowHeight="4rem" gutterSize="1rem" class="add-service__field">
+    <mat-grid-tile colspan="1" rowspan="1">
+      <mat-form-field class="add-service__price">
+        <mat-label>
+          Цена:
+        </mat-label>
+        <input matInput [(ngModel)]="price">
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1" rowspan="1">
+      <mat-form-field class="add-service__time">
+        <mat-label>
+          Время выполнения:
+        </mat-label>
+        <mat-select>
+          <mat-option *ngFor="let workTime of workTimeStep" [value]="workTime">
+            {{workTime}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <mat-grid-list cols="1" gutterSize="1rem" rowHeight="8rem" class="add-service__field">
+    <mat-grid-tile>
+      <mat-form-field class="add-service__comment">
+        <mat-label>
+          Комментарий:
+        </mat-label>
+        <textarea matInput [(ngModel)]="comment"></textarea>
+      </mat-form-field>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <button  class="add-service__field" mat-raised-button color="accent" (click)="onSaveClick()">
+    Добавить услугу
+  </button>
 </div>

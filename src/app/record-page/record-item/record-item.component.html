@@ -1,37 +1,42 @@
 <app-top [title]="isEdit ? 'Изменить запись' : 'Добавить запись'" (onBack)="onBackClick()"></app-top>
 
 <div class="record__item">
-  Тип услуги:
-  <mat-selection-list>
+  <mat-selection-list class="record__field">
     <mat-list-option *ngFor="let service of serviceOptions">
       {{service.text}}
     </mat-list-option>
   </mat-selection-list>
-  <mat-form-field>
-    <mat-label>
-      Клиент:
-    </mat-label>
-    <mat-select>
-      <mat-option *ngFor="let client of clients" [value]="client?.id">
-        {{client?.name}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>
-      Назначенное время:
-    </mat-label>
-    <mat-select>
-      <mat-option *ngFor="let time of timesStep " [value]="time">
-        {{time}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field >
+  <mat-grid-list rowHeight="4rem" cols="2" class="record__field">
+    <mat-grid-tile>
+      <mat-form-field class="record__field">
+        <mat-label>
+          Клиент:
+        </mat-label>
+        <mat-select>
+          <mat-option *ngFor="let client of clients" [value]="client?.id">
+            {{client?.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field class="record__field">
+        <mat-label>
+          Время:
+        </mat-label>
+        <mat-select>
+          <mat-option *ngFor="let time of timesStep " [value]="time">
+            {{time}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <mat-form-field class="record__field">
     <mat-label>
       Комментарий
     </mat-label>
     <textarea matInput></textarea>
   </mat-form-field>
-  <div class="record__save">{{isEdit? 'Изменить запись' : 'Записать'}}</div>
+  <button mat-raised-button color="primary" class="record__field">{{isEdit? 'Изменить запись' : 'Записать'}}</button>
 </div>

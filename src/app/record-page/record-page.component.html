@@ -3,24 +3,27 @@
   <mat-card>
     <mat-calendar (selectedChange)="onDateChanged($event)"></mat-calendar>
   </mat-card>
-  <div class="record__date">
+  <h1 class="record__date">
     Запись на {{selected | date: 'd MMMM' : '' : 'ru'}}
-  </div>
+  </h1>
   <ul class="record__list">
+
     <li
       class="record__item"
       *ngFor="let record of todayClients"
       (click)="onEditClick()"
     >
       {{record?.client?.name}}, {{record?.service?.name}}, {{record?.date | date :'H:mm'}}
+      <mat-divider></mat-divider>
     </li>
   </ul>
-  <div
+  <button
+    mat-raised-button
     class="record__add-button"
     (click)="onAddClick()"
   >
     Добавить запись +
-  </div>
+  </button>
 </div>
 
 <app-record-item

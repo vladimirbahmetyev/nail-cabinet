@@ -1,15 +1,16 @@
 <app-top (onBack)="onBackClick()" [title]="'Все услуги'"></app-top>
 <div class="service__main">
-  <ul class="service__list">
-    <li class="service__item" (click)="onAddClick()">
+  <mat-card class="service__list">
+    <button mat-raised-button class="service__item" (click)="onAddClick()">
       Добавить услугу +
-    </li>
-    <li
+    </button>
+    <button
+      mat-raised-button
       *ngFor="let service of services"
       class="service__item"
       (click)="onServiceClick(service?.id)"
     >
       {{service?.name}}, {{service?.price}} руб, {{service?.date | date : 'short' : '' : 'ru'}}
-    </li>
-  </ul>
+    </button>
+  </mat-card>
 </div>
