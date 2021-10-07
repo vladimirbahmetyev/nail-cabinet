@@ -1,11 +1,11 @@
 import {Pipe, PipeTransform} from "@angular/core";
-import {clientMock} from "../../clients-page/mockFile";
+import {client} from "./clients.service";
 
 @Pipe({
   name: 'clientFilter'
 })
 export class ClientFilterPipe implements PipeTransform{
-  transform(clients: clientMock[], search: string): clientMock[] {
+  transform(clients: client[], search: string): client[] {
     if(!search.trim()) {
       return clients;
     }

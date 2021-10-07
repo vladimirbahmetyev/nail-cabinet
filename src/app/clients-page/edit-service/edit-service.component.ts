@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {service} from "../mockFile";
 import {SERVICES} from "../../shared/constants";
-import {getWorksTime} from "../../record-page/recordMock";
+import {getWorksTime} from "../../utils/helpers";
+import {ClientsService, service} from "../../shared/clientsService/clients.service";
 
 @Component({
   selector: 'app-edit-service',
@@ -10,7 +10,6 @@ import {getWorksTime} from "../../record-page/recordMock";
 })
 export class EditServiceComponent implements OnInit {
 
-  @Input() selectedService : service | undefined
   @Output() onBack = new EventEmitter()
 
   serviceTypes = SERVICES
@@ -18,20 +17,23 @@ export class EditServiceComponent implements OnInit {
 
   newServices: String[] = []
 
-  constructor() { }
+  constructor(private clientService: ClientsService) { }
+
+  ngOnInit(): void {
+    this.clientService.selectedService.subscribe(service => {
+      if(service !== null){
+        this.name = service.name
+        this.price = service.price
+        this.comment = service.comment
+        this.time = service.time
+      }
+    })
+  }
 
   name : string | undefined = ''
   price : number | undefined = 0
   comment : string | undefined= ''
   time : number | undefined =  0
-
-
-  ngOnInit(): void {
-    this.name = this.selectedService?.name
-    this.price = this.selectedService?.price
-    this.comment = this.selectedService?.comment
-    this.time = this.selectedService?.time
-  }
 
   onBackClick() : void {
     this.onBack.emit()

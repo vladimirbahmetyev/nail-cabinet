@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {SERVICES} from "../../shared/constants";
-import {getWorksTime} from "../../record-page/recordMock";
+import {getWorksTime} from "../../utils/helpers";
 
 @Component({
   selector: 'app-add-service',

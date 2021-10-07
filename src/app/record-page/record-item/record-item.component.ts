@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {SERVICES} from "../../shared/constants";
-import {clientsMock} from "../../clients-page/mockFile";
-import {getRecordsTime} from "../recordMock";
+import {getRecordsTime} from "../../utils/helpers";
+import {client, ClientsService} from "../../shared/clientsService/clients.service";
 
 @Component({
   selector: 'app-record-item',
@@ -13,14 +13,16 @@ export class RecordItemComponent implements OnInit {
   @Input() isEdit : boolean | undefined
   @Output() onBack = new EventEmitter()
 
+  constructor(private clientService: ClientsService) { }
+
   serviceOptions = SERVICES
-  clients = clientsMock
+
+  clients: client[] = []
 
   timesStep = getRecordsTime()
 
-  constructor() { }
-
   ngOnInit(): void {
+    this.clients = this.clientService.clients
   }
 
   onBackClick(): void {

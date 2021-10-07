@@ -33,6 +33,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {HttpClientModule} from "@angular/common/http";
 import {MatGridListModule} from "@angular/material/grid-list";
+import {RecordService} from "./shared/recordService/record.service";
 
 const appRoutes : Routes = [
   {path: '', component: AppComponent},
@@ -80,6 +81,7 @@ const appRoutes : Routes = [
   providers: [
     ClientsService,
     ServicesService,
+    RecordService,
     {
       provide: MAT_DATE_LOCALE, useValue: "ru-Ru"
     },

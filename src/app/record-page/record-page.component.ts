@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {recordsMock} from "./recordMock";
-import {clientsMock} from "../clients-page/mockFile";
+import {client, ClientsService} from "../shared/clientsService/clients.service";
+import {record, RecordService} from "../shared/recordService/record.service";
+
+
 
 @Component({
   selector: 'app-record-page',
@@ -9,8 +11,8 @@ import {clientsMock} from "../clients-page/mockFile";
 })
 export class RecordPageComponent implements OnInit {
 
-  records = recordsMock
-  clients = clientsMock
+  records: record[] = []
+  clients: client[] = []
 
   RECORD_PAGE_VIEWS = {
     CALENDAR_VIEW: 'calendar',
@@ -20,12 +22,16 @@ export class RecordPageComponent implements OnInit {
 
   pageView = this.RECORD_PAGE_VIEWS.CALENDAR_VIEW
 
-  constructor() { }
+  constructor(private clientService: ClientsService, private recordService : RecordService) {
 
-  ngOnInit(): void {
   }
 
-  todayClients = recordsMock.map(record => ({
+  ngOnInit(): void {
+    this.clients = this.clientService.clients
+    this.records = this.recordService.records
+  }
+
+  todayClients = this.records.map(record => ({
     ...record,
       client: this.clients.find(client => client?.id === record.clientId)
   }))

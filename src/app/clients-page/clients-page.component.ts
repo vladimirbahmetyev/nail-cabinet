@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {clientMock, clientsMock, service, serviceMock} from "./mockFile";
+import {client, ClientsService, service} from "../shared/clientsService/clients.service";
 import {registerLocaleData} from "@angular/common";
 import localeRu from '@angular/common/locales/ru'
 
@@ -24,21 +24,22 @@ export class ClientsPageComponent implements OnInit {
   pageView = this.CLIENT_PAGE_VIEWS.CLIENT_LIST
 
   searchString = ''
+  clients: client[] = []
 
-  selectedClient: clientMock = null
-  selectedService: service = null
-
-  constructor() {
+  constructor(private clientService : ClientsService) {
   }
 
-  setClientViewId(id: number) : void {
-    this.selectedClient = this.clientMock.find(client => client?.id === id) || null
-    if(this.selectedClient !== null) {
-      this.pageView = this.CLIENT_PAGE_VIEWS.CLIENT_INFO;
-    }
+  ngOnInit(): void {
+    this.clients = this.clientService.clients
+  }
+
+  setClientViewId(id: string) : void {
+    this.clientService.setSelectedClient(id)
+    this.pageView = this.CLIENT_PAGE_VIEWS.CLIENT_INFO;
   }
 
   setClientView(): void {
+    this.clientService.setSelectedService(null)
     this.pageView = this.CLIENT_PAGE_VIEWS.CLIENT_INFO
   }
 
@@ -47,8 +48,8 @@ export class ClientsPageComponent implements OnInit {
   }
 
   setClientListView(): void {
+    this.clientService.setSelectedClient(null)
     this.pageView = this.CLIENT_PAGE_VIEWS.CLIENT_LIST;
-    this.selectedClient = null
   }
 
   setServiceListView():void {
@@ -59,16 +60,8 @@ export class ClientsPageComponent implements OnInit {
     this.pageView = this.CLIENT_PAGE_VIEWS.CLIENT_SERVICE_ADD
   }
 
-  setEditServiceView(id: number): void {
-    this.selectedService = this.selectedClient?.services.find(service => service?.id === id) || null
-    if (this.selectedService !== null) {
-      this.pageView = this.CLIENT_PAGE_VIEWS.CLIENT_SERVICE_EDIT
-    }
-  }
-
-
-  clientMock = clientsMock
-  ngOnInit(): void {
+  setEditServiceView(): void {
+    this.pageView = this.CLIENT_PAGE_VIEWS.CLIENT_SERVICE_EDIT
   }
 }
 

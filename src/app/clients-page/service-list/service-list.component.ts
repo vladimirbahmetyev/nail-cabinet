@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {service} from "../mockFile";
+import {ClientsService, service} from "../../shared/clientsService/clients.service";
 
 @Component({
   selector: 'app-service-page',
@@ -8,14 +8,17 @@ import {service} from "../mockFile";
 })
 export class ServiceListComponent implements OnInit {
 
-  @Input() services : service[] | undefined
+  services : service[] = []
   @Output() onBack = new EventEmitter()
   @Output() onAdd = new EventEmitter()
-  @Output() onService = new EventEmitter<number>()
+  @Output() onService = new EventEmitter()
 
-  constructor() { }
+  constructor(private clientService : ClientsService) { }
 
   ngOnInit(): void {
+    this.clientService.selectedClient.subscribe(client => {
+      this.services = client?.services || []
+    })
   }
 
   onBackClick(): void {
@@ -26,7 +29,8 @@ export class ServiceListComponent implements OnInit {
     this.onAdd.emit()
   }
 
-  onServiceClick(id: number = -1) : void {
-    this.onService.emit(id)
+  onServiceClick(id: string = '-1') : void {
+    this.onService.emit()
+    this.clientService.setSelectedService(id);
   }
 }

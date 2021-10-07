@@ -13,9 +13,9 @@
     <button
       mat-raised-button
       class="client-list__item"
-      *ngFor="let client of clientMock
+      *ngFor="let client of clients
       | clientFilter: searchString"
-      (click)="setClientViewId(client?.id || -1)"
+      (click)="setClientViewId(client?.id || '-1')"
     >
       {{client?.name}}, {{client?.date | date: 'short':'': 'ru'}}
   </button>
@@ -26,17 +26,15 @@
 
 <app-client-info
   *ngIf="pageView === CLIENT_PAGE_VIEWS.CLIENT_INFO"
-  [client]="selectedClient"
   (onBack)="setClientListView()"
   (onService)="setServiceListView()"
 ></app-client-info>
 
 <app-service-page
   *ngIf="pageView === CLIENT_PAGE_VIEWS.CLIENT_SERVICE"
-  [services]="selectedClient?.services"
   (onBack)="setClientView()"
   (onAdd)="setAddServiceView()"
-  (onService)="setEditServiceView($event)"
+  (onService)="setEditServiceView()"
 ></app-service-page>
 
 <app-add-service
@@ -48,6 +46,5 @@
 <app-edit-service
   (onBack)="setServiceListView()"
   *ngIf="pageView === CLIENT_PAGE_VIEWS.CLIENT_SERVICE_EDIT"
-  [selectedService]="selectedService"
 >
 </app-edit-service>

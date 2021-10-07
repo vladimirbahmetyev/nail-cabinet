@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {clientMock} from "../mockFile";
+import {client, ClientsService} from "../../shared/clientsService/clients.service";
 
 @Component({
   selector: 'app-client-info',
@@ -8,11 +8,10 @@ import {clientMock} from "../mockFile";
 })
 export class EditClientComponent implements OnInit {
 
-  @Input() client : clientMock | undefined
   @Output() onBack = new EventEmitter()
   @Output() onService = new EventEmitter()
 
-  constructor() { }
+  constructor(private clientService : ClientsService) { }
 
   name : string | null = null
   instagram : string | null = null
@@ -20,11 +19,13 @@ export class EditClientComponent implements OnInit {
 
 
   ngOnInit(): void {
-    if(this.client !== undefined){
-      this.name = this.client?.name || null
-      this.instagram = this.client?.instagram || null
-      this.phone = this.client?.phone || null
-    }
+    this.clientService.selectedClient.subscribe(client => {
+      if(client !== null){
+        this.name = client.name || null
+        this.instagram = client.instagram || null
+        this.phone = client.phone || null
+      }
+    })
   }
 
   onBackClick(): void {
