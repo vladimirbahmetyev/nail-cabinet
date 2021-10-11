@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {client, ClientsService} from "../shared/clientsService/clients.service";
 import {record, RecordService} from "../shared/recordService/record.service";
 
-
-
 @Component({
   selector: 'app-record-page',
   templateUrl: './record-page.component.html',
@@ -22,19 +20,18 @@ export class RecordPageComponent implements OnInit {
 
   pageView = this.RECORD_PAGE_VIEWS.CALENDAR_VIEW
 
-  constructor(private clientService: ClientsService, private recordService : RecordService) {
+  constructor(private clientService: ClientsService, private recordService : RecordService) {}
 
-  }
+  todayClients: any = []
 
   ngOnInit(): void {
     this.clients = this.clientService.clients
     this.records = this.recordService.records
-  }
-
-  todayClients = this.records.map(record => ({
-    ...record,
+    this.todayClients = this.records.map(record => ({
+      ...record,
       client: this.clients.find(client => client?.id === record.clientId)
-  }))
+    }))
+  }
 
   selected: Date | null = new Date()
 

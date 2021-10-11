@@ -1,7 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {SERVICES} from "../../shared/constants";
 import {getWorksTime} from "../../utils/helpers";
-import {ClientsService, service} from "../../shared/clientsService/clients.service";
+import {ClientsService} from "../../shared/clientsService/clients.service";
+import {service, ServicesService} from "../../shared/servicesService/services.service";
 
 @Component({
   selector: 'app-edit-service',
@@ -17,10 +18,10 @@ export class EditServiceComponent implements OnInit {
 
   newServices: String[] = []
 
-  constructor(private clientService: ClientsService) { }
+  constructor(private serviceService: ServicesService) { }
 
   ngOnInit(): void {
-    this.clientService.selectedService.subscribe(service => {
+    this.serviceService.selectedService.subscribe(service => {
       if(service !== null){
         this.name = service.name
         this.price = service.price
@@ -30,10 +31,10 @@ export class EditServiceComponent implements OnInit {
     })
   }
 
-  name : string | undefined = ''
-  price : number | undefined = 0
-  comment : string | undefined= ''
-  time : number | undefined =  0
+  name : string  = ''
+  price : number  = 0
+  comment : string = ''
+  time : number  =  0
 
   onBackClick() : void {
     this.onBack.emit()

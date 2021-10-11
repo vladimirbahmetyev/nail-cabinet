@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {ClientsService, service} from "../../shared/clientsService/clients.service";
+import {ClientsService} from "../../shared/clientsService/clients.service";
+import {service, ServicesService} from "../../shared/servicesService/services.service";
 
 @Component({
   selector: 'app-service-page',
@@ -13,7 +14,7 @@ export class ServiceListComponent implements OnInit {
   @Output() onAdd = new EventEmitter()
   @Output() onService = new EventEmitter()
 
-  constructor(private clientService : ClientsService) { }
+  constructor(private clientService : ClientsService, private serviceService: ServicesService) { }
 
   ngOnInit(): void {
     this.clientService.selectedClient.subscribe(client => {
@@ -31,6 +32,6 @@ export class ServiceListComponent implements OnInit {
 
   onServiceClick(id: string = '-1') : void {
     this.onService.emit()
-    this.clientService.setSelectedService(id);
+    this.serviceService.setSelectedService(id);
   }
 }

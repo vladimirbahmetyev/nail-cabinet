@@ -1,34 +1,39 @@
 import { Injectable } from '@angular/core';
-import {serviceMock} from "../clientsService/clients.service";
-import {service} from "../clientsService/clients.service";
+import {BehaviorSubject} from "rxjs";
 
 export const recordsMock : record[] = [
   {
+    id: '1',
     clientId: '1',
     date: new Date(),
-    service: serviceMock[0],
     comment: '',
+    name: 'kek'
   },
   {
+    id: '2',
     clientId: '2',
     date: new Date(),
-    service: serviceMock[2],
     comment: '',
+    name: 'lol'
   },
   {
+    id: '3',
     clientId: '3',
     date: new Date(),
-    service: serviceMock[3],
     comment: '',
+    name: 'cheburek'
   }
 ]
 
-export type record = {
+export interface record {
+  name: string,
   clientId: string,
   date: Date,
-  service: service,
+  id: string,
   comment: string,
 }
+
+type nullableRecord = record | null
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +41,17 @@ export type record = {
 export class RecordService {
 
   records = recordsMock
+
+  selectedRecord : BehaviorSubject<nullableRecord> = new BehaviorSubject(null as nullableRecord)
+
+  setSelectedRecord(id: string){
+    const newRecord = this.records.find(record => record.id === id) || null
+    this.selectedRecord.next(newRecord)
+  }
+
+  setNullRecord() {
+    this.selectedRecord.next(null)
+  }
 
   constructor() { }
 }

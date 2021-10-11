@@ -1,49 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
-
-export type service = {
-  name: string,
-  price: number,
-  time: number,
-  comment: string,
-  date: Date
-  id: string,
-} | null
-
-export const serviceMock: service[] = [
-  {
-    name: 'Гель-лак',
-    price: 1200,
-    date: new Date,
-    time: 60,
-    comment: '',
-    id: '1',
-  },
-  {
-    name: 'Маникюр',
-    price: 500,
-    date: new Date,
-    time: 40,
-    comment: '',
-    id: '2',
-  },
-  {
-    name: 'Дизайн',
-    price: 200,
-    date: new Date,
-    time: 50,
-    comment: '',
-    id: '3',
-  },
-  {
-    name: 'Укрепление',
-    price: 100,
-    date: new Date,
-    time: 20,
-    comment: '',
-    id: '4',
-  },
-]
+import {service, serviceMock} from "../servicesService/services.service";
 
 export const clientsMock: client[] = [
   {
@@ -100,14 +57,17 @@ export const clientsMock: client[] = [
   ,
 ]
 
-export type client = {
+export interface client{
   name: string,
   date: Date,
   id: string,
   phone: string | null,
   instagram: string | null,
   services: service[]
-} | null
+}
+
+export type nullableClient = client | null
+export type nullableService = service | null
 
 @Injectable({
   providedIn: 'root'
@@ -115,26 +75,15 @@ export type client = {
 export class ClientsService{
 
   clients : client[] = clientsMock
-  selectedClient : BehaviorSubject<client> = new BehaviorSubject(null as client)
-  selectedService : BehaviorSubject<service> = new BehaviorSubject<service>(null as service)
+  public selectedClient : BehaviorSubject<nullableClient>  = new BehaviorSubject(null as nullableClient)
 
-  setSelectedClient(id: string | null) {
-    if(id === null) {
-      this.selectedClient.next(null)
-      return
-    }
+  setSelectedClient(id: string) {
     const client  = this.clients.find(client => client?.id === id) || null
     this.selectedClient.next(client)
   }
 
-  setSelectedService(id: string | null) {
-    if(id === null) {
-      this.selectedService.next(null)
-      return
-    }
-    const client = this.selectedClient.getValue()
-    const service = client?.services.find(service => service?.id === id) || null
-    this.selectedService.next(service)
+  setNullClient() {
+    this.selectedClient.next(null)
   }
 
   constructor() { }

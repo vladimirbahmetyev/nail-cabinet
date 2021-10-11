@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {client, ClientsService, service} from "../shared/clientsService/clients.service";
+import {client, ClientsService} from "../shared/clientsService/clients.service";
 import {registerLocaleData} from "@angular/common";
 import localeRu from '@angular/common/locales/ru'
+import {ServicesService} from "../shared/servicesService/services.service";
 
 registerLocaleData(localeRu, 'ru')
 
@@ -26,7 +27,7 @@ export class ClientsPageComponent implements OnInit {
   searchString = ''
   clients: client[] = []
 
-  constructor(private clientService : ClientsService) {
+  constructor(private clientService : ClientsService, private serviceService: ServicesService) {
   }
 
   ngOnInit(): void {
@@ -39,7 +40,7 @@ export class ClientsPageComponent implements OnInit {
   }
 
   setClientView(): void {
-    this.clientService.setSelectedService(null)
+    this.serviceService.setNullService()
     this.pageView = this.CLIENT_PAGE_VIEWS.CLIENT_INFO
   }
 
@@ -48,7 +49,7 @@ export class ClientsPageComponent implements OnInit {
   }
 
   setClientListView(): void {
-    this.clientService.setSelectedClient(null)
+    this.clientService.setNullClient()
     this.pageView = this.CLIENT_PAGE_VIEWS.CLIENT_LIST;
   }
 
