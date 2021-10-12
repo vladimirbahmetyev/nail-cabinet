@@ -13,7 +13,7 @@ export const SERVICES = [
   },
 
   {
-    text: 'дизайна 2-4',
+    text: 'дизайн 2-4',
     id: '3',
   },
   {

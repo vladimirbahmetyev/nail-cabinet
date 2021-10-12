@@ -70,6 +70,7 @@ export class RecordItemComponent implements OnInit {
         const stringDate = `${date.getHours()}:${date.getMinutes()}`
         this.selectedTime = stringDate.length === 5 ? stringDate : stringDate + '0'
         this.selectedServices = SERVICES.filter(service => record.name.some(serviceId => String(serviceId) === service.id))
+        this.comment = record.comment
       }
     })
   }
