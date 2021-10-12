@@ -23,7 +23,7 @@ export class EditServiceComponent implements OnInit {
   ngOnInit(): void {
     this.serviceService.selectedService.subscribe(service => {
       if(service !== null){
-        this.name = service.name
+        this.name = ''
         this.price = service.price
         this.comment = service.comment
         this.time = service.time

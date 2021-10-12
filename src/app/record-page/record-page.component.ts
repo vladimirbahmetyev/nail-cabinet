@@ -28,7 +28,9 @@ export class RecordPageComponent implements OnInit {
     this.clientService.clients.subscribe(value => {
       this.clients = value
     })
-    this.records = this.recordService.records
+    this.recordService.records.subscribe(value => {
+      this.records = value
+    })
     this.todayClients = this.records.map(record => ({
       ...record,
       client: this.clients.find(client => client?.id === record.clientId)

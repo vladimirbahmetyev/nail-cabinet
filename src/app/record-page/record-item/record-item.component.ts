@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {SERVICES} from "../../shared/constants";
 import {getRecordsTime} from "../../utils/helpers";
 import {client, ClientsService} from "../../shared/clientsService/clients.service";
-import {nullableRecord, RecordService} from "../../shared/recordService/record.service";
+import {nullableRecord, record, RecordService} from "../../shared/recordService/record.service";
 
 @Component({
   selector: 'app-record-item',
@@ -22,11 +22,24 @@ export class RecordItemComponent implements OnInit {
 
   selectedRecord: nullableRecord = null
   selectedTime: string = ''
+  selectedServices: {id: number, name: string}[] = []
+  selectedClientId: string = ''
+  comment = ''
 
   timesStep = getRecordsTime()
 
-  ngOnInit(): void {
+  onRecordClick(){
+    const serviceId = this.selectedServices.map(service => service.id)
+    const record = {
+      name: serviceId,
+      clientId: this.selectedClientId,
+      selectedTime: this.selectedTime,
+      comment: this.comment
+    }
+    console.log(record)
+  }
 
+  ngOnInit(): void {
     this.clientService.clients.subscribe(value => {
       this.clients = value
     })
@@ -36,6 +49,8 @@ export class RecordItemComponent implements OnInit {
       console.log(this.selectedTime)
     })
   }
+
+
 
   onBackClick(): void {
     this.onBack.emit()

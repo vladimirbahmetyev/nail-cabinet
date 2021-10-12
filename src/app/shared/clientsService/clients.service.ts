@@ -1,56 +1,7 @@
-import {Injectable, OnInit} from '@angular/core';
-import {BehaviorSubject, Observable} from "rxjs";
-import {service, serviceMock} from "../servicesService/services.service";
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from "rxjs";
+import {service} from "../servicesService/services.service";
 import {AngularFireDatabase, AngularFireList} from "@angular/fire/compat/database";
-
-export const clientsMock: client[] = [
-  {
-    name: 'John Doe',
-    id: '1',
-    services: serviceMock,
-    phone: null,
-    instagram: 'dickhead'
-  },
-  {
-    name: 'Katya',
-    id: '2',
-    services: serviceMock,
-    phone: null,
-    instagram: 'dickhead2323'
-  },
-  {
-    name: 'Vladimir',
-    id: '3',
-    services: serviceMock,
-    phone: '2323231',
-    instagram: null,
-  }
-  ,
-  {
-    name: 'Vladimir',
-    id: '4',
-    services: serviceMock,
-    phone: '2323231',
-    instagram: null,
-  }
-  ,
-  {
-    name: 'Vladimir',
-    id: '5',
-    services: serviceMock,
-    phone: '23232231',
-    instagram: 'kdmfkdmf',
-  }
-  ,
-  {
-    name: 'Vladimir',
-    id: '6',
-    services: serviceMock,
-    phone: '23232311111',
-    instagram: null,
-  }
-  ,
-]
 
 export interface client{
   name: string,
