@@ -10,7 +10,7 @@
     <li
       class="record__item"
       *ngFor="let record of todayClients"
-      (click)="onEditClick()"
+      (click)="onEditClick(record.id)"
     >
       {{record?.client?.name}}, {{record?.name}}, {{record?.date | date :'H:mm'}}
       <mat-divider></mat-divider>

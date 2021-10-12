@@ -17,7 +17,8 @@
       | clientFilter: searchString"
       (click)="setClientViewId(client?.id || '-1')"
     >
-      {{client?.name}}, {{client?.date | date: 'short':'': 'ru'}}
+      {{client?.name}}
+<!--      , {{client?.date | date: 'short':'': 'ru'}}-->
   </button>
   </mat-card>
 </mat-card>

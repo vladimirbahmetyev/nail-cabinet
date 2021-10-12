@@ -31,7 +31,9 @@ export class ClientsPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.clients = this.clientService.clients
+    this.clientService.clients.subscribe(value => {
+      this.clients = value
+    })
   }
 
   setClientViewId(id: string) : void {

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './common/navigation/navigation.component';
@@ -34,6 +35,9 @@ import {MatIconModule} from "@angular/material/icon";
 import {HttpClientModule} from "@angular/common/http";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {RecordService} from "./shared/recordService/record.service";
+import {environment} from "../environments/environment";
+import {AngularFireModule} from "@angular/fire/compat";
+import {AngularFireDatabaseModule} from "@angular/fire/compat/database";
 
 const appRoutes : Routes = [
   {path: '', component: AppComponent},
@@ -77,6 +81,8 @@ const appRoutes : Routes = [
     MatIconModule,
     HttpClientModule,
     MatGridListModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
   ],
   providers: [
     ClientsService,

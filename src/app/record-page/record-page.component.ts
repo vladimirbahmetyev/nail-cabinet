@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {client, ClientsService} from "../shared/clientsService/clients.service";
-import {record, RecordService} from "../shared/recordService/record.service";
+import {nullableRecord, record, RecordService} from "../shared/recordService/record.service";
 
 @Component({
   selector: 'app-record-page',
@@ -25,7 +25,9 @@ export class RecordPageComponent implements OnInit {
   todayClients: any = []
 
   ngOnInit(): void {
-    this.clients = this.clientService.clients
+    this.clientService.clients.subscribe(value => {
+      this.clients = value
+    })
     this.records = this.recordService.records
     this.todayClients = this.records.map(record => ({
       ...record,
@@ -40,6 +42,7 @@ export class RecordPageComponent implements OnInit {
   }
 
   onBackClick(): void {
+    this.recordService.setNullRecord()
     this.pageView = this.RECORD_PAGE_VIEWS.CALENDAR_VIEW
   }
 
@@ -47,7 +50,8 @@ export class RecordPageComponent implements OnInit {
     this.pageView = this.RECORD_PAGE_VIEWS.ADD_RECORD_VIEW
   }
 
-  onEditClick():void {
+  onEditClick(id: string):void {
+    this.recordService.setSelectedRecord(id)
     this.pageView = this.RECORD_PAGE_VIEWS.EDIT_RECORD_VIEW
   }
 }

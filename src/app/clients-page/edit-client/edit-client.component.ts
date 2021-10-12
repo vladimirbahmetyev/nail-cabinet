@@ -13,19 +13,32 @@ export class EditClientComponent implements OnInit {
 
   constructor(private clientService : ClientsService) { }
 
-  name : string | null = null
-  instagram : string | null = null
-  phone : string | null = null
+  name   = ''
+  instagram  = ''
+  phone = ''
 
 
   ngOnInit(): void {
     this.clientService.selectedClient.subscribe(client => {
       if(client !== null){
-        this.name = client.name || null
-        this.instagram = client.instagram || null
-        this.phone = client.phone || null
+        this.name = client.name || ''
+        this.instagram = client.instagram || ''
+        this.phone = client.phone || ''
       }
     })
+  }
+
+  onSaveClick() {
+    const selectedClient = this.clientService.selectedClient.getValue()
+    if(selectedClient !== null ){
+      this.clientService.editClient({
+        name: this.name,
+        instagram: this.instagram,
+        phone: this.phone,
+        id: selectedClient.id,
+        services: selectedClient.services || []
+      })
+    }
   }
 
   onBackClick(): void {

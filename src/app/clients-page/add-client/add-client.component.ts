@@ -1,4 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {ClientsService} from "../../shared/clientsService/clients.service";
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-add-client',
@@ -7,7 +9,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 })
 export class AddClientComponent implements OnInit {
 
-  constructor() { }
+  constructor(private clientService: ClientsService) { }
 
   ngOnInit(): void {
   }
@@ -23,8 +25,15 @@ export class AddClientComponent implements OnInit {
   }
 
   onSaveClick(): void {
-    const result = { name: this.name, phone: this.phoneNumber, instagram: this.instagram };
-    console.log(JSON.stringify(result))
+    const clientId = uuidv4()
+    const newClient = {
+      name: this.name,
+      phone: this.phoneNumber,
+      instagram: this.instagram,
+      id: clientId,
+      services: []
+    };
+    this.clientService.createClient(newClient)
   }
 
 }

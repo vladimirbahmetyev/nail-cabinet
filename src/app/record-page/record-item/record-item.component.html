@@ -12,7 +12,7 @@
         <mat-label>
           Клиент:
         </mat-label>
-        <mat-select>
+        <mat-select [value]="selectedRecord ? selectedRecord.clientId : ''">
           <mat-option *ngFor="let client of clients" [value]="client?.id">
             {{client?.name}}
           </mat-option>
@@ -24,7 +24,7 @@
         <mat-label>
           Время:
         </mat-label>
-        <mat-select>
+        <mat-select [value]="selectedTime">
           <mat-option *ngFor="let time of timesStep " [value]="time">
             {{time}}
           </mat-option>

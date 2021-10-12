@@ -33,7 +33,7 @@ export interface record {
   comment: string,
 }
 
-type nullableRecord = record | null
+export type nullableRecord = record | null
 
 @Injectable({
   providedIn: 'root'
