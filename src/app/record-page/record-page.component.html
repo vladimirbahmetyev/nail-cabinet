@@ -4,15 +4,15 @@
     <mat-calendar (selectedChange)="onDateChanged($event)"></mat-calendar>
   </mat-card>
   <h1 class="record__date">
-    Запись на {{selected | date: 'd MMMM' : '' : 'ru'}}
+    Запись на {{selectedDate | date: 'd MMMM' : '' : 'ru'}}
   </h1>
   <ul class="record__list">
     <li
       class="record__item"
-      *ngFor="let record of todayClients"
+      *ngFor="let record of records"
       (click)="onEditClick(record.id)"
     >
-      {{record?.client?.name}}, {{record?.name}}, {{record?.date | date :'H:mm'}}
+      {{record?.client?.name}}, {{record?.date | date :'H:mm'}}
       <mat-divider></mat-divider>
     </li>
   </ul>
@@ -28,9 +28,11 @@
 <app-record-item
   *ngIf="pageView === RECORD_PAGE_VIEWS.EDIT_RECORD_VIEW"
   [isEdit]="true" (onBack)="onBackClick()"
+  [selectedDate]=selectedDate
 ></app-record-item>
 
 <app-record-item
   *ngIf="pageView === RECORD_PAGE_VIEWS.ADD_RECORD_VIEW"
   [isEdit]="false" (onBack)="onBackClick()"
+  [selectedDate]=selectedDate
 ></app-record-item>

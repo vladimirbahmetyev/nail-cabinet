@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {client, ClientsService} from "../shared/clientsService/clients.service";
-import {nullableRecord, record, RecordService} from "../shared/recordService/record.service";
+import {record, RecordService} from "../shared/recordService/record.service";
 
 @Component({
   selector: 'app-record-page',
@@ -9,7 +9,7 @@ import {nullableRecord, record, RecordService} from "../shared/recordService/rec
 })
 export class RecordPageComponent implements OnInit {
 
-  records: record[] = []
+  records: any[] = []
   clients: client[] = []
 
   RECORD_PAGE_VIEWS = {
@@ -22,25 +22,25 @@ export class RecordPageComponent implements OnInit {
 
   constructor(private clientService: ClientsService, private recordService : RecordService) {}
 
-  todayClients: any = []
-
   ngOnInit(): void {
     this.clientService.clients.subscribe(value => {
       this.clients = value
     })
-    this.recordService.records.subscribe(value => {
-      this.records = value
+    this.recordService.dayRecords.subscribe(value => {
+      this.records = value.map(record => {
+        return {
+          ...record,
+          client: this.clientService.clients.getValue().find(client => client.id === record.clientId)
+        }
+      })
     })
-    this.todayClients = this.records.map(record => ({
-      ...record,
-      client: this.clients.find(client => client?.id === record.clientId)
-    }))
   }
 
-  selected: Date | null = new Date()
+  selectedDate: Date  = new Date()
 
   onDateChanged(date: Date) {
-    this.selected = date;
+    this.selectedDate = date;
+    this.recordService.setDate(date)
   }
 
   onBackClick(): void {
