@@ -44,4 +44,10 @@
     class="record__field"
     (click)="onChangeRecord()"
   >{{isEdit? 'Изменить запись' : 'Записать'}}</button>
+  <button *ngIf="isEdit"
+          mat-raised-button
+          color="accent"
+          class="record__field"
+          (click)="onCheckoutClick()"
+  >Отметить запись</button>
 </div>

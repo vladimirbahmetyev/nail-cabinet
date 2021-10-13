@@ -15,10 +15,11 @@ export class RecordPageComponent implements OnInit {
   RECORD_PAGE_VIEWS = {
     CALENDAR_VIEW: 'calendar',
     ADD_RECORD_VIEW: 'addRecord',
-    EDIT_RECORD_VIEW: 'editRecord'
+    EDIT_RECORD_VIEW: 'editRecord',
+    CHECKOUT_VIEW: 'checkoutRecord'
   }
 
-  pageView = this.RECORD_PAGE_VIEWS.CALENDAR_VIEW
+  pageView = this.RECORD_PAGE_VIEWS.CHECKOUT_VIEW
 
   constructor(private clientService: ClientsService, private recordService : RecordService) {}
 
@@ -56,4 +57,13 @@ export class RecordPageComponent implements OnInit {
     this.recordService.setSelectedRecord(id)
     this.pageView = this.RECORD_PAGE_VIEWS.EDIT_RECORD_VIEW
   }
+
+  onCheckoutClick() {
+    this.pageView = this.RECORD_PAGE_VIEWS.CHECKOUT_VIEW
+  }
+
+  onCheckoutBackClick() {
+    this.pageView = this.RECORD_PAGE_VIEWS.EDIT_RECORD_VIEW
+  }
+
 }

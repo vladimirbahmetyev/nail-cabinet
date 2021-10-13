@@ -29,6 +29,7 @@
   *ngIf="pageView === RECORD_PAGE_VIEWS.EDIT_RECORD_VIEW"
   [isEdit]="true" (onBack)="onBackClick()"
   [selectedDate]=selectedDate
+  (onCheckout)="onCheckoutClick()"
 ></app-record-item>
 
 <app-record-item
@@ -36,3 +37,7 @@
   [isEdit]="false" (onBack)="onBackClick()"
   [selectedDate]=selectedDate
 ></app-record-item>
+
+<app-checkout *ngIf="pageView === RECORD_PAGE_VIEWS.CHECKOUT_VIEW" (onBack)="onCheckoutBackClick()">
+
+</app-checkout>

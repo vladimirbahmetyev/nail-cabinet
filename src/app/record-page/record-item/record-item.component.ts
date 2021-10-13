@@ -15,6 +15,7 @@ export class RecordItemComponent implements OnInit {
   @Input() isEdit : boolean | undefined
   @Input() selectedDate : Date | undefined
   @Output() onBack = new EventEmitter()
+  @Output() onCheckout = new EventEmitter()
 
   constructor(private clientService: ClientsService, private recordService: RecordService) { }
 
@@ -57,6 +58,10 @@ export class RecordItemComponent implements OnInit {
     }
   }
 
+  onCheckoutClick() {
+    this.onCheckout.emit()
+  }
+
   ngOnInit(): void {
     this.prepareEditData.bind(this)
     this.clientService.clients.subscribe(value => {
@@ -78,6 +83,4 @@ export class RecordItemComponent implements OnInit {
   onBackClick(): void {
     this.onBack.emit()
   }
-
-
 }

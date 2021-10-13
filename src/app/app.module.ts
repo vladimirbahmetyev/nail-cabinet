@@ -38,6 +38,7 @@ import {RecordService} from "./shared/recordService/record.service";
 import {environment} from "../environments/environment";
 import {AngularFireModule} from "@angular/fire/compat";
 import {AngularFireDatabaseModule} from "@angular/fire/compat/database";
+import { CheckoutComponent } from './record-page/checkout/checkout.component';
 
 const appRoutes : Routes = [
   {path: '', component: AppComponent},
@@ -62,6 +63,7 @@ const appRoutes : Routes = [
     ClientFilterPipe,
     EditServiceComponent,
     TopComponent,
+    CheckoutComponent,
   ],
   imports: [
     BrowserModule,
