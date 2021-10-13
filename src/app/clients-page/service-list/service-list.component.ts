@@ -1,6 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ClientsService} from "../../shared/clientsService/clients.service";
 import {service, ServicesService} from "../../shared/servicesService/services.service";
+import {record, RecordService} from "../../shared/recordService/record.service";
+import {getNameServicesFromId} from "../../utils/helpers";
 
 @Component({
   selector: 'app-service-page',
@@ -9,16 +11,16 @@ import {service, ServicesService} from "../../shared/servicesService/services.se
 })
 export class ServiceListComponent implements OnInit {
 
-  services : service[] = []
+  services : record[] = []
   @Output() onBack = new EventEmitter()
   @Output() onAdd = new EventEmitter()
   @Output() onService = new EventEmitter()
 
-  constructor(private clientService : ClientsService, private serviceService: ServicesService) { }
+  constructor(private clientService : ClientsService, private recordService: RecordService) { }
 
   ngOnInit(): void {
     this.clientService.selectedClient.subscribe(client => {
-      this.services = client?.services || []
+      this.services = this.recordService.records.getValue().filter(record => record.clientId === client?.id)
     })
   }
 
@@ -32,6 +34,6 @@ export class ServiceListComponent implements OnInit {
 
   onServiceClick(id: string = '-1') : void {
     this.onService.emit()
-    this.serviceService.setSelectedService(id);
+    this.recordService.setSelectedRecord(id);
   }
 }

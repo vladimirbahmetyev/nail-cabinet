@@ -1,6 +1,9 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {SERVICES} from "../../shared/constants";
-import {getWorksTime} from "../../utils/helpers";
+import {getRecordsTime, getWorksTime} from "../../utils/helpers";
+import {record, RecordService} from "../../shared/recordService/record.service";
+import {v4} from "uuid";
+import {ClientsService} from "../../shared/clientsService/clients.service";
 
 @Component({
   selector: 'app-add-service',
@@ -10,15 +13,15 @@ import {getWorksTime} from "../../utils/helpers";
 export class AddServiceComponent implements OnInit {
 
   @Output() onBack = new EventEmitter()
-  name = ''
-  price = 0
-  time = 0
+  name = []
+  date : Date = new Date()
+  time  = ''
   comment = ''
   serviceTypes = SERVICES
-  selectedServices : { text: string, id: number }[] = []
-  constructor() { }
+  selectedServices : { text: string, id: string }[] = []
+  constructor(private recordService: RecordService, private clientService: ClientsService) { }
 
-  workTimeStep = getWorksTime()
+  timeStep = getRecordsTime()
 
   ngOnInit(): void {
   }
@@ -28,14 +31,19 @@ export class AddServiceComponent implements OnInit {
   }
 
   onSaveClick():void {
-    const result = {
-      name: this.name,
-      price: this.price,
-      time: this.time,
-      comment: this.comment
+    const date = this.date
+    const [hours, minutes] = this.time.split(':')
+    date.setHours((+hours))
+    date.setMinutes(+minutes)
+    const id = v4()
+    const clientId = this.clientService.selectedClient.getValue()?.id || ''
+    const result : record = {
+      name: this.selectedServices.map(service => service.id),
+      date: this.date.toString(),
+      comment: this.comment,
+      clientId: clientId,
+      id: id,
     }
-    console.log(JSON.stringify(result))
+    this.recordService.createRecord(result)
   }
-
-
 }

@@ -2,7 +2,7 @@
 <div class="service__main">
   <mat-card class="service__list">
     <button mat-raised-button class="service__item" (click)="onAddClick()">
-      Добавить услугу +
+      Добавить запись
     </button>
     <button
       mat-raised-button
@@ -10,7 +10,7 @@
       class="service__item"
       (click)="onServiceClick(service?.id)"
     >
-      {{service?.name}}, {{service?.price}} руб, {{service?.date | date : 'short' : '' : 'ru'}}
+      Услуги: {{service?.name?.join(',')}} Дата: {{service?.date | date : 'short' : '' : 'ru'}}
     </button>
   </mat-card>
 </div>

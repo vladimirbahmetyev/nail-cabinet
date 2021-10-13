@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import {MatIconRegistry} from "@angular/material/icon";
 import {DomSanitizer} from "@angular/platform-browser";
+import {ClientsService} from "./shared/clientsService/clients.service";
+import {ServicesService} from "./shared/servicesService/services.service";
+import {RecordService} from "./shared/recordService/record.service";
 
 @Component({
   selector: 'app-root',
@@ -9,8 +12,16 @@ import {DomSanitizer} from "@angular/platform-browser";
 })
 export class AppComponent {
   title = 'nail-app';
-  constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {
+  constructor(
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer,
+    private clientService: ClientsService,
+    private serviceService: ServicesService,
+    private recordService: RecordService
+  ) {
     this.matIconRegistry
-      .addSvgIcon('back',this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/back.svg"))
+      .addSvgIcon(
+        'back',this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/back.svg")
+      )
   }
 }

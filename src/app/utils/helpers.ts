@@ -1,3 +1,5 @@
+import {SERVICES} from "../shared/constants";
+
 export const getRecordsTime = () => {
   const time = []
   for (let i = 0; i < 21; i++){
@@ -13,3 +15,13 @@ export const getWorksTime = () => {
   }
   return time
 }
+
+export function getNameServicesFromId(ids: string[]) : string[] {
+  return  ids.map(id => SERVICES.find(service => service.id === id)?.text || '')
+}
+
+export function getSelectedServiceOptions(ids: string[]) : {text: string, id: string}[] {
+  const names = getNameServicesFromId(ids)
+  return names.map(name => SERVICES.filter(service => service.text === name)[0])
+}
+

@@ -1,7 +1,7 @@
 <app-top [title]="'Добавить услугу'" (onBack)="onBackClick()"></app-top>
 <div class="add-service__main">
   <mat-selection-list class="add-service__field" [(ngModel)]="selectedServices">
-    <mat-list-option *ngFor="let service of serviceTypes">
+    <mat-list-option *ngFor="let service of serviceTypes" [value]="service">
       {{service.text}}
     </mat-list-option>
   </mat-selection-list>
@@ -9,19 +9,21 @@
     <mat-grid-tile colspan="1" rowspan="1">
       <mat-form-field class="add-service__price">
         <mat-label>
-          Цена:
+          Дата:
         </mat-label>
-        <input matInput [(ngModel)]="price">
+        <input matInput [matDatepicker]="newDate" [(ngModel)]="date">
+        <mat-datepicker-toggle matSuffix [for]="newDate"></mat-datepicker-toggle>
+        <mat-datepicker #newDate></mat-datepicker>
       </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile colspan="1" rowspan="1">
       <mat-form-field class="add-service__time">
         <mat-label>
-          Время выполнения:
+          Время:
         </mat-label>
-        <mat-select>
-          <mat-option *ngFor="let workTime of workTimeStep" [value]="workTime">
-            {{workTime}}
+        <mat-select [(ngModel)]="time">
+          <mat-option *ngFor="let time of timeStep" [value]="time">
+            {{time}}
           </mat-option>
         </mat-select>
       </mat-form-field>
