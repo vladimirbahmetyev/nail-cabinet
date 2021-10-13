@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "nail-app-49b5f": {
+      "hosting": {
+        "nail-app": [
+          "nail-app-49b5f"
+        ]
+      }
+    }
+  }
+}

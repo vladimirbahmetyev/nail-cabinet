@@ -1,0 +1,22 @@
+<app-top (onBack)="onBackClick()" [title]="'Завершение записи'"></app-top>
+<div class="checkout__up">
+  <mat-form-field class="checkout__field">
+    <mat-label>
+      Цена:
+    </mat-label>
+    <input matInput [(ngModel)]="price">
+  </mat-form-field>
+  <mat-form-field class="checkout__field">
+    <mat-label>
+      Время выполнение:
+    </mat-label>
+    <mat-select [(ngModel)]="workTime">
+      <mat-option *ngFor="let time of workTimeSteps" [value]="time">
+        {{time}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div class="checkout__photo"></div>
+
+<button mat-raised-button color="accent" class="checkout__button">Завершить запись</button>
