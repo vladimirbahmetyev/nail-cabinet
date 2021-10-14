@@ -10,6 +10,7 @@ export class EditClientComponent implements OnInit {
 
   @Output() onBack = new EventEmitter()
   @Output() onService = new EventEmitter()
+  @Output() onRecord = new EventEmitter()
 
   constructor(private clientService : ClientsService) { }
 
@@ -43,6 +44,10 @@ export class EditClientComponent implements OnInit {
 
   onBackClick(): void {
     this.onBack.emit()
+  }
+
+  onRecordClick(){
+    this.onRecord.emit()
   }
 
   onServiceClick(): void {

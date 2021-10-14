@@ -26,8 +26,11 @@
     </mat-label>
     <input matInput>
   </mat-form-field>
+  <button mat-raised-button color="accent" (click)="onRecordClick()">
+    Записать клиеннта
+  </button>
   <button mat-raised-button (click)="onServiceClick()">
-    Записи клиента
+    Завершенные записи клиента
   </button>
   <button mat-raised-button color="primary" (click)="onSaveClick()">
     Сохранить изменения

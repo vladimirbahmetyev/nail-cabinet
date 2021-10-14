@@ -19,7 +19,7 @@ export class RecordPageComponent implements OnInit {
     CHECKOUT_VIEW: 'checkoutRecord'
   }
 
-  pageView = this.RECORD_PAGE_VIEWS.CHECKOUT_VIEW
+  pageView = this.RECORD_PAGE_VIEWS.CALENDAR_VIEW
 
   constructor(private clientService: ClientsService, private recordService : RecordService) {}
 

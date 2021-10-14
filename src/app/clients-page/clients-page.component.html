@@ -18,7 +18,6 @@
       (click)="setClientViewId(client?.id || '-1')"
     >
       {{client?.name}}
-<!--      , {{client?.date | date: 'short':'': 'ru'}}-->
   </button>
   </mat-card>
 </mat-card>
@@ -29,17 +28,17 @@
   *ngIf="pageView === CLIENT_PAGE_VIEWS.CLIENT_INFO"
   (onBack)="setClientListView()"
   (onService)="setServiceListView()"
+  (onRecord)="setAddServiceView()"
 ></app-client-info>
 
 <app-service-page
   *ngIf="pageView === CLIENT_PAGE_VIEWS.CLIENT_SERVICE"
   (onBack)="setClientView()"
-  (onAdd)="setAddServiceView()"
   (onService)="setEditServiceView()"
 ></app-service-page>
 
 <app-add-service
-  (onBack)="setServiceListView()"
+  (onBack)="setClientView()"
   *ngIf="pageView === CLIENT_PAGE_VIEWS.CLIENT_SERVICE_ADD"
 >
 </app-add-service>

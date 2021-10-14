@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {SERVICES} from "../../shared/constants";
-import {getWorksTime} from "../../utils/helpers";
-import {ClientsService} from "../../shared/clientsService/clients.service";
-import {service, ServicesService} from "../../shared/servicesService/services.service";
+import {getSelectedServiceOptions, getWorksTime} from "../../utils/helpers";
+import {nullableService, service, ServicesService} from "../../shared/servicesService/services.service";
+import {nullableRecord, record, RecordService} from "../../shared/recordService/record.service";
 
 @Component({
   selector: 'app-edit-service',
@@ -15,18 +15,25 @@ export class EditServiceComponent implements OnInit {
 
   serviceTypes = SERVICES
   workTimeStep = getWorksTime()
+  selectedService: nullableService = null
+  selectedRecord : nullableRecord = null
 
-  newServices: String[] = []
+  selectedServicesOptions : any []= []
 
-  constructor(private serviceService: ServicesService) { }
+  constructor(private recordService: RecordService, private serviceService: ServicesService) { }
 
   ngOnInit(): void {
-    this.serviceService.selectedService.subscribe(service => {
-      if(service !== null){
-        this.name = ''
-        this.price = service.price
-        this.comment = service.comment
-        this.time = service.time
+    this.recordService.selectedRecord.subscribe(record => {
+      this.selectedRecord = record
+      if(record !== null ){
+        this.selectedServicesOptions = getSelectedServiceOptions(record.name)
+      }
+    })
+    this.serviceService.selectedService.subscribe(value => {
+      this.selectedService = value
+      if(value !== null ){
+        this.price = value.price
+        this.time = value.time
       }
     })
   }
@@ -34,18 +41,27 @@ export class EditServiceComponent implements OnInit {
   name : string  = ''
   price : number  = 0
   comment : string = ''
-  time : number  =  0
+  time : string  =  '10:00'
 
   onBackClick() : void {
     this.onBack.emit()
   }
 
   onSaveClick() : void {
-    console.log()
+    const service : service = {
+      price: this.price,
+      id: this.selectedService?.id || '',
+      recordId: this.selectedService?.recordId || '',
+      time: this.time,
+    }
+    const record : record = {
+      comment: this.comment,
+      name: this.selectedServicesOptions.map(service => service.id),
+      id: this.selectedRecord?.id || '',
+      clientId: this.selectedRecord?.clientId || '',
+      date: this.selectedRecord?.date || new Date().toDateString()
+    }
+    this.serviceService.updateService(service)
+    this.recordService.editRecord(record)
   }
-
-  onSelectChange() {
-    console.log(this.newServices)
-  }
-
 }

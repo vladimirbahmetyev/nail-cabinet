@@ -1,6 +1,6 @@
 <app-top [title]="'Изменить услугу'" (onBack)="onBackClick()"></app-top>
 <div class="add-service__main">
-  <mat-selection-list class="edit-service__field" [(ngModel)]="newServices" (selectionChange)="onSelectChange()">
+  <mat-selection-list class="edit-service__field" [(ngModel)]="selectedServicesOptions">
     <mat-list-option *ngFor="let service of serviceTypes" [value]="service">
       {{service.text}}
     </mat-list-option>
@@ -19,7 +19,7 @@
         <mat-label>
           Время выполнения:
         </mat-label>
-        <mat-select>
+        <mat-select [(ngModel)]="time">
           <mat-option *ngFor="let workTime of workTimeStep" [value]="workTime">
             {{workTime}}
           </mat-option>

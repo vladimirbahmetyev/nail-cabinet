@@ -12,7 +12,6 @@ export interface client{
 }
 
 export type nullableClient = client | null
-export type nullableService = service | null
 
 @Injectable({
   providedIn: 'root'

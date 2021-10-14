@@ -1,8 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ClientsService} from "../../shared/clientsService/clients.service";
 import {service, ServicesService} from "../../shared/servicesService/services.service";
-import {record, RecordService} from "../../shared/recordService/record.service";
-import {getNameServicesFromId} from "../../utils/helpers";
+import {RecordService} from "../../shared/recordService/record.service";
 
 @Component({
   selector: 'app-service-page',
@@ -11,16 +10,22 @@ import {getNameServicesFromId} from "../../utils/helpers";
 })
 export class ServiceListComponent implements OnInit {
 
-  services : record[] = []
+  services : service[] = []
   @Output() onBack = new EventEmitter()
   @Output() onAdd = new EventEmitter()
   @Output() onService = new EventEmitter()
 
-  constructor(private clientService : ClientsService, private recordService: RecordService) { }
+  constructor(private clientService : ClientsService, private serviceService: ServicesService, private recordService: RecordService) { }
 
   ngOnInit(): void {
     this.clientService.selectedClient.subscribe(client => {
-      this.services = this.recordService.records.getValue().filter(record => record.clientId === client?.id)
+      const clientsRecordId = this.recordService.records
+        .getValue()
+        .filter(record => record.clientId === client?.id)
+        .map(record => record.id)
+      this.services = this.serviceService.services
+        .getValue()
+        .filter(service =>  clientsRecordId.some(id => id === service.recordId))
     })
   }
 
@@ -28,12 +33,10 @@ export class ServiceListComponent implements OnInit {
     this.onBack.emit()
   }
 
-  onAddClick(): void {
-    this.onAdd.emit()
-  }
-
   onServiceClick(id: string = '-1') : void {
     this.onService.emit()
-    this.recordService.setSelectedRecord(id);
+    this.serviceService.setSelectedService(id);
+    const recordId = this.services.find(service => service.id === id)?.recordId || ''
+    this.recordService.setSelectedRecord(recordId)
   }
 }

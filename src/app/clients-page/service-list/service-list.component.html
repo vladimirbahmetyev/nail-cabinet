@@ -1,16 +1,13 @@
 <app-top (onBack)="onBackClick()" [title]="'Все услуги'"></app-top>
 <div class="service__main">
   <mat-card class="service__list">
-    <button mat-raised-button class="service__item" (click)="onAddClick()">
-      Добавить запись
-    </button>
     <button
       mat-raised-button
       *ngFor="let service of services"
       class="service__item"
       (click)="onServiceClick(service?.id)"
     >
-      Услуги: {{service?.name?.join(',')}} Дата: {{service?.date | date : 'short' : '' : 'ru'}}
+      {{service.price}}
     </button>
   </mat-card>
 </div>
