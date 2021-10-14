@@ -1,19 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.sass']
+  styleUrls: ['./navigation.component.sass'],
 })
 export class NavigationComponent implements OnInit {
+  constructor(private router: Router) {}
 
-  constructor(private router: Router) { }
+  currentUrl = this.router.url;
 
-  currentUrl = this.router.url
-
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

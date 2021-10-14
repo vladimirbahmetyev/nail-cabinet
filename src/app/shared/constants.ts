@@ -1,6 +1,6 @@
 export const SERVICES = [
   {
-    text:'снятие',
+    text: 'снятие',
     id: '0',
   },
   {
@@ -18,6 +18,6 @@ export const SERVICES = [
   },
   {
     text: 'дизайн на все',
-    id: '4'
-  }
-]
+    id: '4',
+  },
+];

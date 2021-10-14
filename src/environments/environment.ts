@@ -5,16 +5,15 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyBWzpBgMXOu7_u67gu1_rb-ON5G5jc9f2c",
-    authDomain: "nail-app-49b5f.firebaseapp.com",
-    databaseURL: "https://nail-app-49b5f-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "nail-app-49b5f",
-    storageBucket: "nail-app-49b5f.appspot.com",
-    messagingSenderId: "292175164370",
-    appId: "1:292175164370:web:0c1dfe2791a6e67853ce0b",
-    measurementId: "G-SXHZX29C5Z"
-  }
-
+    apiKey: 'AIzaSyBWzpBgMXOu7_u67gu1_rb-ON5G5jc9f2c',
+    authDomain: 'nail-app-49b5f.firebaseapp.com',
+    databaseURL: 'https://nail-app-49b5f-default-rtdb.europe-west1.firebasedatabase.app',
+    projectId: 'nail-app-49b5f',
+    storageBucket: 'nail-app-49b5f.appspot.com',
+    messagingSenderId: '292175164370',
+    appId: '1:292175164370:web:0c1dfe2791a6e67853ce0b',
+    measurementId: 'G-SXHZX29C5Z',
+  },
 };
 
 /*

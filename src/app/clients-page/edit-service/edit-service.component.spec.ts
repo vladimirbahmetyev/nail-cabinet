@@ -8,9 +8,8 @@ describe('EditServiceComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EditServiceComponent ]
-    })
-    .compileComponents();
+      declarations: [EditServiceComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

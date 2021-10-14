@@ -8,9 +8,8 @@ describe('ClientInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EditClientComponent ]
-    })
-    .compileComponents();
+      declarations: [EditClientComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

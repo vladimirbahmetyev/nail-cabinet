@@ -1,57 +1,54 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {client, ClientsService} from "../../shared/clientsService/clients.service";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { client, ClientsService } from '../../shared/clientsService/clients.service';
 
 @Component({
   selector: 'app-client-info',
   templateUrl: './edit-client.component.html',
-  styleUrls: ['./edit-client.component.sass']
+  styleUrls: ['./edit-client.component.sass'],
 })
 export class EditClientComponent implements OnInit {
+  @Output() onBack = new EventEmitter();
+  @Output() onService = new EventEmitter();
+  @Output() onRecord = new EventEmitter();
 
-  @Output() onBack = new EventEmitter()
-  @Output() onService = new EventEmitter()
-  @Output() onRecord = new EventEmitter()
+  constructor(private clientService: ClientsService) {}
 
-  constructor(private clientService : ClientsService) { }
-
-  name   = ''
-  instagram  = ''
-  phone = ''
-
+  name = '';
+  instagram = '';
+  phone = '';
 
   ngOnInit(): void {
-    this.clientService.selectedClient.subscribe(client => {
-      if(client !== null){
-        this.name = client.name || ''
-        this.instagram = client.instagram || ''
-        this.phone = client.phone || ''
+    this.clientService.selectedClient.subscribe((client) => {
+      if (client !== null) {
+        this.name = client.name || '';
+        this.instagram = client.instagram || '';
+        this.phone = client.phone || '';
       }
-    })
+    });
   }
 
   onSaveClick() {
-    const selectedClient = this.clientService.selectedClient.getValue()
-    if(selectedClient !== null ){
+    const selectedClient = this.clientService.selectedClient.getValue();
+    if (selectedClient !== null) {
       this.clientService.editClient({
         name: this.name,
         instagram: this.instagram,
         phone: this.phone,
         id: selectedClient.id,
-        services: selectedClient.services || []
-      })
+        services: selectedClient.services || [],
+      });
     }
   }
 
   onBackClick(): void {
-    this.onBack.emit()
+    this.onBack.emit();
   }
 
-  onRecordClick(){
-    this.onRecord.emit()
+  onRecordClick() {
+    this.onRecord.emit();
   }
 
   onServiceClick(): void {
-    this.onService.emit()
+    this.onService.emit();
   }
-
 }

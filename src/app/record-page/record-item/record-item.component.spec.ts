@@ -8,9 +8,8 @@ describe('RecordItemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RecordItemComponent ]
-    })
-    .compileComponents();
+      declarations: [RecordItemComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
