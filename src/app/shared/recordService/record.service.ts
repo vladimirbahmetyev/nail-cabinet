@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
 
 export interface record {
-  name: string[];
+  serviceOptionIds: string[];
   clientId: string;
   date: string;
   id: string;

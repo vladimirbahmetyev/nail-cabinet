@@ -22,24 +22,27 @@
   </mat-card>
 </mat-card>
 
-<app-add-client (onBack)="setClientListView()" *ngIf="pageView === CLIENT_PAGE_VIEWS.CLIENT_ADD"></app-add-client>
+<app-add-client
+  (onBack)="setClientListView()"
+  *ngIf="pageView === CLIENT_PAGE_VIEWS.CLIENT_ADD"
+></app-add-client>
 
 <app-client-info
   *ngIf="pageView === CLIENT_PAGE_VIEWS.CLIENT_INFO"
   (onBack)="setClientListView()"
   (onService)="setServiceListView()"
-  (onRecord)="setAddServiceView()"
+  (onRecord)="setCreateRecordView()"
 ></app-client-info>
 
 <app-service-page
   *ngIf="pageView === CLIENT_PAGE_VIEWS.CLIENT_SERVICE"
-  (onBack)="setClientView()"
+  (onBack)="setClientViewBack()"
   (onService)="setEditServiceView()"
 ></app-service-page>
 
 <app-add-service
-  (onBack)="setClientView()"
-  *ngIf="pageView === CLIENT_PAGE_VIEWS.CLIENT_SERVICE_ADD"
+  (onBack)="setClientViewBack()"
+  *ngIf="pageView === CLIENT_PAGE_VIEWS.CLIENT_RECORD_ADD"
 >
 </app-add-service>
 

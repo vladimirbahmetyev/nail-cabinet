@@ -8,7 +8,7 @@ import { ClientsPageComponent } from './clients-page/clients-page.component';
 import { EditClientComponent } from './clients-page/edit-client/edit-client.component';
 import { AddClientComponent } from './clients-page/add-client/add-client.component';
 import { ServiceListComponent } from './clients-page/service-list/service-list.component';
-import { AddServiceComponent } from './clients-page/add-service/add-service.component';
+import { ClientCreateRecordComponent } from './clients-page/client-create-record/client-create-record.component';
 import { RecordPageComponent } from './record-page/record-page.component';
 import { CalendarComponent } from './common/calendar/calendar.component';
 import { RecordItemComponent } from './record-page/record-item/record-item.component';
@@ -44,6 +44,10 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { CheckoutComponent } from './record-page/checkout/checkout.component';
 
+import localeRu from '@angular/common/locales/ru';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(localeRu, 'ru');
+
 const appRoutes: Routes = [
   { path: '', component: AppComponent },
   { path: 'clients', component: ClientsPageComponent },
@@ -59,7 +63,7 @@ const appRoutes: Routes = [
     EditClientComponent,
     AddClientComponent,
     ServiceListComponent,
-    AddServiceComponent,
+    ClientCreateRecordComponent,
     RecordPageComponent,
     CalendarComponent,
     RecordItemComponent,

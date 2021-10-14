@@ -29,7 +29,7 @@ export class EditServiceComponent implements OnInit {
     this.recordService.selectedRecord.subscribe((record) => {
       this.selectedRecord = record;
       if (record !== null) {
-        this.selectedServicesOptions = getSelectedServiceOptions(record.name);
+        this.selectedServicesOptions = getSelectedServiceOptions(record.serviceOptionIds);
       }
     });
     this.serviceService.selectedService.subscribe((value) => {
@@ -59,7 +59,7 @@ export class EditServiceComponent implements OnInit {
     };
     const record: record = {
       comment: this.comment,
-      name: this.selectedServicesOptions.map((service) => service.id),
+      serviceOptionIds: this.selectedServicesOptions.map((service) => service.id),
       id: this.selectedRecord?.id || '',
       clientId: this.selectedRecord?.clientId || '',
       date: this.selectedRecord?.date || new Date().toDateString(),

@@ -22,7 +22,7 @@
           Время:
         </mat-label>
         <mat-select [(ngModel)]="time">
-          <mat-option *ngFor="let time of timeStep" [value]="time">
+          <mat-option *ngFor="let time of recordTimeStep" [value]="time">
             {{time}}
           </mat-option>
         </mat-select>
@@ -39,7 +39,7 @@
       </mat-form-field>
     </mat-grid-tile>
   </mat-grid-list>
-  <button  class="add-service__field" mat-raised-button color="accent" (click)="onSaveClick()">
+  <button  class="add-service__field" mat-raised-button color="accent" (click)="onCreateRecordClick()">
     Добавить услугу
   </button>
 </div>

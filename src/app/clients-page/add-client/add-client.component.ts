@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ClientsService } from '../../shared/clientsService/clients.service';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -7,22 +7,19 @@ import { v4 as uuidv4 } from 'uuid';
   templateUrl: './add-client.component.html',
   styleUrls: ['./add-client.component.sass'],
 })
-export class AddClientComponent implements OnInit {
-  constructor(private clientService: ClientsService) {}
-
-  ngOnInit(): void {}
-
+export class AddClientComponent {
   @Output() onBack = new EventEmitter();
-
   name = '';
   phoneNumber = '';
   instagram = '';
 
-  onBackClick(): void {
+  constructor(private clientService: ClientsService) {}
+
+  onBackClick() {
     this.onBack.emit();
   }
 
-  onSaveClick(): void {
+  onCreateClientClick() {
     const clientId = uuidv4();
     const newClient = {
       name: this.name,

@@ -39,7 +39,7 @@ export class RecordItemComponent implements OnInit {
     const id = v4();
     const record: record = {
       id: this.selectedRecord?.id || id,
-      name: serviceId,
+      serviceOptionIds: serviceId,
       clientId: this.selectedClientId,
       comment: this.comment,
       date: date.toString(),
@@ -73,7 +73,7 @@ export class RecordItemComponent implements OnInit {
         const stringDate = `${date.getHours()}:${date.getMinutes()}`;
         this.selectedTime = stringDate.length === 5 ? stringDate : stringDate + '0';
         this.selectedServices = SERVICES.filter((service) =>
-          record.name.some((serviceId) => String(serviceId) === service.id),
+          record.serviceOptionIds.some((serviceId) => String(serviceId) === service.id),
         );
         this.comment = record.comment;
       }

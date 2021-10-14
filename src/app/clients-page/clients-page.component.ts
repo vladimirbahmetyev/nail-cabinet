@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { client, ClientsService } from '../shared/clientsService/clients.service';
-import { registerLocaleData } from '@angular/common';
-import localeRu from '@angular/common/locales/ru';
 import { ServicesService } from '../shared/servicesService/services.service';
-
-registerLocaleData(localeRu, 'ru');
 
 @Component({
   selector: 'app-clients-page',
@@ -14,53 +10,53 @@ registerLocaleData(localeRu, 'ru');
 export class ClientsPageComponent implements OnInit {
   CLIENT_PAGE_VIEWS = {
     CLIENT_LIST: 'clientList',
-    CLIENT_ADD: 'addClient',
+    CLIENT_ADD: 'clientAdd',
     CLIENT_INFO: 'clientInfo',
     CLIENT_SERVICE: 'clientService',
-    CLIENT_SERVICE_ADD: 'addClientService',
-    CLIENT_SERVICE_EDIT: 'editClientService',
+    CLIENT_RECORD_ADD: 'clientRecordAdd',
+    CLIENT_SERVICE_EDIT: 'clientServiceEdit',
   };
-  pageView = this.CLIENT_PAGE_VIEWS.CLIENT_LIST;
 
+  pageView = this.CLIENT_PAGE_VIEWS.CLIENT_LIST;
   searchString = '';
   clients: client[] = [];
 
   constructor(private clientService: ClientsService, private serviceService: ServicesService) {}
 
-  ngOnInit(): void {
-    this.clientService.clients.subscribe((value) => {
-      this.clients = value;
+  ngOnInit() {
+    this.clientService.clients.subscribe((clients) => {
+      this.clients = clients;
     });
   }
 
-  setClientViewId(id: string): void {
+  setClientViewId(id: string) {
     this.clientService.setSelectedClient(id);
     this.pageView = this.CLIENT_PAGE_VIEWS.CLIENT_INFO;
   }
 
-  setClientView(): void {
+  setClientViewBack() {
     this.serviceService.setNullService();
     this.pageView = this.CLIENT_PAGE_VIEWS.CLIENT_INFO;
   }
 
-  setAddClientView(): void {
+  setAddClientView() {
     this.pageView = this.CLIENT_PAGE_VIEWS.CLIENT_ADD;
   }
 
-  setClientListView(): void {
+  setClientListView() {
     this.clientService.setNullClient();
     this.pageView = this.CLIENT_PAGE_VIEWS.CLIENT_LIST;
   }
 
-  setServiceListView(): void {
+  setServiceListView() {
     this.pageView = this.CLIENT_PAGE_VIEWS.CLIENT_SERVICE;
   }
 
-  setAddServiceView(): void {
-    this.pageView = this.CLIENT_PAGE_VIEWS.CLIENT_SERVICE_ADD;
+  setCreateRecordView() {
+    this.pageView = this.CLIENT_PAGE_VIEWS.CLIENT_RECORD_ADD;
   }
 
-  setEditServiceView(): void {
+  setEditServiceView() {
     this.pageView = this.CLIENT_PAGE_VIEWS.CLIENT_SERVICE_EDIT;
   }
 }
