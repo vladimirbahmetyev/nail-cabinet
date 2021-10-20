@@ -46,6 +46,8 @@ import { CheckoutComponent } from './record-page/checkout/checkout.component';
 
 import localeRu from '@angular/common/locales/ru';
 import { registerLocaleData } from '@angular/common';
+import { HeaderLessTabsDirective } from './shared/directvices/header-less-tabs.directive';
+import { MatTabsModule } from '@angular/material/tabs';
 registerLocaleData(localeRu, 'ru');
 
 const appRoutes: Routes = [
@@ -78,6 +80,7 @@ const appRoutes: Routes = [
     EditServiceComponent,
     TopComponent,
     CheckoutComponent,
+    HeaderLessTabsDirective,
   ],
   imports: [
     BrowserModule,
@@ -99,6 +102,7 @@ const appRoutes: Routes = [
     MatGridListModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
+    MatTabsModule,
   ],
   providers: [
     ClientsService,

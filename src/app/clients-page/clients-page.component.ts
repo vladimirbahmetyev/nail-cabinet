@@ -9,15 +9,15 @@ import { ServicesService } from '../shared/servicesService/services.service';
 })
 export class ClientsPageComponent implements OnInit {
   CLIENT_PAGE_VIEWS = {
-    CLIENT_LIST: 'clientList',
-    CLIENT_ADD: 'clientAdd',
-    CLIENT_INFO: 'clientInfo',
-    CLIENT_SERVICE: 'clientService',
-    CLIENT_RECORD_ADD: 'clientRecordAdd',
-    CLIENT_SERVICE_EDIT: 'clientServiceEdit',
+    CLIENT_LIST: 0,
+    CLIENT_ADD: 1,
+    CLIENT_INFO: 2,
+    CLIENT_SERVICE: 3,
+    CLIENT_RECORD_ADD: 4,
+    CLIENT_SERVICE_EDIT: 5,
   };
 
-  pageView = this.CLIENT_PAGE_VIEWS.CLIENT_LIST;
+  pageView: number = this.CLIENT_PAGE_VIEWS.CLIENT_LIST;
   searchString = '';
   clients: client[] = [];
 

@@ -5,9 +5,9 @@
       mat-raised-button
       *ngFor="let service of services"
       class="service__item"
-      (click)="onServiceClick(service?.id)"
+      (click)="onServiceClick(service.id)"
     >
-      {{service.price}}
+      {{service.id}}
     </button>
   </mat-card>
 </div>

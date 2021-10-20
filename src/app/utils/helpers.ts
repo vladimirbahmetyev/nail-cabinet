@@ -21,6 +21,9 @@ export function getNameServicesFromId(ids: string[]): string[] {
 }
 
 export function getSelectedServiceOptions(ids: string[]): { text: string; id: string }[] {
+  if (ids === undefined) {
+    return [];
+  }
   const names = getNameServicesFromId(ids);
   return names.map((name) => SERVICES.filter((service) => service.text === name)[0]);
 }

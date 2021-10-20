@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SERVICES } from '../../shared/constants';
-import { getRecordsTime } from '../../utils/helpers';
+import { getRecordsTime, getSelectedServiceOptions } from '../../utils/helpers';
 import { client, ClientsService } from '../../shared/clientsService/clients.service';
 import { nullableRecord, record, RecordService } from '../../shared/recordService/record.service';
 import { v4 } from 'uuid';
@@ -26,7 +26,7 @@ export class RecordItemComponent implements OnInit {
 
   constructor(private clientService: ClientsService, private recordService: RecordService) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.prepareEditData.bind(this);
     this.clientService.clients.subscribe((value) => {
       this.clients = value;
@@ -38,10 +38,13 @@ export class RecordItemComponent implements OnInit {
         const date = new Date(record.date);
         const stringDate = `${date.getHours()}:${date.getMinutes()}`;
         this.selectedTime = stringDate.length === 5 ? stringDate : stringDate + '0';
-        this.selectedServices = SERVICES.filter((service) =>
-          record.serviceOptionIds.some((serviceId) => String(serviceId) === service.id),
-        );
+        this.selectedServices = getSelectedServiceOptions(record.serviceOptionIds);
         this.comment = record.comment;
+      } else {
+        this.selectedServices = [];
+        this.selectedTime = '';
+        this.selectedClientId = '';
+        this.comment = '';
       }
     });
   }

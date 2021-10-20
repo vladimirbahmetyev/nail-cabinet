@@ -9,10 +9,10 @@ import { record, RecordService } from '../shared/recordService/record.service';
 })
 export class RecordPageComponent implements OnInit {
   RECORD_PAGE_VIEWS = {
-    CALENDAR_VIEW: 'calendar',
-    ADD_RECORD_VIEW: 'addRecord',
-    EDIT_RECORD_VIEW: 'editRecord',
-    CHECKOUT_VIEW: 'checkoutRecord',
+    CALENDAR_VIEW: 0,
+    ADD_RECORD_VIEW: 1,
+    EDIT_RECORD_VIEW: 2,
+    CHECKOUT_VIEW: 3,
   };
   records: any[] = [];
   clients: client[] = [];
