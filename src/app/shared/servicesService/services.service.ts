@@ -42,10 +42,6 @@ export class ServicesService {
     this.selectedService.next(selectedService);
   }
 
-  setNullSelectedService() {
-    this.selectedService.next(null);
-  }
-
   updateService(service: service) {
     const index = this.services.getValue().findIndex((value) => value.id === service.id);
     const key = this.serviceMetaRef[index].key;
@@ -56,10 +52,13 @@ export class ServicesService {
   }
 
   createService(service: service) {
-    this.serviceRef.push(service);
+    this.serviceRef
+      .push(service)
+      .then(() => this.apiStatus.next(API_STATUS.SUCCESSFUL))
+      .catch(() => this.apiStatus.next(API_STATUS.FAILED));
   }
 
-  setNullService() {
+  setNullSelectedService() {
     this.selectedService.next(null);
   }
 }

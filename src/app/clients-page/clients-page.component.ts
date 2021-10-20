@@ -63,7 +63,7 @@ export class ClientsPageComponent implements OnInit {
   }
 
   setClientViewBack() {
-    this.serviceService.setNullService();
+    this.serviceService.setNullSelectedService();
     this.pageView = this.CLIENT_PAGE_VIEWS.CLIENT_INFO;
   }
 

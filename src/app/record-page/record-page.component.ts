@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { client, ClientsService } from '../shared/clientsService/clients.service';
-import { record, RecordService } from '../shared/recordService/record.service';
+import { API_STATUS, record, RecordService } from '../shared/recordService/record.service';
+import { ServicesService } from '../shared/servicesService/services.service';
 
 @Component({
   selector: 'app-record-page',
@@ -19,7 +20,11 @@ export class RecordPageComponent implements OnInit {
   pageView = this.RECORD_PAGE_VIEWS.CALENDAR_VIEW;
   selectedDate: Date = new Date();
 
-  constructor(private clientService: ClientsService, private recordService: RecordService) {}
+  constructor(
+    private clientService: ClientsService,
+    private recordService: RecordService,
+    private serviceService: ServicesService,
+  ) {}
 
   ngOnInit(): void {
     this.clientService.clients.subscribe((value) => {
@@ -34,6 +39,18 @@ export class RecordPageComponent implements OnInit {
             .find((client) => client.id === record.clientId),
         };
       });
+    });
+    this.recordService.apiStatus.subscribe((status) => {
+      if (status === API_STATUS.SUCCESSFUL) {
+        this.pageView = this.RECORD_PAGE_VIEWS.CALENDAR_VIEW;
+        this.recordService.setNullRecord();
+      }
+    });
+    this.serviceService.apiStatus.subscribe((status) => {
+      if (status === API_STATUS.SUCCESSFUL) {
+        this.pageView = this.RECORD_PAGE_VIEWS.CALENDAR_VIEW;
+        this.recordService.setNullRecord();
+      }
     });
   }
 

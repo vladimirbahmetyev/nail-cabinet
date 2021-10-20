@@ -33,7 +33,7 @@ export class ServiceListComponent implements OnInit {
 
   onBackClick(): void {
     this.onBack.emit();
-    this.serviceService.setNullService();
+    this.serviceService.setNullSelectedService();
   }
 
   onServiceClick(id: string = '-1'): void {
