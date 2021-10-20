@@ -51,7 +51,10 @@ export class ClientsPageComponent implements OnInit {
       }
     });
     this.serviceService.apiStatus.subscribe((status) => {
-      if (status === API_STATUS.SUCCESSFUL) {
+      if (
+        status === API_STATUS.SUCCESSFUL &&
+        this.pageView === this.CLIENT_PAGE_VIEWS.CLIENT_SERVICE_EDIT
+      ) {
         this.pageView = this.CLIENT_PAGE_VIEWS.CLIENT_SERVICE;
       }
     });
