@@ -12,6 +12,11 @@ export interface service {
 
 export type nullableService = service | null;
 
+export const API_STATUS = {
+  SUCCESSFUL: 'successful',
+  FAILED: 'failed',
+};
+
 @Injectable({
   providedIn: 'root',
 })
@@ -20,6 +25,7 @@ export class ServicesService {
   serviceRef: AngularFireList<service>;
   serviceMetaRef: any[] = [];
   services: BehaviorSubject<service[]> = new BehaviorSubject([] as service[]);
+  apiStatus: BehaviorSubject<string> = new BehaviorSubject('');
 
   constructor(private clientService: ClientsService, db: AngularFireDatabase) {
     this.serviceRef = db.list<service>('services');
@@ -43,7 +49,10 @@ export class ServicesService {
   updateService(service: service) {
     const index = this.services.getValue().findIndex((value) => value.id === service.id);
     const key = this.serviceMetaRef[index].key;
-    this.serviceRef.update(key, service);
+    this.serviceRef
+      .update(key, service)
+      .then(() => this.apiStatus.next(API_STATUS.SUCCESSFUL))
+      .catch(() => this.apiStatus.next(API_STATUS.FAILED));
   }
 
   createService(service: service) {

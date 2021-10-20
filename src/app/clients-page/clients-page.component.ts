@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { client, ClientsService } from '../shared/clientsService/clients.service';
+import { API_STATUS, client, ClientsService } from '../shared/clientsService/clients.service';
 import { ServicesService } from '../shared/servicesService/services.service';
+import { RecordService } from '../shared/recordService/record.service';
 
 @Component({
   selector: 'app-clients-page',
@@ -21,11 +22,38 @@ export class ClientsPageComponent implements OnInit {
   searchString = '';
   clients: client[] = [];
 
-  constructor(private clientService: ClientsService, private serviceService: ServicesService) {}
+  constructor(
+    private clientService: ClientsService,
+    private serviceService: ServicesService,
+    private recordService: RecordService,
+  ) {}
 
   ngOnInit() {
     this.clientService.clients.subscribe((clients) => {
       this.clients = clients;
+    });
+    this.clientService.apiStatus.subscribe((status) => {
+      if (status === API_STATUS.SUCCESSFUL) {
+        if (this.pageView === this.CLIENT_PAGE_VIEWS.CLIENT_ADD) {
+          this.pageView = this.CLIENT_PAGE_VIEWS.CLIENT_LIST;
+        }
+        if (this.pageView === this.CLIENT_PAGE_VIEWS.CLIENT_INFO) {
+          this.pageView = this.CLIENT_PAGE_VIEWS.CLIENT_LIST;
+        }
+      }
+    });
+    this.recordService.apiStatus.subscribe((status) => {
+      if (
+        status === API_STATUS.SUCCESSFUL &&
+        this.pageView === this.CLIENT_PAGE_VIEWS.CLIENT_RECORD_ADD
+      ) {
+        this.pageView = this.CLIENT_PAGE_VIEWS.CLIENT_INFO;
+      }
+    });
+    this.serviceService.apiStatus.subscribe((status) => {
+      if (status === API_STATUS.SUCCESSFUL) {
+        this.pageView = this.CLIENT_PAGE_VIEWS.CLIENT_SERVICE;
+      }
     });
   }
 

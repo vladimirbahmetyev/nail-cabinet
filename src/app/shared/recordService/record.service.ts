@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
+import { service } from '../servicesService/services.service';
+import { B } from '@angular/cdk/keycodes';
 
 export interface record {
   serviceOptionIds: string[];
@@ -12,6 +14,11 @@ export interface record {
 
 export type nullableRecord = record | null;
 
+export const API_STATUS = {
+  SUCCESSFUL: 'successful',
+  FAILED: 'failed',
+};
+
 @Injectable({
   providedIn: 'root',
 })
@@ -22,6 +29,7 @@ export class RecordService {
   recordsMetaRef: any;
   selectedDay: BehaviorSubject<Date> = new BehaviorSubject(new Date());
   dayRecords: BehaviorSubject<record[]> = new BehaviorSubject([] as record[]);
+  apiStatus: BehaviorSubject<string> = new BehaviorSubject('');
 
   constructor(private db: AngularFireDatabase) {
     this.filterRecordsByDate.bind(this);
@@ -50,13 +58,19 @@ export class RecordService {
   }
 
   createRecord(record: record) {
-    this.recordsRef.push(record);
+    this.recordsRef
+      .push(record)
+      .then(() => this.apiStatus.next(API_STATUS.SUCCESSFUL))
+      .catch(() => this.apiStatus.next(API_STATUS.FAILED));
   }
 
   editRecord(editRecord: record) {
     const index = this.records.getValue().findIndex((record) => record.id === editRecord.id);
     const key = this.recordsMetaRef[index].key;
-    this.recordsRef.update(key, editRecord);
+    this.recordsRef
+      .update(key, editRecord)
+      .then(() => this.apiStatus.next(API_STATUS.SUCCESSFUL))
+      .catch(() => this.apiStatus.next(API_STATUS.FAILED));
   }
 
   setSelectedRecord(id: string) {
