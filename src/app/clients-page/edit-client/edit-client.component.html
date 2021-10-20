@@ -18,17 +18,17 @@
     <mat-label>
       Последний раз был(а):
     </mat-label>
-    <input matInput [matDatepicker]="newDate" [(ngModel)]="prevDate" disabled>
-    <mat-datepicker-toggle matSuffix [for]="newDate" disabled></mat-datepicker-toggle>
-    <mat-datepicker #newDate disabled></mat-datepicker>
+    <input matInput [matDatepicker]="prevDateMat" [(ngModel)]="prevDate" disabled>
+    <mat-datepicker-toggle matSuffix [for]="prevDateMat" disabled></mat-datepicker-toggle>
+    <mat-datepicker #prevDateMat disabled></mat-datepicker>
   </mat-form-field>
   <mat-form-field class="client-info__last-date">
     <mat-label>
       Следующая запись: будет
     </mat-label>
-    <input matInput [matDatepicker]="newDate" [(ngModel)]="lastRecord" disabled>
-    <mat-datepicker-toggle matSuffix [for]="newDate" disabled></mat-datepicker-toggle>
-    <mat-datepicker #newDate disabled></mat-datepicker>
+    <input matInput [matDatepicker]="lastRecordMat" [(ngModel)]="lastRecord" disabled>
+    <mat-datepicker-toggle matSuffix [for]="lastRecordMat" disabled></mat-datepicker-toggle>
+    <mat-datepicker #lastRecordMat disabled></mat-datepicker>
   </mat-form-field>
   <button mat-raised-button color="accent" (click)="onRecordClick()">
     Записать клиента
