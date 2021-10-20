@@ -86,6 +86,10 @@ export class RecordService {
     this.selectedDay.next(date);
   }
 
+  getRecordsByClientId(clientId: string): record[] {
+    return this.records.getValue().filter((record) => record.clientId === clientId);
+  }
+
   getRecordsByDate(date: Date): record[] {
     return this.records.getValue().filter((record) => {
       date = new Date(record.date);

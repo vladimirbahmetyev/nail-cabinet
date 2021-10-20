@@ -29,7 +29,7 @@
   <button mat-raised-button color="accent" (click)="onRecordClick()">
     Записать клиента
   </button>
-  <button mat-raised-button (click)="onServiceClick()">
+  <button mat-raised-button (click)="onServiceClick()" [disabled]="!hasServices">
     Завершенные записи клиента
   </button>
   <button mat-raised-button color="primary" (click)="onSaveClick()">

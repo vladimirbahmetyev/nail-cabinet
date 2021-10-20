@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ClientsService } from '../../shared/clientsService/clients.service';
+import { ServicesService } from '../../shared/servicesService/services.service';
 
 @Component({
   selector: 'app-client-info',
@@ -13,8 +14,9 @@ export class EditClientComponent implements OnInit {
   name = '';
   instagram = '';
   phone = '';
+  hasServices = false;
 
-  constructor(private clientService: ClientsService) {}
+  constructor(private clientService: ClientsService, private serviceService: ServicesService) {}
 
   ngOnInit(): void {
     this.clientService.selectedClient.subscribe((client) => {
@@ -22,6 +24,8 @@ export class EditClientComponent implements OnInit {
         this.name = client.name;
         this.instagram = client.instagram;
         this.phone = client.phone;
+        console.log(this.serviceService.getServicesById(client.id));
+        this.hasServices = this.serviceService.getServicesById(client.id).length > 0;
       }
     });
   }

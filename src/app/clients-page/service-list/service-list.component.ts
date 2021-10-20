@@ -21,13 +21,7 @@ export class ServiceListComponent implements OnInit {
 
   ngOnInit(): void {
     this.clientService.selectedClient.subscribe((client) => {
-      const clientsRecordId = this.recordService.records
-        .getValue()
-        .filter((record) => record.clientId === client?.id)
-        .map((record) => record.id);
-      this.services = this.serviceService.services
-        .getValue()
-        .filter((service) => clientsRecordId.some((id) => id === service.recordId));
+      this.services = this.serviceService.getServicesById(client?.id);
     });
   }
 

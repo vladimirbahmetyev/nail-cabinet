@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ClientsService } from '../clientsService/clients.service';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
+import { RecordService } from '../recordService/record.service';
 
 export interface service {
   recordId: string;
@@ -27,7 +28,11 @@ export class ServicesService {
   services: BehaviorSubject<service[]> = new BehaviorSubject([] as service[]);
   apiStatus: BehaviorSubject<string> = new BehaviorSubject('');
 
-  constructor(private clientService: ClientsService, db: AngularFireDatabase) {
+  constructor(
+    private clientService: ClientsService,
+    private recordService: RecordService,
+    db: AngularFireDatabase,
+  ) {
     this.serviceRef = db.list<service>('services');
     this.serviceRef.valueChanges().subscribe((value) => {
       this.services.next(value);
@@ -56,6 +61,15 @@ export class ServicesService {
       .push(service)
       .then(() => this.apiStatus.next(API_STATUS.SUCCESSFUL))
       .catch(() => this.apiStatus.next(API_STATUS.FAILED));
+  }
+
+  getServicesById(clientId: string = '-1'): service[] {
+    const clientRecordIds = this.recordService
+      .getRecordsByClientId(clientId)
+      .map((record) => record.id);
+    return this.services
+      .getValue()
+      .filter((service) => clientRecordIds.some((recordId) => service.recordId === recordId));
   }
 
   setNullSelectedService() {
