@@ -11,7 +11,6 @@ import { RecordService } from '../../shared/recordService/record.service';
 export class ServiceListComponent implements OnInit {
   services: service[] = [];
   @Output() onBack = new EventEmitter();
-  @Output() onAdd = new EventEmitter();
   @Output() onService = new EventEmitter();
 
   constructor(

@@ -9,16 +9,12 @@ import { RecordService } from '../../shared/recordService/record.service';
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.sass'],
 })
-export class CheckoutComponent implements OnInit {
+export class CheckoutComponent {
   @Output() onBack = new EventEmitter();
-
   price = 0;
   workTime = '1:00';
   workTimeSteps = getWorksTime();
-
   constructor(private serviceService: ServicesService, private recordService: RecordService) {}
-
-  ngOnInit(): void {}
 
   onCreateService() {
     const id = v4();

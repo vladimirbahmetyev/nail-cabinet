@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { client, ClientsService } from '../../shared/clientsService/clients.service';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ClientsService } from '../../shared/clientsService/clients.service';
 
 @Component({
   selector: 'app-client-info',
@@ -10,19 +10,18 @@ export class EditClientComponent implements OnInit {
   @Output() onBack = new EventEmitter();
   @Output() onService = new EventEmitter();
   @Output() onRecord = new EventEmitter();
-
-  constructor(private clientService: ClientsService) {}
-
   name = '';
   instagram = '';
   phone = '';
 
+  constructor(private clientService: ClientsService) {}
+
   ngOnInit(): void {
     this.clientService.selectedClient.subscribe((client) => {
       if (client !== null) {
-        this.name = client.name || '';
-        this.instagram = client.instagram || '';
-        this.phone = client.phone || '';
+        this.name = client.name;
+        this.instagram = client.instagram;
+        this.phone = client.phone;
       }
     });
   }

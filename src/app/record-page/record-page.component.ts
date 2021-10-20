@@ -8,17 +8,16 @@ import { record, RecordService } from '../shared/recordService/record.service';
   styleUrls: ['./record-page.component.sass'],
 })
 export class RecordPageComponent implements OnInit {
-  records: any[] = [];
-  clients: client[] = [];
-
   RECORD_PAGE_VIEWS = {
     CALENDAR_VIEW: 'calendar',
     ADD_RECORD_VIEW: 'addRecord',
     EDIT_RECORD_VIEW: 'editRecord',
     CHECKOUT_VIEW: 'checkoutRecord',
   };
-
+  records: any[] = [];
+  clients: client[] = [];
   pageView = this.RECORD_PAGE_VIEWS.CALENDAR_VIEW;
+  selectedDate: Date = new Date();
 
   constructor(private clientService: ClientsService, private recordService: RecordService) {}
 
@@ -38,8 +37,6 @@ export class RecordPageComponent implements OnInit {
     });
   }
 
-  selectedDate: Date = new Date();
-
   onDateChanged(date: Date) {
     this.selectedDate = date;
     this.recordService.setDate(date);
@@ -50,20 +47,20 @@ export class RecordPageComponent implements OnInit {
     this.pageView = this.RECORD_PAGE_VIEWS.CALENDAR_VIEW;
   }
 
-  onAddClick(): void {
+  onAddRecordClick(): void {
     this.pageView = this.RECORD_PAGE_VIEWS.ADD_RECORD_VIEW;
   }
 
-  onEditClick(id: string): void {
+  onEditRecordClick(id: string): void {
     this.recordService.setSelectedRecord(id);
     this.pageView = this.RECORD_PAGE_VIEWS.EDIT_RECORD_VIEW;
   }
 
-  onCheckoutClick() {
+  onCheckoutRecordClick() {
     this.pageView = this.RECORD_PAGE_VIEWS.CHECKOUT_VIEW;
   }
 
-  onCheckoutBackClick() {
+  onCheckoutRecordBackClick() {
     this.pageView = this.RECORD_PAGE_VIEWS.EDIT_RECORD_VIEW;
   }
 }

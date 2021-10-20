@@ -6,8 +6,8 @@ import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/datab
 export interface client {
   name: string;
   id: string;
-  phone: string | null;
-  instagram: string | null;
+  phone: string;
+  instagram: string;
   services: service[];
 }
 
@@ -18,12 +18,19 @@ export type nullableClient = client | null;
 })
 export class ClientsService {
   clients: BehaviorSubject<client[]> = new BehaviorSubject([] as client[]);
-  public selectedClient: BehaviorSubject<nullableClient> = new BehaviorSubject(
-    null as nullableClient,
-  );
-
-  clientsRef: AngularFireList<client>;
+  selectedClient: BehaviorSubject<nullableClient> = new BehaviorSubject(null as nullableClient);
   clientsMetaRef: any[] = [];
+  clientsRef: AngularFireList<client>;
+
+  constructor(private db: AngularFireDatabase) {
+    this.clientsRef = db.list<client>('clients');
+    this.clientsRef.snapshotChanges().subscribe((value) => {
+      this.clientsMetaRef = value;
+    });
+    this.clientsRef.valueChanges().subscribe((value) => {
+      this.clients.next(value);
+    });
+  }
 
   createClient(newClient: client) {
     this.clientsRef.push(newClient);
@@ -42,15 +49,5 @@ export class ClientsService {
     const index = this.clients.getValue().findIndex((value) => value.id === newInfo.id);
     const key = this.clientsMetaRef[index].key;
     this.clientsRef.update(key, newInfo);
-  }
-
-  constructor(private db: AngularFireDatabase) {
-    this.clientsRef = db.list<client>('clients');
-    this.clientsRef.snapshotChanges().subscribe((value) => {
-      this.clientsMetaRef = value;
-    });
-    this.clientsRef.valueChanges().subscribe((value) => {
-      this.clients.next(value);
-    });
   }
 }

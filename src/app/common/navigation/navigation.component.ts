@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,10 +6,7 @@ import { Router } from '@angular/router';
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.sass'],
 })
-export class NavigationComponent implements OnInit {
+export class NavigationComponent {
   constructor(private router: Router) {}
-
   currentUrl = this.router.url;
-
-  ngOnInit(): void {}
 }

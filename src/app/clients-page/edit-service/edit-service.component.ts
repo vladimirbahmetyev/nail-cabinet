@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { SERVICES } from '../../shared/constants';
 import { getSelectedServiceOptions, getWorksTime } from '../../utils/helpers';
 import {
@@ -15,13 +15,15 @@ import { nullableRecord, record, RecordService } from '../../shared/recordServic
 })
 export class EditServiceComponent implements OnInit {
   @Output() onBack = new EventEmitter();
-
+  name: string = '';
+  price: number = 0;
+  comment: string = '';
+  time: string = '10:00';
   serviceTypes = SERVICES;
-  workTimeStep = getWorksTime();
   selectedService: nullableService = null;
   selectedRecord: nullableRecord = null;
-
   selectedServicesOptions: any[] = [];
+  workTimeStep = getWorksTime();
 
   constructor(private recordService: RecordService, private serviceService: ServicesService) {}
 
@@ -40,11 +42,6 @@ export class EditServiceComponent implements OnInit {
       }
     });
   }
-
-  name: string = '';
-  price: number = 0;
-  comment: string = '';
-  time: string = '10:00';
 
   onBackClick(): void {
     this.onBack.emit();

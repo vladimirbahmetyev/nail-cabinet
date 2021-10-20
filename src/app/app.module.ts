@@ -49,10 +49,16 @@ import { registerLocaleData } from '@angular/common';
 registerLocaleData(localeRu, 'ru');
 
 const appRoutes: Routes = [
-  { path: '', component: AppComponent },
-  { path: 'clients', component: ClientsPageComponent },
-  { path: 'calendar', component: RecordPageComponent },
-  { path: 'stats', component: StatsPageComponent },
+  {
+    path: '',
+    component: AppComponent,
+    children: [
+      { path: '', redirectTo: '/clients', pathMatch: 'full' },
+      { path: 'clients', component: ClientsPageComponent },
+      { path: 'calendar', component: RecordPageComponent },
+      { path: 'stats', component: StatsPageComponent },
+    ],
+  },
 ];
 
 @NgModule({
