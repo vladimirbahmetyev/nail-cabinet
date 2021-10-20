@@ -72,6 +72,20 @@ export class ServicesService {
       .filter((service) => clientRecordIds.some((recordId) => service.recordId === recordId));
   }
 
+  getLastService(clientId: string): nullableService {
+    const clientServices = this.getServicesById(clientId);
+    if (clientServices.length === 0) {
+      return null;
+    }
+    return clientServices.reduce((prev, current) => {
+      const prevDateString = this.recordService.getRecordById(prev.recordId)?.date;
+      const prevDate = prevDateString ? new Date(prevDateString) : new Date();
+      const currentDateString = this.recordService.getRecordById(current.recordId)?.date;
+      const currentDate = prevDateString ? new Date(prevDateString) : new Date();
+      return currentDate > prevDate ? prev : current;
+    });
+  }
+
   setNullSelectedService() {
     this.selectedService.next(null);
   }

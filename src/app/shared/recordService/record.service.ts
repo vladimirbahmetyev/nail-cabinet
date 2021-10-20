@@ -42,7 +42,6 @@ export class RecordService {
       this.recordsMetaRef = value;
     });
     this.selectedDay.subscribe((date) => {
-      console.log('changing date');
       this.dayRecords.next(this.filterRecordsByDate(date));
     });
   }
@@ -88,6 +87,10 @@ export class RecordService {
 
   getRecordsByClientId(clientId: string): record[] {
     return this.records.getValue().filter((record) => record.clientId === clientId);
+  }
+
+  getRecordById(recordId: string): nullableRecord {
+    return this.records.getValue().find((record) => record.id === recordId) || null;
   }
 
   getRecordsByDate(date: Date): record[] {

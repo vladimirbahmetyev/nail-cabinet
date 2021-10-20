@@ -16,9 +16,11 @@
   </mat-form-field>
   <mat-form-field class="client-info__last-date">
     <mat-label>
-      Последняя запись: была
+      Последний раз был(а):
     </mat-label>
-    <input matInput>
+    <input matInput [matDatepicker]="newDate" [(ngModel)]="prevDate" disabled>
+    <mat-datepicker-toggle matSuffix [for]="newDate" disabled></mat-datepicker-toggle>
+    <mat-datepicker #newDate disabled></mat-datepicker>
   </mat-form-field>
   <mat-form-field class="client-info__last-date">
     <mat-label>
