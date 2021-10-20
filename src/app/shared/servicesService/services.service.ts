@@ -81,8 +81,8 @@ export class ServicesService {
       const prevDateString = this.recordService.getRecordById(prev.recordId)?.date;
       const prevDate = prevDateString ? new Date(prevDateString) : new Date();
       const currentDateString = this.recordService.getRecordById(current.recordId)?.date;
-      const currentDate = prevDateString ? new Date(prevDateString) : new Date();
-      return currentDate > prevDate ? prev : current;
+      const currentDate = currentDateString ? new Date(currentDateString) : new Date();
+      return currentDate < prevDate ? prev : current;
     });
   }
 

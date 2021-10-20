@@ -93,6 +93,20 @@ export class RecordService {
     return this.records.getValue().find((record) => record.id === recordId) || null;
   }
 
+  getLastRecord(clientId: string): nullableRecord {
+    const records = this.getRecordsByClientId(clientId);
+    if (records.length === 0) {
+      return null;
+    }
+    return records.reduce((prev, current) => {
+      const prevDateString = prev.date;
+      const prevDate = prevDateString ? new Date(prevDateString) : new Date();
+      const currentDateString = current?.date;
+      const currentDate = currentDateString ? new Date(currentDateString) : new Date();
+      return currentDate < prevDate ? prev : current;
+    });
+  }
+
   getRecordsByDate(date: Date): record[] {
     return this.records.getValue().filter((record) => {
       date = new Date(record.date);

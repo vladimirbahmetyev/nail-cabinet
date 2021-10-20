@@ -17,6 +17,7 @@ export class EditClientComponent implements OnInit {
   phone = '';
   hasServices = false;
   prevDate: Date | string = 'еще не был(а)';
+  lastRecord: Date | string = '';
 
   constructor(
     private clientService: ClientsService,
@@ -38,6 +39,26 @@ export class EditClientComponent implements OnInit {
           if (prevRecord !== null) {
             this.prevDate = new Date(prevRecord.date);
           }
+        }
+        const lastRecord = this.recordService.getLastRecord(client.id);
+        if (lastRecord !== null) {
+          const lastRecordDate = new Date(lastRecord.date);
+          if (lastRecordDate > new Date()) {
+            this.lastRecord = lastRecordDate;
+          }
+        }
+      }
+    });
+    this.recordService.records.subscribe(() => {
+      const currentClient = this.clientService.selectedClient.getValue();
+      if (currentClient === null) {
+        return;
+      }
+      const lastRecord = this.recordService.getLastRecord(currentClient.id);
+      if (lastRecord !== null) {
+        const lastRecordDate = new Date(lastRecord.date);
+        if (lastRecordDate > new Date()) {
+          this.lastRecord = lastRecordDate;
         }
       }
     });
@@ -75,6 +96,7 @@ export class EditClientComponent implements OnInit {
     this.instagram = '';
     this.phone = '';
     this.hasServices = false;
-    this.prevDate = 'еще не был(а)';
+    this.prevDate = '';
+    this.lastRecord = '';
   }
 }
