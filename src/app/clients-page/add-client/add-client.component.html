@@ -1,20 +1,38 @@
 <app-top (onBack)="onBackClick()" [title]="'Новый клиент'"></app-top>
-<div class="add-client__main">
+<form class="add-client__main" [formGroup]="userForm">
   <mat-form-field>
     <mat-label>Имя</mat-label>
-    <input matInput [(ngModel)]="name" placeholder="Имя клиента">
+    <input matInput formControlName="name" placeholder="Имя клиента">
+    <mat-error *ngIf="userForm.get('name')?.hasError('required')">
+      Нужно ввести имя
+    </mat-error>
   </mat-form-field>
   <mat-form-field>
     <mat-label>
       Телефон
     </mat-label>
-    <input matInput [(ngModel)]="phoneNumber"  placeholder="Телефон клиента">
+    <input matInput formControlName="phoneNumber"  placeholder="Телефон клиента">
+    <mat-error *ngIf="userForm.get('phoneNumber')?.hasError('pattern')">
+      Неправильный формат номера
+    </mat-error>
+    <mat-error *ngIf="userForm.hasError('invalidContacts')">
+      {{userForm.errors?.invalidContacts}}
+    </mat-error>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Instagram</mat-label>
-    <input matInput [(ngModel)]="instagram" placeholder="Instagram клиента">
+    <input matInput formControlName="instagram" placeholder="Instagram клиента">
+    <mat-error *ngIf="userForm.hasError('invalidContacts')">
+      {{userForm.errors?.invalidContacts}}
+    </mat-error>
   </mat-form-field>
-  <button mat-flat-button color="accent" (click)="onCreateClientClick()">
+  <button mat-flat-button
+          color="accent"
+          (click)="onCreateClientClick()"
+          [disabled]="userForm.errors !== null
+          || userForm.value.name ===''
+          || userForm.get('phoneNumber')?.hasError('pattern')"
+  >
     Создать клиента
   </button>
-</div>
+</form>

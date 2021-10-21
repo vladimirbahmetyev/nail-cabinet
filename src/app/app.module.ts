@@ -19,7 +19,7 @@ import { ClientsService } from './shared/clientsService/clients.service';
 import { ServicesService } from './shared/servicesService/services.service';
 import { RouterModule, Routes } from '@angular/router';
 import { ClientFilterPipe } from './shared/clientsService/client-filter-pipe';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditServiceComponent } from './clients-page/edit-service/edit-service.component';
 import {
   DateAdapter,
@@ -103,6 +103,7 @@ const appRoutes: Routes = [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     MatTabsModule,
+    ReactiveFormsModule,
   ],
   providers: [
     ClientsService,
