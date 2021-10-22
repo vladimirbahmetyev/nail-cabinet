@@ -1,24 +1,33 @@
-<app-top (onBack)="onBackClick()" [title]="name"></app-top>
-<div class="client-info__main">
+<app-top (onBack)="onBackClick()" [title]="editUserForm.value.name"></app-top>
+<form [formGroup]="editUserForm" class="client-info__main">
   <mat-form-field>
     <mat-label>Имя</mat-label>
-    <input matInput [(ngModel)]="name" placeholder="Новое имя клиента">
+    <input matInput formControlName="name" placeholder="Новое имя клиента">
+    <mat-error *ngIf="editUserForm.get('name')?.hasError('required')">
+      Нужно ввести имя
+    </mat-error>
   </mat-form-field>
   <mat-form-field>
     <mat-label>
       Телефон
     </mat-label>
-    <input matInput [(ngModel)]="phone"  placeholder="Новый телефон клиента">
+    <input matInput formControlName="phoneNumber"  placeholder="Новый телефон клиента">
+    <mat-error *ngIf="editUserForm.get('phoneNumber')?.hasError('pattern')">
+      Неправильный формат номера
+    </mat-error>
+    <mat-error *ngIf="editUserForm.hasError('invalidContacts')">
+      {{editUserForm.errors?.invalidContacts}}
+    </mat-error>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Instagram</mat-label>
-    <input matInput [(ngModel)]="instagram" placeholder="Новый Instagram клиента">
+    <input matInput formControlName="instagram" placeholder="Новый Instagram клиента">
   </mat-form-field>
   <mat-form-field class="client-info__last-date">
     <mat-label>
       Последний раз был(а):
     </mat-label>
-    <input matInput [matDatepicker]="prevDateMat" [(ngModel)]="prevDate" disabled>
+    <input matInput [matDatepicker]="prevDateMat" [value]="prevDate" disabled>
     <mat-datepicker-toggle matSuffix [for]="prevDateMat" disabled></mat-datepicker-toggle>
     <mat-datepicker #prevDateMat disabled></mat-datepicker>
   </mat-form-field>
@@ -26,7 +35,7 @@
     <mat-label>
       Следующая запись: будет
     </mat-label>
-    <input matInput [matDatepicker]="lastRecordMat" [(ngModel)]="lastRecord" disabled>
+    <input matInput [matDatepicker]="lastRecordMat" [value]="lastRecord" disabled>
     <mat-datepicker-toggle matSuffix [for]="lastRecordMat" disabled></mat-datepicker-toggle>
     <mat-datepicker #lastRecordMat disabled></mat-datepicker>
   </mat-form-field>
@@ -36,8 +45,13 @@
   <button mat-raised-button (click)="onServiceClick()" [disabled]="!hasServices">
     Оказанные услуги
   </button>
-  <button mat-raised-button color="primary" (click)="onSaveClick()">
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="onSaveClick()"
+    [disabled]="editUserForm.invalid"
+  >
     Сохранить изменения
   </button>
-</div>
+</form>
 

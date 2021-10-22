@@ -22,16 +22,11 @@
   <mat-form-field>
     <mat-label>Instagram</mat-label>
     <input matInput formControlName="instagram" placeholder="Instagram клиента">
-    <mat-error *ngIf="userForm.hasError('invalidContacts')">
-      {{userForm.errors?.invalidContacts}}
-    </mat-error>
   </mat-form-field>
   <button mat-flat-button
           color="accent"
           (click)="onCreateClientClick()"
-          [disabled]="userForm.errors !== null
-          || userForm.value.name ===''
-          || userForm.get('phoneNumber')?.hasError('pattern')"
+          [disabled]='userForm.invalid'
   >
     Создать клиента
   </button>

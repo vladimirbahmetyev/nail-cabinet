@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ClientsService } from '../../shared/clientsService/clients.service';
 import { ServicesService } from '../../shared/servicesService/services.service';
 import { RecordService } from '../../shared/recordService/record.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-client-info',
@@ -12,26 +13,47 @@ export class EditClientComponent implements OnInit {
   @Output() onBack = new EventEmitter();
   @Output() onService = new EventEmitter();
   @Output() onRecord = new EventEmitter();
-  name = '';
-  instagram = '';
-  phone = '';
   hasServices = false;
   prevDate: Date | string = 'еще не был(а)';
   lastRecord: Date | string = '';
+  editUserForm: FormGroup;
 
   constructor(
     private clientService: ClientsService,
     private serviceService: ServicesService,
     private recordService: RecordService,
-  ) {}
+    private fb: FormBuilder,
+  ) {
+    this.editUserForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      instagram: '',
+      phoneNumber: ['', [Validators.pattern('\\+?\\d*')]],
+    });
+  }
 
   ngOnInit(): void {
-    this.setInitialValue.bind(this);
+    this.editUserForm.valueChanges.subscribe(() => {
+      const instField = this.editUserForm.get('instagram');
+      const phoneField = this.editUserForm.get('phoneNumber');
+      const checkContacts = this.emptyContactsValidator();
+      if (checkContacts !== null) {
+        instField?.setErrors({});
+        phoneField?.setErrors({});
+        this.editUserForm.setErrors(checkContacts);
+        return;
+      }
+      if (!phoneField?.hasError('pattern')) {
+        phoneField?.setErrors(null);
+      }
+      instField?.setErrors(null);
+    });
     this.clientService.selectedClient.subscribe((client) => {
       if (client !== null) {
-        this.name = client.name;
-        this.instagram = client.instagram;
-        this.phone = client.phone;
+        this.editUserForm.setValue({
+          name: client.name,
+          phoneNumber: client.phone,
+          instagram: client.instagram,
+        });
         this.hasServices = this.serviceService.getServicesById(client.id).length > 0;
         const lastService = this.serviceService.getLastService(client.id);
         if (lastService !== null) {
@@ -64,17 +86,26 @@ export class EditClientComponent implements OnInit {
     });
   }
 
+  private emptyContactsValidator() {
+    const { instagram, phoneNumber } = this.editUserForm.value;
+    if (!instagram.trim().length && !phoneNumber.trim().length) {
+      return { invalidContacts: 'Instagram и номер телефона не могут быть одновременно пусты' };
+    }
+    return null;
+  }
+
   onSaveClick() {
     const selectedClient = this.clientService.selectedClient.getValue();
     if (selectedClient !== null) {
       this.clientService.editClient({
-        name: this.name,
-        instagram: this.instagram,
-        phone: this.phone,
+        name: this.editUserForm.value.name,
+        instagram: this.editUserForm.value.instagram,
+        phone: this.editUserForm.value.phoneNumber,
         id: selectedClient.id,
         services: selectedClient.services || [],
       });
     }
+    this.setInitialValue();
   }
 
   onBackClick(): void {
@@ -92,9 +123,6 @@ export class EditClientComponent implements OnInit {
   }
 
   setInitialValue() {
-    this.name = '';
-    this.instagram = '';
-    this.phone = '';
     this.hasServices = false;
     this.prevDate = '';
     this.lastRecord = '';
