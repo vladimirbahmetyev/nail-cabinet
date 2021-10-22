@@ -26,7 +26,8 @@
     </mat-error>
   </mat-form-field>
 </form>
-<div class="checkout__photo"></div>
+<button mat-raised-button color="primary" class="checkout__photo" (click)="photo.click()">Добавить фото</button>
+<input #photo hidden type="file" multiple="multiple"/>
 
 <button
   mat-raised-button

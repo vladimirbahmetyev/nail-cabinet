@@ -22,6 +22,7 @@ export class CheckoutComponent {
     this.serviceForm = this.fb.group({
       price: [null, [Validators.required, Validators.pattern('[0-9]*')]],
       workTime: ['', [Validators.required]],
+      photo: [null],
     });
   }
 

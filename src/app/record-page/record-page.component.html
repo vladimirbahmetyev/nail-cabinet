@@ -9,6 +9,10 @@
         Запись на {{selectedDate | date: 'd MMMM' : '' : 'ru'}}
       </h1>
       <ul class="record__list">
+        <li class="record__no-record" *ngIf="records.length === 0">
+          На этот день нет записи
+          <mat-divider></mat-divider>
+        </li>
         <li
           class="record__item"
           *ngFor="let record of records"
@@ -39,9 +43,7 @@
     ></app-record-item>
   </mat-tab>
   <mat-tab>
-
     <app-checkout (onBack)="onCheckoutRecordBackClick()">
-
     </app-checkout>
   </mat-tab>
 </mat-tab-group>

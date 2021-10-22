@@ -10,6 +10,7 @@ import { RecordService } from '../../shared/recordService/record.service';
 })
 export class ServiceListComponent implements OnInit {
   services: service[] = [];
+  serviceDates: Date[] = [];
   @Output() onBack = new EventEmitter();
   @Output() onService = new EventEmitter();
 
@@ -22,6 +23,13 @@ export class ServiceListComponent implements OnInit {
   ngOnInit(): void {
     this.clientService.selectedClient.subscribe((client) => {
       this.services = this.serviceService.getServicesById(client?.id);
+      this.serviceDates = this.services.map((service) => {
+        const recordDate = this.recordService.getRecordById(service.recordId)?.date;
+        if (recordDate === undefined) {
+          return new Date();
+        }
+        return new Date(recordDate);
+      });
     });
   }
 
