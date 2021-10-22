@@ -3,7 +3,14 @@ import { getWorksTime } from '../../utils/helpers';
 import { service, ServicesService } from '../../shared/servicesService/services.service';
 import { v4 } from 'uuid';
 import { RecordService } from '../../shared/recordService/record.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-checkout',
@@ -22,7 +29,7 @@ export class CheckoutComponent {
     this.serviceForm = this.fb.group({
       price: [null, [Validators.required, Validators.pattern('[0-9]*')]],
       workTime: ['', [Validators.required]],
-      photo: [null],
+      photo: [[], [this.photoValidator()]],
     });
   }
 
@@ -36,6 +43,41 @@ export class CheckoutComponent {
       recordId: recordId,
     };
     this.serviceService.createService(service);
+  }
+
+  onFileSelected(event: any) {
+    const photos = event.target.files;
+    const photosList: File[] = Object.values(photos);
+    const photoInUrl = photosList.map((photo) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(photo);
+      const result = { url: '', type: photo.type };
+      reader.onload = () => {
+        result.url = reader.result as string;
+      };
+      return result;
+    });
+
+    if (photoInUrl.length !== 0) {
+      this.serviceForm.setValue({
+        ...this.serviceForm.value,
+        photo: photoInUrl,
+      });
+    }
+  }
+
+  photoValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const files: File[] = control.value;
+      if (files.length === 0) {
+        return null;
+      }
+      const isAllImg = files.every((file) => file.type.split('/')[0] === 'image');
+      if (isAllImg) {
+        return null;
+      }
+      return { type: 'Можно загружать только фотографии' };
+    };
   }
 
   onBackClick() {
