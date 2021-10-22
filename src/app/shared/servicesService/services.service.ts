@@ -9,6 +9,7 @@ export interface service {
   price: number;
   time: string;
   id: string;
+  photo: string[];
 }
 
 export type nullableService = service | null;

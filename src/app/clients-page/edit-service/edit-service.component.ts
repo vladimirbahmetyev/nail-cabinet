@@ -32,6 +32,7 @@ export class EditServiceComponent implements OnInit {
       time: ['', [Validators.required]],
       price: [null, [Validators.required, Validators.pattern('[0-9]*')]],
       comment: '',
+      photo: [],
     });
   }
 
@@ -53,6 +54,7 @@ export class EditServiceComponent implements OnInit {
           ...this.serviceForm.value,
           price: service.price,
           time: service.time,
+          photo: service.photo,
         });
       }
     });
@@ -69,6 +71,7 @@ export class EditServiceComponent implements OnInit {
       id: this.selectedService?.id || '',
       recordId: this.selectedService?.recordId || '',
       time: this.serviceForm.value.time,
+      photo: this.serviceForm.value.photo,
     };
     const selectedServicesOptions: { text: string; id: string }[] =
       this.serviceForm.value.selectedServicesOptions;

@@ -36,11 +36,13 @@ export class CheckoutComponent {
   onCreateService() {
     const id = v4();
     const recordId = this.recordService.selectedRecord.getValue()?.id || '';
+    const photos = this.serviceForm.value.photo;
     const service: service = {
       id: id,
       price: this.serviceForm.value.price,
       time: this.serviceForm.value.workTime,
       recordId: recordId,
+      photo: photos.map((photo: { url: string; type: string }) => photo.url),
     };
     this.serviceService.createService(service);
   }
