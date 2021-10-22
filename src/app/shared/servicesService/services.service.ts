@@ -57,6 +57,10 @@ export class ServicesService {
       .catch(() => this.apiStatus.next(API_STATUS.FAILED));
   }
 
+  isRecordFinalised(recordId: string): boolean {
+    return this.services.getValue().some((service) => service.recordId === recordId);
+  }
+
   createService(service: service) {
     this.serviceRef
       .push(service)

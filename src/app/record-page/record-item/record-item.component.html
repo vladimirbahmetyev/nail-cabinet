@@ -54,10 +54,12 @@
     class="record__field"
     (click)="onSaveRecord()"
   >{{isEdit? 'Изменить запись' : 'Записать'}}</button>
-  <button *ngIf="isEdit"
-          mat-raised-button
-          color="accent"
-          class="record__field"
-          (click)="onCheckoutClick()"
+  <button
+    *ngIf="isEdit"
+    mat-raised-button
+    color="accent"
+    class="record__field"
+    (click)="onCheckoutClick()"
+    [disabled]="isFinalise"
   >Отметить как услугу</button>
 </form>

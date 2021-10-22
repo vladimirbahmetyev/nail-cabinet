@@ -5,6 +5,7 @@ import { client, ClientsService } from '../../shared/clientsService/clients.serv
 import { nullableRecord, record, RecordService } from '../../shared/recordService/record.service';
 import { v4 } from 'uuid';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ServicesService } from '../../shared/servicesService/services.service';
 
 @Component({
   selector: 'app-record-item',
@@ -20,11 +21,13 @@ export class RecordItemComponent implements OnInit {
   selectedRecord: nullableRecord = null;
   timesStep = getRecordsTime();
   recordForm: FormGroup;
+  isFinalise = false;
 
   constructor(
     private clientService: ClientsService,
     private recordService: RecordService,
     private fb: FormBuilder,
+    private serviceService: ServicesService,
   ) {
     this.recordForm = this.fb.group({
       selectedClientId: [null, [Validators.required]],
@@ -49,6 +52,7 @@ export class RecordItemComponent implements OnInit {
           time: stringDate.length === 5 ? stringDate : stringDate + '0',
           selectedClientId: record?.clientId,
         });
+        this.isFinalise = this.serviceService.isRecordFinalised(record.id);
       } else {
         this.recordForm.reset();
       }
