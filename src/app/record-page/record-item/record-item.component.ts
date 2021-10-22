@@ -35,7 +35,6 @@ export class RecordItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.prepareEditData.bind(this);
     this.clientService.clients.subscribe((value) => {
       this.clients = value;
     });
@@ -79,8 +78,10 @@ export class RecordItemComponent implements OnInit {
     const record = this.prepareEditData();
     if (this.isEdit) {
       this.recordService.editRecord(record);
+      this.recordForm.reset();
     } else {
       this.recordService.createRecord(record);
+      this.recordForm.reset();
     }
   }
 
@@ -90,5 +91,6 @@ export class RecordItemComponent implements OnInit {
 
   onBackClick(): void {
     this.onBack.emit();
+    this.recordForm.reset();
   }
 }

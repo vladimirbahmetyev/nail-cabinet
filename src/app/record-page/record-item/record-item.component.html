@@ -6,6 +6,9 @@
       {{service.text}}
     </mat-list-option>
   </mat-selection-list>
+  <mat-error style="text-align: center" *ngIf="recordForm.get('selectedServices')?.hasError('required')">
+    Нужно выбрать хотя бы один пункт :(
+  </mat-error>
   <mat-grid-list rowHeight="4rem" cols="2" class="record__field">
     <mat-grid-tile>
       <mat-form-field class="record__field" >
@@ -17,6 +20,9 @@
             {{client?.name}}
           </mat-option>
         </mat-select>
+        <mat-error *ngIf="recordForm.get('selectedClientId')?.hasError('required')">
+          Нужно выбрать клиента
+        </mat-error>
       </mat-form-field>
       </mat-grid-tile>
     <mat-grid-tile>
@@ -29,6 +35,9 @@
             {{time}}
           </mat-option>
         </mat-select>
+        <mat-error *ngIf="recordForm.get('time')?.hasError('required')">
+          Нужно выбрать время
+        </mat-error>
       </mat-form-field>
     </mat-grid-tile>
   </mat-grid-list>
