@@ -7,6 +7,7 @@ import {
   ServicesService,
 } from '../../shared/servicesService/services.service';
 import { nullableRecord, record, RecordService } from '../../shared/recordService/record.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-service',
@@ -15,53 +16,71 @@ import { nullableRecord, record, RecordService } from '../../shared/recordServic
 })
 export class EditServiceComponent implements OnInit {
   @Output() onBack = new EventEmitter();
-  name: string = '';
-  price: number = 0;
-  comment: string = '';
-  time: string = '10:00';
   serviceTypes = SERVICES;
   selectedService: nullableService = null;
   selectedRecord: nullableRecord = null;
-  selectedServicesOptions: any[] = [];
+  serviceForm: FormGroup;
   workTimeStep = getWorksTime();
 
-  constructor(private recordService: RecordService, private serviceService: ServicesService) {}
+  constructor(
+    private recordService: RecordService,
+    private serviceService: ServicesService,
+    private fb: FormBuilder,
+  ) {
+    this.serviceForm = fb.group({
+      selectedServicesOptions: [[], Validators.required],
+      time: ['', [Validators.required]],
+      price: [null, [Validators.required, Validators.pattern('[0-9]*')]],
+      comment: '',
+    });
+  }
 
   ngOnInit(): void {
     this.recordService.selectedRecord.subscribe((record) => {
       this.selectedRecord = record;
       if (record !== null) {
-        this.selectedServicesOptions = getSelectedServiceOptions(record.serviceOptionIds);
+        this.serviceForm.setValue({
+          ...this.serviceForm.value,
+          selectedServicesOptions: getSelectedServiceOptions(record.serviceOptionIds),
+          comment: record.comment,
+        });
       }
     });
-    this.serviceService.selectedService.subscribe((value) => {
-      this.selectedService = value;
-      if (value !== null) {
-        this.price = value.price;
-        this.time = value.time;
+    this.serviceService.selectedService.subscribe((service) => {
+      this.selectedService = service;
+      if (service !== null) {
+        this.serviceForm.setValue({
+          ...this.serviceForm.value,
+          price: service.price,
+          time: service.time,
+        });
       }
     });
   }
 
   onBackClick(): void {
     this.onBack.emit();
+    this.serviceForm.reset();
   }
 
   onSaveClick(): void {
     const service: service = {
-      price: this.price,
+      price: this.serviceForm.value.price,
       id: this.selectedService?.id || '',
       recordId: this.selectedService?.recordId || '',
-      time: this.time,
+      time: this.serviceForm.value.time,
     };
+    const selectedServicesOptions: { text: string; id: string }[] =
+      this.serviceForm.value.selectedServicesOptions;
     const record: record = {
-      comment: this.comment,
-      serviceOptionIds: this.selectedServicesOptions.map((service) => service.id),
+      comment: this.serviceForm.value.comment,
+      serviceOptionIds: selectedServicesOptions.map((service) => service.id),
       id: this.selectedRecord?.id || '',
       clientId: this.selectedRecord?.clientId || '',
       date: this.selectedRecord?.date || new Date().toDateString(),
     };
     this.serviceService.updateService(service);
     this.recordService.editRecord(record);
+    this.serviceForm.reset();
   }
 }

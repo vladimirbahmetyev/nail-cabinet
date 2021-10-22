@@ -1,17 +1,26 @@
 <app-top [title]="'Изменить услугу'" (onBack)="onBackClick()"></app-top>
-<div class="add-service__main">
-  <mat-selection-list class="edit-service__field" [(ngModel)]="selectedServicesOptions">
+<form [formGroup]="serviceForm" class="add-service__main">
+  <mat-selection-list class="edit-service__field" formControlName="selectedServicesOptions">
     <mat-list-option *ngFor="let service of serviceTypes" [value]="service">
       {{service.text}}
     </mat-list-option>
   </mat-selection-list>
+  <mat-error style="text-align: center" *ngIf="serviceForm.get('selectedServicesOptions')?.hasError('required')">
+    Необходимо выбрать хотя бы один пункт :(
+  </mat-error>
   <mat-grid-list cols="2" rowHeight="4rem" class="edit-service__field">
     <mat-grid-tile>
       <mat-form-field class="edit-service__field">
         <mat-label>
           Цена:
         </mat-label>
-        <input matInput [(ngModel)]="price">
+        <input matInput formControlName="price">
+        <mat-error *ngIf="serviceForm.get('price')?.hasError('required')">
+          Необходимо указать цену
+        </mat-error>
+        <mat-error *ngIf="serviceForm.get('price')?.hasError('pattern')">
+          Неправильный формат цены
+        </mat-error>
       </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile>
@@ -19,7 +28,7 @@
         <mat-label>
           Время выполнения:
         </mat-label>
-        <mat-select [(ngModel)]="time">
+        <mat-select formControlName="time">
           <mat-option *ngFor="let workTime of workTimeStep" [value]="workTime">
             {{workTime}}
           </mat-option>
@@ -33,11 +42,17 @@
         <mat-label>
           Комментарий:
         </mat-label>
-        <textarea  matInput [(ngModel)]="comment"></textarea>
+        <textarea  matInput formControlName="comment"></textarea>
       </mat-form-field>
     </mat-grid-tile>
   </mat-grid-list>
-  <button mat-raised-button color="primary" class="edit-service__field" (click)="onSaveClick()">
+  <button
+    mat-raised-button
+    color="primary"
+    class="edit-service__field"
+    (click)="onSaveClick()"
+    [disabled]="serviceForm.invalid"
+  >
     Изменить услугу
   </button>
-</div>
+</form>
