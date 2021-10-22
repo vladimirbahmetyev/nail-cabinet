@@ -59,9 +59,10 @@ export class CheckoutComponent {
     });
 
     if (photoInUrl.length !== 0) {
+      const oldPhoto = this.serviceForm.value.photo;
       this.serviceForm.setValue({
         ...this.serviceForm.value,
-        photo: photoInUrl,
+        photo: [...oldPhoto, ...photoInUrl],
       });
     }
   }

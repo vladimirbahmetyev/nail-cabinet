@@ -26,12 +26,15 @@
     </mat-error>
   </mat-form-field>
 </form>
+<div class="checkout__photo-container">
+  <img alt="photo" *ngFor="let photo of serviceForm.get('photo')?.value" src="{{photo.url}}">
+</div>
 <button mat-raised-button color="primary" class="checkout__photo" (click)="photo.click()">Добавить фото</button>
 <input #photo  hidden type="file" multiple="multiple" (change)="onFileSelected($event)"/>
 <mat-error *ngIf="serviceForm.get('photo')?.hasError('type')" style="text-align: center">
   {{serviceForm.get('photo')?.errors?.type}}
 </mat-error>
-<img alt="photo" *ngFor="let photo of serviceForm.get('photo')?.value" src="{{photo.url}}">
+
 <button
   mat-raised-button
   color="accent"
