@@ -54,7 +54,7 @@ export class EditServiceComponent implements OnInit {
           ...this.serviceForm.value,
           price: service.price,
           time: service.time,
-          photo: service.photo,
+          photo: service.photo || [],
         });
       }
     });
