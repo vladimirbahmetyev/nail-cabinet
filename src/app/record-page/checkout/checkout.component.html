@@ -1,22 +1,37 @@
 <app-top (onBack)="onBackClick()" [title]="'Завершение записи'"></app-top>
-<div class="checkout__up">
+<form [formGroup]="serviceForm" class="checkout__up">
   <mat-form-field class="checkout__field">
     <mat-label>
       Цена:
     </mat-label>
-    <input matInput [(ngModel)]="price">
+    <input matInput formControlName="price">
+    <mat-error *ngIf="serviceForm.get('price')?.hasError('required')">
+      Нужно ввести цену
+    </mat-error>
+    <mat-error *ngIf="serviceForm.get('price')?.hasError('pattern')">
+      Нужно ввести цифру
+    </mat-error>
   </mat-form-field>
   <mat-form-field class="checkout__field">
     <mat-label>
       Время выполнения:
     </mat-label>
-    <mat-select [(ngModel)]="workTime">
+    <mat-select formControlName="workTime">
       <mat-option *ngFor="let time of workTimeSteps" [value]="time">
         {{time}}
       </mat-option>
     </mat-select>
+    <mat-error *ngIf="serviceForm.get('workTime')?.hasError('required')">
+      Нужно выбрать время
+    </mat-error>
   </mat-form-field>
-</div>
+</form>
 <div class="checkout__photo"></div>
 
-<button mat-raised-button color="accent" class="checkout__button" (click)="onCreateService()">Завершить запись</button>
+<button
+  mat-raised-button
+  color="accent"
+  class="checkout__button"
+  (click)="onCreateService()"
+  [disabled]="serviceForm.invalid"
+>Завершить запись</button>
