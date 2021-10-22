@@ -30,13 +30,11 @@
   <mat-tab>
     <app-record-item
       [isEdit]="false" (onBack)="onBackClick()"
-      [selectedDate]=selectedDate
     ></app-record-item>
   </mat-tab>
   <mat-tab>
     <app-record-item
       [isEdit]="true" (onBack)="onBackClick()"
-      [selectedDate]=selectedDate
       (onCheckout)="onCheckoutRecordClick()"
     ></app-record-item>
   </mat-tab>

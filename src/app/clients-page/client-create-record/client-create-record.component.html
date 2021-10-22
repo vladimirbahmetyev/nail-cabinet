@@ -1,19 +1,25 @@
 <app-top [title]="'Добавить услугу'" (onBack)="onBackClick()"></app-top>
-<div class="add-service__main">
-  <mat-selection-list class="add-service__field" [(ngModel)]="selectedServices">
+<form [formGroup]="recordForm" class="add-service__main">
+  <mat-selection-list class="add-service__field" formControlName="selectedServices">
     <mat-list-option *ngFor="let service of serviceTypes" [value]="service">
       {{service.text}}
     </mat-list-option>
   </mat-selection-list>
+  <mat-error class="add-service__error" *ngIf="recordForm.get('selectedServices')?.hasError('required')">
+    Необходимо выбрать хотя бы один пункт :(
+  </mat-error>
   <mat-grid-list cols="2" rowHeight="4rem" gutterSize="1rem" class="add-service__field">
     <mat-grid-tile colspan="1" rowspan="1">
       <mat-form-field class="add-service__price">
         <mat-label>
           Дата:
         </mat-label>
-        <input matInput [matDatepicker]="newDate" [(ngModel)]="date">
+        <input matInput [matDatepicker]="newDate" formControlName="date" [autocomplete]="false">
         <mat-datepicker-toggle matSuffix [for]="newDate"></mat-datepicker-toggle>
         <mat-datepicker #newDate></mat-datepicker>
+        <mat-error *ngIf="recordForm.get('date')?.hasError('required')">
+          Нужно выбрать день
+        </mat-error>
       </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile colspan="1" rowspan="1">
@@ -21,11 +27,14 @@
         <mat-label>
           Время:
         </mat-label>
-        <mat-select [(ngModel)]="time">
+        <mat-select formControlName="time">
           <mat-option *ngFor="let time of recordTimeStep" [value]="time">
             {{time}}
           </mat-option>
         </mat-select>
+        <mat-error *ngIf="recordForm.get('time')?.hasError('required')">
+          Нужно выбрать время
+        </mat-error>
       </mat-form-field>
     </mat-grid-tile>
   </mat-grid-list>
@@ -35,11 +44,17 @@
         <mat-label>
           Комментарий:
         </mat-label>
-        <textarea matInput [(ngModel)]="comment"></textarea>
+        <textarea matInput formControlName="comment"></textarea>
       </mat-form-field>
     </mat-grid-tile>
   </mat-grid-list>
-  <button  class="add-service__field" mat-raised-button color="accent" (click)="onCreateRecordClick()">
+  <button
+    class="add-service__field"
+    mat-raised-button
+    color="accent"
+    (click)="onCreateRecordClick()"
+    [disabled]="recordForm.invalid"
+  >
     Добавить услугу
   </button>
-</div>
+</form>

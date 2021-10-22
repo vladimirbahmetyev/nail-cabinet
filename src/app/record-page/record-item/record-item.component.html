@@ -1,7 +1,7 @@
 <app-top [title]="isEdit ? 'Изменить запись' : 'Добавить запись'" (onBack)="onBackClick()"></app-top>
 
-<div class="record__item">
-  <mat-selection-list class="record__field" [(ngModel)]="selectedServices">
+<form [formGroup]="recordForm" class="record__item">
+  <mat-selection-list class="record__field" formControlName="selectedServices">
     <mat-list-option *ngFor="let service of serviceOptions" [value]="service">
       {{service.text}}
     </mat-list-option>
@@ -12,7 +12,7 @@
         <mat-label>
           Клиент:
         </mat-label>
-        <mat-select [value]="selectedRecord ? selectedRecord.clientId : ''" [(ngModel)]="selectedClientId">
+        <mat-select [value]="selectedRecord ? selectedRecord.clientId : ''" formControlName="selectedClientId">
           <mat-option *ngFor="let client of clients" [value]="client?.id">
             {{client?.name}}
           </mat-option>
@@ -24,7 +24,7 @@
         <mat-label>
           Время:
         </mat-label>
-        <mat-select [(ngModel)]="selectedTime">
+        <mat-select formControlName="time">
           <mat-option *ngFor="let time of timesStep " [value]="time">
             {{time}}
           </mat-option>
@@ -36,13 +36,14 @@
     <mat-label>
       Комментарий
     </mat-label>
-    <textarea matInput [(ngModel)]="comment"></textarea>
+    <textarea matInput formControlName="comment"></textarea>
   </mat-form-field>
   <button
+    [disabled]="recordForm.invalid"
     mat-raised-button
     color="primary"
     class="record__field"
-    (click)="onChangeRecord()"
+    (click)="onSaveRecord()"
   >{{isEdit? 'Изменить запись' : 'Записать'}}</button>
   <button *ngIf="isEdit"
           mat-raised-button
@@ -50,4 +51,4 @@
           class="record__field"
           (click)="onCheckoutClick()"
   >Отметить как услугу</button>
-</div>
+</form>

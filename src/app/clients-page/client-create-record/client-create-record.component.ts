@@ -4,6 +4,7 @@ import { getIdFromServices, getRecordsTime, getWorksTime } from '../../utils/hel
 import { record, RecordService } from '../../shared/recordService/record.service';
 import { v4 } from 'uuid';
 import { ClientsService } from '../../shared/clientsService/clients.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-service',
@@ -12,14 +13,22 @@ import { ClientsService } from '../../shared/clientsService/clients.service';
 })
 export class ClientCreateRecordComponent {
   @Output() onBack = new EventEmitter();
-  date: Date = new Date();
-  time = '';
-  comment = '';
   serviceTypes = SERVICES;
   recordTimeStep = getRecordsTime();
-  selectedServices: { text: string; id: string }[] = [];
+  recordForm: FormGroup;
 
-  constructor(private recordService: RecordService, private clientService: ClientsService) {}
+  constructor(
+    private fb: FormBuilder,
+    private recordService: RecordService,
+    private clientService: ClientsService,
+  ) {
+    this.recordForm = this.fb.group({
+      date: [null, [Validators.required]],
+      time: ['', [Validators.required]],
+      comment: '',
+      selectedServices: [[], [Validators.required]],
+    });
+  }
 
   onBackClick() {
     this.onBack.emit();
@@ -30,18 +39,18 @@ export class ClientCreateRecordComponent {
     if (client === null) {
       return;
     }
-    const date = this.date;
-    const [hours, minutes] = this.time.split(':');
+    const date = this.recordForm.value.date;
+    const [hours, minutes] = this.recordForm.value.time.split(':');
     date.setHours(+hours);
     date.setMinutes(+minutes);
     const id = v4();
     const clientId = client.id;
-    const serviceOptionIds = getIdFromServices(this.selectedServices);
+    const serviceOptionIds = getIdFromServices(this.recordForm.value.selectedServices);
 
     const newRecord: record = {
       serviceOptionIds: serviceOptionIds,
-      date: this.date.toString(),
-      comment: this.comment,
+      date: this.recordForm.value.date.toString(),
+      comment: this.recordForm.value.comment,
       clientId: clientId,
       id: id,
     };

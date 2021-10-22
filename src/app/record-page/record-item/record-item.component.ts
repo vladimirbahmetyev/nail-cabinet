@@ -4,6 +4,7 @@ import { getRecordsTime, getSelectedServiceOptions } from '../../utils/helpers';
 import { client, ClientsService } from '../../shared/clientsService/clients.service';
 import { nullableRecord, record, RecordService } from '../../shared/recordService/record.service';
 import { v4 } from 'uuid';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-record-item',
@@ -13,18 +14,25 @@ import { v4 } from 'uuid';
 export class RecordItemComponent implements OnInit {
   serviceOptions = SERVICES;
   @Input() isEdit: boolean | undefined;
-  @Input() selectedDate: Date | undefined;
   @Output() onBack = new EventEmitter();
   @Output() onCheckout = new EventEmitter();
   clients: client[] = [];
   selectedRecord: nullableRecord = null;
-  selectedTime: string = '';
-  selectedServices: { id: string; text: string }[] = [];
-  selectedClientId: string = '';
-  comment = '';
   timesStep = getRecordsTime();
+  recordForm: FormGroup;
 
-  constructor(private clientService: ClientsService, private recordService: RecordService) {}
+  constructor(
+    private clientService: ClientsService,
+    private recordService: RecordService,
+    private fb: FormBuilder,
+  ) {
+    this.recordForm = this.fb.group({
+      selectedClientId: [null, [Validators.required]],
+      time: ['', [Validators.required]],
+      comment: '',
+      selectedServices: [[], [Validators.required]],
+    });
+  }
 
   ngOnInit() {
     this.prepareEditData.bind(this);
@@ -34,39 +42,40 @@ export class RecordItemComponent implements OnInit {
     this.recordService.selectedRecord.subscribe((record) => {
       this.selectedRecord = record;
       if (record !== null) {
-        this.selectedClientId = record?.clientId;
         const date = new Date(record.date);
         const stringDate = `${date.getHours()}:${date.getMinutes()}`;
-        this.selectedTime = stringDate.length === 5 ? stringDate : stringDate + '0';
-        this.selectedServices = getSelectedServiceOptions(record.serviceOptionIds);
-        this.comment = record.comment;
+        this.recordForm.setValue({
+          selectedServices: getSelectedServiceOptions(record.serviceOptionIds),
+          comment: record.comment,
+          time: stringDate.length === 5 ? stringDate : stringDate + '0',
+          selectedClientId: record?.clientId,
+        });
       } else {
-        this.selectedServices = [];
-        this.selectedTime = '';
-        this.selectedClientId = '';
-        this.comment = '';
+        this.recordForm.reset();
       }
     });
   }
 
   prepareEditData() {
-    const serviceId = this.selectedServices.map((service) => service.id);
-    const date = this.selectedDate ? this.selectedDate : new Date();
-    const [hours, minutes] = this.selectedTime.split(':');
+    const selectedServices: { text: string; id: string }[] = this.recordForm.value.selectedServices;
+    const serviceId = selectedServices.map((service) => service.id);
+    const selectedDate = this.recordService.selectedDay.value;
+    const date = selectedDate ? selectedDate : new Date();
+    const [hours, minutes] = this.recordForm.value.time.split(':');
     date.setHours(+hours);
     date.setMinutes(+minutes);
     const id = v4();
     const record: record = {
       id: this.selectedRecord?.id || id,
       serviceOptionIds: serviceId,
-      clientId: this.selectedClientId,
-      comment: this.comment,
+      clientId: this.recordForm.value.selectedClientId,
+      comment: this.recordForm.value.comment || '',
       date: date.toString(),
     };
     return record;
   }
 
-  onChangeRecord() {
+  onSaveRecord() {
     const record = this.prepareEditData();
     if (this.isEdit) {
       this.recordService.editRecord(record);
