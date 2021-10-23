@@ -22,6 +22,7 @@ export class RecordItemComponent implements OnInit {
   timesStep = getRecordsTime();
   recordForm: FormGroup;
   isFinalise = false;
+  clientSearchString = '';
 
   constructor(
     private clientService: ClientsService,
@@ -31,6 +32,7 @@ export class RecordItemComponent implements OnInit {
   ) {
     this.recordForm = this.fb.group({
       selectedClientId: [null, [Validators.required]],
+      selectedClientName: [null, [Validators.required]],
       time: ['', [Validators.required]],
       comment: '',
       selectedServices: [[], [Validators.required]],
@@ -44,6 +46,7 @@ export class RecordItemComponent implements OnInit {
     this.recordService.selectedRecord.subscribe((record) => {
       this.selectedRecord = record;
       if (record !== null) {
+        const clientName = this.clients.find((client) => client.id === record.clientId)?.name;
         const date = new Date(record.date);
         const stringDate = `${date.getHours()}:${date.getMinutes()}`;
         this.recordForm.setValue({
@@ -51,6 +54,7 @@ export class RecordItemComponent implements OnInit {
           comment: record.comment,
           time: stringDate.length === 5 ? stringDate : stringDate + '0',
           selectedClientId: record?.clientId,
+          selectedClientName: clientName,
         });
         this.isFinalise = this.serviceService.isRecordFinalised(record.id);
       } else {
@@ -96,5 +100,13 @@ export class RecordItemComponent implements OnInit {
   onBackClick(): void {
     this.onBack.emit();
     this.recordForm.reset();
+  }
+
+  onSelectClient(clientId: string) {
+    this.recordForm.setValue({
+      ...this.recordForm.value,
+      selectedClientId: clientId,
+      selectedClientName: this.clients.find((client) => client.id === clientId)?.name,
+    });
   }
 }

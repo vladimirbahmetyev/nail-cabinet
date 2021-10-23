@@ -6,7 +6,7 @@ import { client } from './clients.service';
 })
 export class ClientFilterPipe implements PipeTransform {
   transform(clients: client[], search: string): client[] {
-    if (!search.trim()) {
+    if (!search?.trim()) {
       return clients;
     }
     return clients.filter(

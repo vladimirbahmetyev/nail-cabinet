@@ -15,11 +15,21 @@
         <mat-label>
           Клиент:
         </mat-label>
-        <mat-select [value]="selectedRecord ? selectedRecord.clientId : ''" formControlName="selectedClientId">
-          <mat-option *ngFor="let client of clients" [value]="client?.id">
-            {{client?.name}}
+        <input
+          matInput
+          [matAutocomplete]="autoClient"
+          formControlName="selectedClientName"
+          [(ngModel)]="clientSearchString"
+        >
+        <mat-autocomplete #autoClient = 'matAutocomplete'>
+          <mat-option
+            *ngFor="let client of clients | clientFilter : clientSearchString"
+            [value]="client.name"
+            (click)="onSelectClient(client.id)"
+          >
+            {{client.name}}
           </mat-option>
-        </mat-select>
+        </mat-autocomplete>
         <mat-error *ngIf="recordForm.get('selectedClientId')?.hasError('required')">
           Нужно выбрать клиента
         </mat-error>

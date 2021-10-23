@@ -48,6 +48,7 @@ import localeRu from '@angular/common/locales/ru';
 import { registerLocaleData } from '@angular/common';
 import { HeaderLessTabsDirective } from './shared/directvices/header-less-tabs.directive';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 registerLocaleData(localeRu, 'ru');
 
 const appRoutes: Routes = [
@@ -104,6 +105,7 @@ const appRoutes: Routes = [
     AngularFireDatabaseModule,
     MatTabsModule,
     ReactiveFormsModule,
+    MatAutocompleteModule,
   ],
   providers: [
     ClientsService,
