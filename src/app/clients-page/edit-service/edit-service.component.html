@@ -46,8 +46,9 @@
       </mat-form-field>
     </mat-grid-tile>
   </mat-grid-list>
-  <div class="edit-service__photo-container">
-    <img alt="photo" *ngFor="let photo of serviceForm.get('photo')?.value" src="{{photo}}">
+  <div class="edit-service__photo-container" *ngFor="let photo of serviceForm.get('photo')?.value">
+    <mat-icon class="edit-service__photo-cross" svgIcon="cross" style="fill: red"></mat-icon>
+    <img alt="photo" src="{{photo}}">
   </div>
   <button
     mat-raised-button

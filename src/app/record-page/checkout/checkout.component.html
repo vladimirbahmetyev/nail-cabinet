@@ -26,8 +26,11 @@
     </mat-error>
   </mat-form-field>
 </form>
-<div class="checkout__photo-container">
-  <img alt="photo" *ngFor="let photo of serviceForm.get('photo')?.value" src="{{photo.url}}">
+<div class="checkout__photo-slider">
+  <div class="checkout__photo-container" *ngFor="let photo of serviceForm.get('photo')?.value; let index = index">
+    <mat-icon class="checkout__photo-cross" style="fill: red" svgIcon="cross" (click)="onDeleteClick(index)"></mat-icon>
+    <img alt="photo"  src="{{photo.url}}">
+  </div>
 </div>
 <button mat-raised-button color="primary" class="checkout__photo" (click)="photo.click()">Добавить фото</button>
 <input #photo  hidden type="file" multiple="multiple" (change)="onFileSelected($event)"/>

@@ -23,5 +23,9 @@ export class AppComponent {
       'back',
       this.domSanitizer.bypassSecurityTrustResourceUrl('../assets/back.svg'),
     );
+    this.matIconRegistry.addSvgIcon(
+      'cross',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('../assets/cross.svg'),
+    );
   }
 }

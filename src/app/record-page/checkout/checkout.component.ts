@@ -83,6 +83,16 @@ export class CheckoutComponent {
     };
   }
 
+  onDeleteClick(deleteIndex: number) {
+    const afterDeletePhoto = this.serviceForm.value.photo.filter(
+      (_: any, index: number) => deleteIndex !== index,
+    );
+    this.serviceForm.setValue({
+      ...this.serviceForm.value,
+      photo: afterDeletePhoto,
+    });
+  }
+
   onBackClick() {
     this.onBack.emit();
   }
