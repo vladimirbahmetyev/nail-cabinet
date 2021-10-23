@@ -64,10 +64,7 @@ export class EditClientComponent implements OnInit {
         }
         const lastRecord = this.recordService.getLastRecord(client.id);
         if (lastRecord !== null) {
-          const lastRecordDate = new Date(lastRecord.date);
-          if (lastRecordDate > new Date()) {
-            this.lastRecord = lastRecordDate;
-          }
+          this.lastRecord = new Date(lastRecord.date);
         }
       }
     });

@@ -104,13 +104,17 @@ export class RecordService {
     if (records.length === 0) {
       return null;
     }
-    return records.reduce((prev, current) => {
-      const prevDateString = prev.date;
-      const prevDate = prevDateString ? new Date(prevDateString) : new Date();
-      const currentDateString = current?.date;
-      const currentDate = currentDateString ? new Date(currentDateString) : new Date();
-      return currentDate < prevDate ? prev : current;
+    const filteredRecord = records.filter((record) => {
+      const date = new Date(record.date);
+      return date.getTime() > new Date().getTime();
     });
+    const sortFilteredRecord = filteredRecord.sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+    );
+    if (sortFilteredRecord.length !== 0) {
+      return sortFilteredRecord[0];
+    }
+    return null;
   }
 
   getRecordsByDate(date: Date): record[] {
