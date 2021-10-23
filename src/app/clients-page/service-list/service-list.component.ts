@@ -23,15 +23,14 @@ export class ServiceListComponent implements OnInit {
   ngOnInit(): void {
     this.clientService.selectedClient.subscribe((client) => {
       this.services = this.serviceService.getServicesById(client?.id);
-      this.serviceDates = this.services
-        .map((service) => {
-          const recordDate = this.recordService.getRecordById(service.recordId)?.date;
-          if (recordDate === undefined) {
-            return new Date();
-          }
-          return new Date(recordDate);
-        })
-        .sort((a, b) => a.getTime() - b.getTime());
+      this.serviceDates = this.services.map((service) => {
+        const recordDate = this.recordService.getRecordById(service.recordId)?.date;
+        if (recordDate === undefined) {
+          return new Date();
+        }
+        return new Date(recordDate);
+      });
+      // .sort((a, b) => a.getTime() - b.getTime());
     });
   }
 
