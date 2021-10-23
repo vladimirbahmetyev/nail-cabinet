@@ -9,8 +9,7 @@ import { RecordService } from '../../shared/recordService/record.service';
   styleUrls: ['./service-list.component.sass'],
 })
 export class ServiceListComponent implements OnInit {
-  services: service[] = [];
-  serviceDates: Date[] = [];
+  services: any[] = [];
   @Output() onBack = new EventEmitter();
   @Output() onService = new EventEmitter();
 
@@ -22,15 +21,20 @@ export class ServiceListComponent implements OnInit {
 
   ngOnInit(): void {
     this.clientService.selectedClient.subscribe((client) => {
-      this.services = this.serviceService.getServicesById(client?.id);
-      this.serviceDates = this.services.map((service) => {
+      this.services = this.serviceService.getServicesById(client?.id).map((service) => {
         const recordDate = this.recordService.getRecordById(service.recordId)?.date;
         if (recordDate === undefined) {
-          return new Date();
+          return {
+            ...service,
+            date: new Date(),
+          };
         }
-        return new Date(recordDate);
+        return {
+          ...service,
+          date: new Date(recordDate),
+        };
       });
-      // .sort((a, b) => a.getTime() - b.getTime());
+      this.services = this.services.sort((a, b) => b.date.getTime() - a.date.getTime());
     });
   }
 

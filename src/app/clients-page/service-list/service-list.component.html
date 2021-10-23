@@ -3,11 +3,11 @@
   <mat-card class="service__list">
     <button
       mat-raised-button
-      *ngFor="let service of services; let index = index"
+      *ngFor="let service of services;"
       class="service__item"
       (click)="onServiceClick(service.id)"
     >
-      {{serviceDates[index] | date: 'dd MMMM yyyy' : '' : 'ru'}}
+      {{service.date | date: 'dd MMMM yyyy' : '' : 'ru'}}
     </button>
   </mat-card>
 </div>
