@@ -14,12 +14,15 @@
           <mat-divider></mat-divider>
         </li>
         <li
-          class="record__item"
+          class="record__container"
           *ngFor="let record of records"
           (click)="onEditRecordClick(record.id)"
         >
-          {{record?.client?.name}}, {{record?.date | date :'H:mm'}}
-          <mat-divider></mat-divider>
+          <div class="record__item">
+          <div>{{record?.client?.name}}, {{record?.date | date :'H:mm'}}</div>
+          <mat-icon class="check-icon" *ngIf="record.isFinished" svgIcon="check" style="fill: lawngreen"></mat-icon>
+          </div>
+          <mat-divider class="record__divider"></mat-divider>
         </li>
       </ul>
       <button

@@ -40,6 +40,22 @@ export class RecordPageComponent implements OnInit {
         };
       });
     });
+    this.serviceService.services.subscribe(() => {
+      if (this.records.length === 0) {
+        return;
+      }
+      this.records.forEach((record) => {
+        record.isFinished = this.serviceService.isRecordFinalised(record.id);
+      });
+    });
+    this.recordService.selectedDay.subscribe(() => {
+      if (this.records.length === 0) {
+        return;
+      }
+      this.records.forEach((record) => {
+        record.isFinished = this.serviceService.isRecordFinalised(record.id);
+      });
+    });
     this.recordService.apiStatus.subscribe((status) => {
       if (status === API_STATUS.SUCCESSFUL) {
         this.pageView = this.RECORD_PAGE_VIEWS.CALENDAR_VIEW;
