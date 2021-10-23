@@ -6,8 +6,20 @@ import {
   service,
   ServicesService,
 } from '../../shared/servicesService/services.service';
-import { nullableRecord, record, RecordService } from '../../shared/recordService/record.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  API_STATUS,
+  nullableRecord,
+  record,
+  RecordService,
+} from '../../shared/recordService/record.service';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-edit-service',
@@ -32,7 +44,7 @@ export class EditServiceComponent implements OnInit {
       time: ['', [Validators.required]],
       price: [null, [Validators.required, Validators.pattern('[0-9]*')]],
       comment: '',
-      photo: [],
+      photo: [[], [this.photoValidator()]],
     });
   }
 
@@ -54,8 +66,13 @@ export class EditServiceComponent implements OnInit {
           ...this.serviceForm.value,
           price: service.price,
           time: service.time,
-          photo: service.photo || [],
+          photo: service.photo?.map((photo) => ({ url: photo, type: 'image/*' })) || [],
         });
+      }
+    });
+    this.serviceService.apiStatus.subscribe((status) => {
+      if (status === API_STATUS.SUCCESSFUL) {
+        this.serviceForm.reset();
       }
     });
   }
@@ -71,7 +88,7 @@ export class EditServiceComponent implements OnInit {
       id: this.selectedService?.id || '',
       recordId: this.selectedService?.recordId || '',
       time: this.serviceForm.value.time,
-      photo: this.serviceForm.value.photo,
+      photo: this.serviceForm.value.photo?.map((photo: { type: string; url: string }) => photo.url),
     };
     const selectedServicesOptions: { text: string; id: string }[] =
       this.serviceForm.value.selectedServicesOptions;
@@ -84,6 +101,52 @@ export class EditServiceComponent implements OnInit {
     };
     this.serviceService.updateService(service);
     this.recordService.editRecord(record);
-    this.serviceForm.reset();
+  }
+
+  onDeleteClick(deleteIndex: number) {
+    const afterDeletePhoto = this.serviceForm.value.photo.filter(
+      (_: any, index: number) => deleteIndex !== index,
+    );
+    this.serviceForm.setValue({
+      ...this.serviceForm.value,
+      photo: afterDeletePhoto,
+    });
+  }
+
+  onFileSelected(event: any) {
+    const photos = event.target.files;
+    const photosList: File[] = Object.values(photos);
+
+    const photoInUrl = photosList.map((photo) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(photo);
+      const result = { url: '', type: photo.type };
+      reader.onload = () => {
+        result.url = reader.result as string;
+      };
+      return result;
+    });
+
+    if (photoInUrl.length !== 0) {
+      const oldPhoto = this.serviceForm.value.photo;
+      this.serviceForm.setValue({
+        ...this.serviceForm.value,
+        photo: [...oldPhoto, ...photoInUrl],
+      });
+    }
+  }
+
+  photoValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const files: File[] = control.value;
+      if (!files || files.length === 0) {
+        return null;
+      }
+      const isAllImg = files.every((file) => file.type.split('/')[0] === 'image');
+      if (isAllImg) {
+        return null;
+      }
+      return { type: 'Можно загружать только фотографии' };
+    };
   }
 }

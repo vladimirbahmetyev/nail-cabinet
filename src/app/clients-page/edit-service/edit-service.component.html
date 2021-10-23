@@ -46,14 +46,24 @@
       </mat-form-field>
     </mat-grid-tile>
   </mat-grid-list>
-  <div class="edit-service__photo-container" *ngFor="let photo of serviceForm.get('photo')?.value">
-    <mat-icon class="edit-service__photo-cross" svgIcon="cross" style="fill: red"></mat-icon>
-    <img alt="photo" src="{{photo}}">
+  <div *ngIf="serviceForm.value.photo?.length > 0" class="edit-service__photo-counter">
+    Загружено фотографий: {{serviceForm.value.photo?.length}}
   </div>
+  <div class="edit-service__photo-slider">
+    <div class="edit-service__photo-container" *ngFor="let photo of serviceForm.get('photo')?.value; let index = index">
+      <mat-icon class="edit-service__photo-cross" style="fill: red" svgIcon="cross" (click)="onDeleteClick(index)"></mat-icon>
+      <img alt="photo"  src="{{photo.url}}">
+    </div>
+  </div>
+  <button mat-raised-button color="primary" class="edit-service__photo-button" (click)="photo.click()">Добавить фото</button>
+  <input #photo  hidden type="file" multiple="multiple" (change)="onFileSelected($event)"/>
+  <mat-error *ngIf="serviceForm.get('photo')?.hasError('type')" style="text-align: center">
+    {{serviceForm.get('photo')?.errors?.type}}
+  </mat-error>
   <button
     mat-raised-button
-    color="primary"
-    class="edit-service__field"
+    color="accent"
+    class="edit-service__field edit-service__save-button"
     (click)="onSaveClick()"
     [disabled]="serviceForm.invalid"
   >

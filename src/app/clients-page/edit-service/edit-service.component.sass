@@ -2,21 +2,36 @@
   display: flex
   flex-direction: column
   width: 100%
-.edit-service__photo-container
-  display: flex
+.edit-service__photo-slider
+  max-height: 40vh
   width: 100%
-  flex-direction: column
-  position: relative
-  img
+  overflow-x: scroll
+  display: flex
+  .edit-service__photo-container
+    position: relative
     width: 90%
-    margin: 10px auto
-    border-radius: 5px
-  .edit-service__photo-cross
-    position: absolute
-    top: calc(1rem + 10px)
-    right: calc( 5% + 1rem)
+    margin: 0 5%
+    flex-shrink: 0
+    .edit-service__photo-cross
+      position: absolute
+      top: 1rem
+      right: 1rem
+    img
+      width: 100%
+.edit-service__photo-button
+  display: flex
+  justify-content: center
+  align-items: center
+  width: 90%
+  margin: 20px auto
 .edit-service__field
   width: 90%
   margin: 0 auto
   textarea
     height: 4rem
+.edit-service__save-button
+  margin-bottom: 20px
+.edit-service__photo-counter
+  width: 90%
+  margin: 10px auto
+  font-size: 1rem
