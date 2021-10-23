@@ -21,6 +21,13 @@
           <div class="record__item">
           <div>{{record?.client?.name}}, {{record?.date | date :'H:mm'}}</div>
           <mat-icon class="check-icon" *ngIf="record.isFinished" svgIcon="check" style="fill: lawngreen"></mat-icon>
+          <mat-icon
+            class="delete-icon"
+            svgIcon="cross"
+            style="fill: red"
+            (click)="onDeleteRecord($event, record.id)"
+            *ngIf="!record.isFinished"
+          ></mat-icon>
           </div>
           <mat-divider class="record__divider"></mat-divider>
         </li>

@@ -72,6 +72,12 @@ export class RecordService {
       .catch(() => this.apiStatus.next(API_STATUS.FAILED));
   }
 
+  deleteRecord(recordId: string) {
+    const index = this.records.getValue().findIndex((record) => record.id === recordId);
+    const key = this.recordsMetaRef[index].key;
+    this.recordsRef.remove(key);
+  }
+
   setSelectedRecord(id: string) {
     const newRecord = this.records.getValue().find((record) => record.id === id) || null;
     this.selectedRecord.next(newRecord);

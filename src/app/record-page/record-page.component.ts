@@ -96,4 +96,12 @@ export class RecordPageComponent implements OnInit {
   onCheckoutRecordBackClick() {
     this.pageView = this.RECORD_PAGE_VIEWS.EDIT_RECORD_VIEW;
   }
+
+  onDeleteRecord(event: Event, recordId: string) {
+    event.stopPropagation();
+    const toDelete = confirm('Вы действительно хотите удалить запись?');
+    if (toDelete) {
+      this.recordService.deleteRecord(recordId);
+    }
+  }
 }
