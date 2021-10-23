@@ -116,7 +116,7 @@ export class EditServiceComponent implements OnInit {
   onFileSelected(event: any) {
     const photos = event.target.files;
     const photosList: File[] = Object.values(photos);
-
+    photosList.reverse();
     const photoInUrl = photosList.map((photo) => {
       const reader = new FileReader();
       reader.readAsDataURL(photo);
@@ -131,7 +131,7 @@ export class EditServiceComponent implements OnInit {
       const oldPhoto = this.serviceForm.value.photo;
       this.serviceForm.setValue({
         ...this.serviceForm.value,
-        photo: [...oldPhoto, ...photoInUrl],
+        photo: [...photoInUrl, ...oldPhoto],
       });
     }
   }

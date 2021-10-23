@@ -50,6 +50,7 @@ export class CheckoutComponent {
   onFileSelected(event: any) {
     const photos = event.target.files;
     const photosList: File[] = Object.values(photos);
+    photosList.reverse();
     const photoInUrl = photosList.map((photo) => {
       const reader = new FileReader();
       reader.readAsDataURL(photo);
