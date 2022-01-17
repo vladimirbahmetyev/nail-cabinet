@@ -2,7 +2,8 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { SERVICES } from '../../shared/constants';
 import { getSelectedServiceOptions, getWorksTime } from '../../utils/helpers';
 import {
-  nullableService,
+  nullableSelectedService,
+  nullableService, selectedService,
   service,
   ServicesService,
 } from '../../shared/servicesService/services.service';
@@ -29,7 +30,7 @@ import {
 export class EditServiceComponent implements OnInit {
   @Output() onBack = new EventEmitter();
   serviceTypes = SERVICES;
-  selectedService: nullableService = null;
+  selectedService: nullableSelectedService = null;
   selectedRecord: nullableRecord = null;
   serviceForm: FormGroup;
   workTimeStep = getWorksTime();
@@ -66,7 +67,7 @@ export class EditServiceComponent implements OnInit {
           ...this.serviceForm.value,
           price: service.price,
           time: service.time,
-          photo: service.photo?.map((photo) => ({ url: photo, type: 'image/*' })) || [],
+          photo: service.photos?.map(({url, id}) => ({ url: url, type: 'image/*', id: id })) || [],
         });
       }
     });
@@ -83,12 +84,13 @@ export class EditServiceComponent implements OnInit {
   }
 
   onSaveClick(): void {
-    const service: service = {
+    const service: selectedService = {
       price: this.serviceForm.value.price,
       id: this.selectedService?.id || '',
       recordId: this.selectedService?.recordId || '',
       time: this.serviceForm.value.time,
-      photo: this.serviceForm.value.photo?.map((photo: { type: string; url: string }) => photo.url),
+      photos: this.serviceForm.value.photo?.map((photo: { type: string; url: string, id: string }) =>
+        ({ url: photo.url, id: photo.id || null})),
     };
     const selectedServicesOptions: { text: string; id: string }[] =
       this.serviceForm.value.selectedServicesOptions;
