@@ -16,7 +16,7 @@ export class AddClientComponent implements OnInit {
     this.userForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       instagram: '',
-      phoneNumber: ['', [Validators.pattern('\\+?\\d*')]],
+      phoneNumber: '',
     });
     this.emptyContactsValidator.bind(this);
   }

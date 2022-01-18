@@ -27,7 +27,7 @@ export class EditClientComponent implements OnInit {
     this.editUserForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       instagram: '',
-      phoneNumber: ['', [Validators.pattern('\\+?\\d*')]],
+      phoneNumber: '',
     });
   }
 
